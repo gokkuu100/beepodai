@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "BeepBot"
+description = "BeepBot landing page — a kid-friendly AI learning companion that uses ChatGPT, DeepSeek, and other AI models to help children learn. Features the founder story of Malya (age 8), a pre-order section, and product highlights."
+version = "1.0.0"
+id = "artifacts/beepbot"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 19331
+
+[services.development]
+run = "pnpm --filter @workspace/beepbot run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/beepbot", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/beepbot/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19331"
+BASE_PATH = "/"
