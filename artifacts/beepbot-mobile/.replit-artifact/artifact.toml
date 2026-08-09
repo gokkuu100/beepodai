@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/mobile/"
+title = "BeepBot Mobile"
+description = "BeepBot mobile-first landing page — a pure mobile web experience for BeepBot, the ESP32-powered AI voice learning companion. Designed exclusively for phone screens with large touch targets, thumb-friendly navigation, and a compact scrolling layout."
+version = "1.0.0"
+id = "artifacts/beepbot-mobile"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/mobile/" ]
+localPort = 25109
+
+[services.development]
+run = "pnpm --filter @workspace/beepbot-mobile run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/beepbot-mobile", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/beepbot-mobile/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25109"
+BASE_PATH = "/mobile/"
