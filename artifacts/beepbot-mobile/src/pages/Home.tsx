@@ -3,13 +3,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Globe2, Mic, Volume2, MonitorPlay, Wifi, Cpu, CheckCircle2, Zap } from "lucide-react";
+import { Globe2, Mic, Volume2, MonitorPlay, Wifi, CheckCircle2, Zap, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 // Assets
 import robotHero from "@assets/46822828-644F-4E3A-965C-DDD72FDBCCD1_1786241339014.png";
-import robotSpecs from "@assets/D0483BFE-5004-456A-8CA5-CB52A31DE290_1786241251828.png";
 
 // Validation Schema
 const preOrderSchema = z.object({
@@ -146,7 +145,7 @@ export default function Home() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.7 }}
         >
-          {["100+ Languages", "ESP32", "USB-C"].map((stat) => (
+          {["100+ Languages", "Kids & Families", "Always Learning"].map((stat) => (
             <div key={stat} className="px-3 py-1.5 rounded-full bg-card border border-border text-sm font-semibold text-muted-foreground">
               {stat}
             </div>
@@ -189,12 +188,12 @@ export default function Home() {
           variants={staggerContainer}
         >
           {[
-            { icon: Globe2, title: "Multi-Language", desc: "Speaks and understands 100+ languages." },
-            { icon: Mic, title: "Voice Assistant", desc: "Powerful AI for questions, tasks & learning." },
-            { icon: Volume2, title: "Clear & Loud", desc: "Hi-Fi speaker for crystal clear voice output." },
-            { icon: MonitorPlay, title: "Color Screen", desc: "1.8\" LCD face packed with expressions." },
-            { icon: Wifi, title: "Always Connected", desc: "Wi-Fi & Bluetooth always ready to help." },
-            { icon: Cpu, title: "Open Source", desc: "ESP32 based – fully hackable & customizable." },
+            { icon: Globe2, title: "Multi-Language", desc: "Speaks and understands 100+ languages fluently." },
+            { icon: Mic, title: "Voice Assistant", desc: "Answers questions, tells stories, and helps with homework." },
+            { icon: Volume2, title: "Clear & Loud", desc: "Crystal-clear voice that fills a room." },
+            { icon: MonitorPlay, title: "Expressive Face", desc: "Animated screen that reacts as it talks." },
+            { icon: Wifi, title: "Always Ready", desc: "Connects to Wi-Fi so it's always up to date." },
+            { icon: Heart, title: "Kid-Friendly", desc: "Designed to be safe, gentle, and fun for all ages." },
           ].map((feature, i) => (
             <motion.div key={i} variants={fadeInUp} className="bg-card border border-border rounded-3xl p-5 flex items-start gap-4">
               <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center shrink-0">
@@ -225,10 +224,10 @@ export default function Home() {
           initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerContainer}
         >
           {[
-            { step: "1", label: "You Speak", icon: Mic },
-            { step: "2", label: "I2S Mic Array", icon: Cpu },
-            { step: "3", label: "ESP32 AI Processing", icon: Zap },
-            { step: "4", label: "BeepBot Speaks", icon: Volume2 },
+            { step: "1", label: "You Ask", icon: Mic },
+            { step: "2", label: "BeepBot Listens", icon: Zap },
+            { step: "3", label: "AI Thinks", icon: Globe2 },
+            { step: "4", label: "BeepBot Answers", icon: Volume2 },
           ].map((item, i, arr) => (
             <motion.div key={i} variants={fadeInUp} className="relative z-10 flex flex-col items-center">
               <div className="bg-background border-2 border-border w-14 h-14 rounded-full flex items-center justify-center mb-3 shadow-lg">
@@ -242,59 +241,6 @@ export default function Home() {
               )}
             </motion.div>
           ))}
-        </motion.div>
-      </section>
-
-      {/* 5. Specs */}
-      <section className="px-6 py-16">
-        <motion.h2 
-          className="text-3xl font-bold mb-8 text-center"
-          initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}
-        >
-          The Hardware
-        </motion.h2>
-        
-        <motion.div 
-          className="rounded-3xl overflow-hidden border border-border bg-card shadow-xl mb-8"
-          initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}
-        >
-          <img src={robotSpecs} alt="BeepBot Specifications" className="w-full h-auto" />
-        </motion.div>
-
-        <motion.div 
-          className="bg-card border border-border rounded-3xl p-6"
-          initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}
-        >
-          <ul className="flex flex-col gap-4 text-sm font-medium">
-            <li className="flex justify-between border-b border-border/50 pb-3">
-              <span className="text-muted-foreground">MCU</span>
-              <span className="text-right font-bold text-foreground">ESP32-WROOM-32</span>
-            </li>
-            <li className="flex justify-between border-b border-border/50 pb-3">
-              <span className="text-muted-foreground">Display</span>
-              <span className="text-right font-bold text-foreground">1.8" ST7735S LCD</span>
-            </li>
-            <li className="flex justify-between border-b border-border/50 pb-3">
-              <span className="text-muted-foreground">Mic</span>
-              <span className="text-right font-bold text-foreground">I2S Digital MEMS</span>
-            </li>
-            <li className="flex justify-between border-b border-border/50 pb-3">
-              <span className="text-muted-foreground">Speaker</span>
-              <span className="text-right font-bold text-foreground">MAX98357A + 3W</span>
-            </li>
-            <li className="flex justify-between border-b border-border/50 pb-3">
-              <span className="text-muted-foreground">Power</span>
-              <span className="text-right font-bold text-foreground">18650 (2000mAh)</span>
-            </li>
-            <li className="flex justify-between border-b border-border/50 pb-3">
-              <span className="text-muted-foreground">Charging</span>
-              <span className="text-right font-bold text-foreground">USB-C</span>
-            </li>
-            <li className="flex justify-between">
-              <span className="text-muted-foreground">Connectivity</span>
-              <span className="text-right font-bold text-foreground">Wi-Fi + Bluetooth</span>
-            </li>
-          </ul>
         </motion.div>
       </section>
 
@@ -318,7 +264,7 @@ export default function Home() {
               She discovered AI bots but found them far too expensive for kids. Enrolled in an inventing school, she decided to build her own.
             </p>
             <p>
-              Months of prototyping, learning about the ESP32, and coding led to BeepBot — a smart, friendly, and affordable companion for everyone.
+              Months of building, testing, and dreaming led to BeepBot — a smart, friendly, and affordable companion for every family.
             </p>
           </div>
 
