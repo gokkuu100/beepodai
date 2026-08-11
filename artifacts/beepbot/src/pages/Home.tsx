@@ -50,29 +50,36 @@ function Navbar() {
       transition={{ duration: 0.5, ease: 'easeOut' }}
       className="fixed top-0 inset-x-0 z-50 px-6 py-4 bg-background/85 backdrop-blur-md border-b border-border/40"
     >
-      <div className="max-w-6xl mx-auto grid grid-cols-3 items-center">
-        {/* Left: nav links */}
-        <div className="hidden md:flex items-center gap-8 text-sm font-display font-semibold text-muted-foreground">
+      {/* Mobile: logo left, CTA right */}
+      <div className="flex md:hidden items-center justify-between">
+        <img src={beepbotLogo} alt="BeepBot" className="h-12 w-auto object-contain" />
+        <motion.a
+          href="#preorder"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="text-white px-4 py-2 rounded-full font-display font-bold text-sm whitespace-nowrap shadow-[0_3px_0_0_rgba(89,49,233,0.4)] transition-all"
+          style={{ background: 'linear-gradient(135deg, #5931E9 0%, #8B3DF0 100%)' }}
+        >
+          Pre-Order
+        </motion.a>
+      </div>
+
+      {/* Desktop: 3-col — nav | big centered logo | CTA */}
+      <div className="hidden md:grid grid-cols-3 items-center max-w-6xl mx-auto">
+        <div className="flex items-center gap-8 text-sm font-display font-semibold text-muted-foreground">
           <a href="#features" className="hover:text-foreground transition-colors">Features</a>
           <a href="#specs" className="hover:text-foreground transition-colors">Specs</a>
           <a href="#story" className="hover:text-foreground transition-colors">Our Story</a>
         </div>
-        <div className="md:hidden" />
-        {/* Center: logo */}
         <div className="flex justify-center">
-          <img
-            src={beepbotLogo}
-            alt="BeepBot"
-            className="h-14 w-auto object-contain"
-          />
+          <img src={beepbotLogo} alt="BeepBot" className="h-20 w-auto object-contain" />
         </div>
-        {/* Right: CTA */}
         <div className="flex justify-end">
           <motion.a
             href="#preorder"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="text-white px-6 py-2.5 rounded-full font-display font-bold text-sm shadow-[0_4px_0_0_rgba(89,49,233,0.4)] hover:translate-y-[2px] hover:shadow-[0_2px_0_0_rgba(89,49,233,0.4)] transition-all"
+            className="text-white px-6 py-2.5 rounded-full font-display font-bold text-sm whitespace-nowrap shadow-[0_4px_0_0_rgba(89,49,233,0.4)] hover:translate-y-[2px] hover:shadow-[0_2px_0_0_rgba(89,49,233,0.4)] transition-all"
             style={{ background: 'linear-gradient(135deg, #5931E9 0%, #8B3DF0 100%)' }}
           >
             Pre-Order Now
