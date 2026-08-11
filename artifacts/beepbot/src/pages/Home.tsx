@@ -125,17 +125,8 @@ function HeroSection() {
           className="order-2 lg:order-1"
         >
           <motion.div variants={fadeInUp} className="mb-4">
-            <div
-              className="text-7xl sm:text-8xl lg:text-9xl xl:text-[10rem] font-display font-black leading-none tracking-tighter bg-clip-text text-transparent"
-              style={{ backgroundImage: 'linear-gradient(160deg, #ffffff 0%, #c4b5fd 50%, #a78bfa 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}
-            >
-              BEEP
-            </div>
-            <div
-              className="text-7xl sm:text-8xl lg:text-9xl xl:text-[10rem] font-display font-black leading-none tracking-tighter bg-clip-text text-transparent"
-              style={{ backgroundImage: 'linear-gradient(160deg, #e9d5ff 0%, #a78bfa 50%, #7c3aed 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}
-            >
-              BOT
+            <div className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-display font-black leading-none tracking-tighter whitespace-nowrap text-white">
+              BEEP <span className="text-white/90">BOT</span>
             </div>
           </motion.div>
 
