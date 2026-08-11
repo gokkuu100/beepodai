@@ -92,82 +92,55 @@ function Navbar() {
 
 function HeroSection() {
   return (
-    <section className="relative pt-24 pb-12 lg:pt-40 lg:pb-24 px-4 sm:px-6 overflow-hidden">
-      {/* Ambient glows */}
-      <div className="absolute top-24 left-0 w-[500px] h-[500px] bg-primary/15 rounded-full blur-[120px] -z-10" />
-      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-secondary/15 rounded-full blur-[100px] -z-10" />
+    <section
+      className="relative pt-24 pb-16 lg:pt-36 lg:pb-28 px-4 sm:px-6 overflow-hidden rounded-b-[2.5rem]"
+      style={{ background: 'linear-gradient(135deg, #5931E9 0%, #8B3DF0 100%)' }}
+    >
+      {/* Soft inner glow */}
+      <div className="absolute top-0 right-1/4 w-[600px] h-[600px] rounded-full bg-white/5 blur-[140px] pointer-events-none" />
+
       <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-6 lg:gap-12 items-center">
-        {/* Robot image — order-1 on mobile (shows first), order-2 on desktop (shows right) */}
+        {/* Robot — right on desktop, top on mobile */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.85, y: 20 }}
+          initial={{ opacity: 0, scale: 0.88, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 1, type: 'spring', bounce: 0.3 }}
-          className="relative flex justify-center items-center order-1 lg:order-2 lg:h-[620px]"
+          className="relative flex justify-center items-center order-1 lg:order-2 lg:h-[580px]"
         >
-          {/* Glow ring behind robot */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-48 h-48 sm:w-72 sm:h-72 lg:w-96 lg:h-96 rounded-full bg-primary/10 blur-3xl" />
+            <div className="w-56 h-56 sm:w-80 sm:h-80 lg:w-[420px] lg:h-[420px] rounded-full bg-white/10 blur-3xl" />
           </div>
-
           <img
             src={beepbotHero}
             alt="BeepBot Robot"
-            className="relative z-10 w-48 sm:w-72 lg:w-full lg:max-w-sm xl:max-w-md object-contain mix-blend-multiply"
+            className="relative z-10 w-52 sm:w-80 lg:w-full lg:max-w-md xl:max-w-lg object-contain drop-shadow-2xl"
           />
-
-          {/* Floating feature badges — tablet+ only */}
-          <motion.div
-            animate={{ y: [-8, 8, -8] }}
-            transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
-            className="absolute top-4 right-0 lg:-right-4 bg-white dark:bg-card p-3 rounded-2xl shadow-xl border border-border/50 hidden sm:flex items-center gap-2"
-          >
-            <Globe className="w-4 h-4 text-primary" />
-            <span className="font-display font-bold text-xs text-foreground">100+ Languages</span>
-          </motion.div>
-
-          <motion.div
-            animate={{ y: [8, -8, 8] }}
-            transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
-            className="absolute bottom-4 left-0 lg:-left-4 bg-white dark:bg-card p-3 rounded-2xl shadow-xl border border-border/50 hidden sm:flex items-center gap-2"
-          >
-            <Mic className="w-4 h-4 text-secondary" />
-            <span className="font-display font-bold text-xs text-foreground">360° Mic Array</span>
-          </motion.div>
-
-          <motion.div
-            animate={{ y: [-6, 10, -6] }}
-            transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-            className="absolute bottom-20 right-0 lg:-right-8 bg-primary text-primary-foreground p-3 rounded-2xl shadow-xl hidden sm:flex items-center gap-2"
-          >
-            <Battery className="w-4 h-4" />
-            <span className="font-display font-bold text-xs">2000mAh</span>
-          </motion.div>
         </motion.div>
 
-        {/* Text content — order-2 on mobile (shows second), order-1 on desktop (shows left) */}
+        {/* Text — left on desktop, below robot on mobile */}
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           animate="visible"
           className="order-2 lg:order-1"
         >
-          <motion.div variants={fadeInUp} className="mb-3">
-            <span className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-display font-black leading-none tracking-tight text-foreground">BEEP BOT</span>
-            <br />
-            <span className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-display font-black leading-none tracking-tight bg-gradient-to-r from-[#5931E9] to-[#8B3DF0] bg-clip-text text-transparent">
+          <motion.div variants={fadeInUp} className="mb-4">
+            <div
+              className="text-7xl sm:text-8xl lg:text-9xl xl:text-[10rem] font-display font-black leading-none tracking-tighter bg-clip-text text-transparent"
+              style={{ backgroundImage: 'linear-gradient(160deg, #ffffff 0%, #c4b5fd 50%, #a78bfa 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}
+            >
+              BEEP
+            </div>
+            <div
+              className="text-7xl sm:text-8xl lg:text-9xl xl:text-[10rem] font-display font-black leading-none tracking-tighter bg-clip-text text-transparent"
+              style={{ backgroundImage: 'linear-gradient(160deg, #e9d5ff 0%, #a78bfa 50%, #7c3aed 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}
+            >
               BOT
-            </span>
-            <span className="text-3xl sm:text-4xl font-display font-black bg-gradient-to-r from-[#5931E9] to-[#8B3DF0] bg-clip-text text-transparent ml-2 align-super">
-              ))
-            </span>
+            </div>
           </motion.div>
 
-          <motion.p variants={fadeInUp} className="text-lg sm:text-xl font-display font-bold text-muted-foreground mb-3 italic">
-            Speak Any Language. Understand Everyone.
-          </motion.p>
-
-          <motion.p variants={fadeInUp} className="text-base sm:text-lg text-muted-foreground mb-8 max-w-md leading-relaxed font-sans">
-            BeepBot is an ESP32-powered voice assistant that speaks, listens, and helps in any language — built to make kids smarter and learning more fun.
+          <motion.p variants={fadeInUp} className="text-base sm:text-lg text-white/75 mb-8 max-w-md leading-relaxed font-sans">
+            BeepBot speaks, listens, and helps in any language — the AI companion built to make kids smarter and learning more fun.
           </motion.p>
 
           <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-3 mb-8">
@@ -175,8 +148,7 @@ function HeroSection() {
               href="#preorder"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center justify-center gap-2 text-white px-7 py-4 rounded-2xl font-display font-bold text-base sm:text-lg shadow-[0_6px_0_0_rgba(89,49,233,0.4)] hover:shadow-[0_3px_0_0_rgba(89,49,233,0.4)] hover:translate-y-[3px] transition-all"
-              style={{ background: 'linear-gradient(135deg, #5931E9 0%, #8B3DF0 100%)' }}
+              className="inline-flex items-center justify-center gap-2 bg-white text-[#5931E9] px-7 py-4 rounded-2xl font-display font-bold text-base sm:text-lg shadow-[0_6px_0_0_rgba(0,0,0,0.2)] hover:shadow-[0_3px_0_0_rgba(0,0,0,0.2)] hover:translate-y-[3px] transition-all"
             >
               Pre-Order BeepBot
               <ChevronRight className="w-5 h-5" />
@@ -185,22 +157,22 @@ function HeroSection() {
               href="#story"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center justify-center gap-2 border-2 border-border text-foreground px-7 py-4 rounded-2xl font-display font-bold text-base sm:text-lg shadow-[0_6px_0_0_hsl(var(--border))] hover:shadow-[0_3px_0_0_hsl(var(--border))] hover:translate-y-[3px] transition-all"
+              className="inline-flex items-center justify-center gap-2 border-2 border-white/40 text-white px-7 py-4 rounded-2xl font-display font-bold text-base sm:text-lg hover:bg-white/10 hover:translate-y-[3px] transition-all"
             >
               Our Story
             </motion.a>
           </motion.div>
 
-          {/* Quick stats — 3 columns, labels shortened to fit */}
+          {/* Quick stats */}
           <motion.div variants={fadeInUp} className="grid grid-cols-3 gap-3">
             {[
               { value: '100+', label: 'Languages' },
-              { value: 'ESP32', label: 'Powered' },
-              { value: 'USB-C', label: 'Charge' }
+              { value: 'AI', label: 'Powered' },
+              { value: 'Kids', label: 'First' }
             ].map((s, i) => (
-              <div key={i} className="text-center p-3 sm:p-4 bg-card rounded-2xl border border-border/50">
-                <div className="text-lg sm:text-2xl font-display font-black text-primary leading-tight">{s.value}</div>
-                <div className="text-[10px] sm:text-xs font-display font-bold text-muted-foreground uppercase tracking-wider mt-1">{s.label}</div>
+              <div key={i} className="text-center p-3 sm:p-4 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20">
+                <div className="text-lg sm:text-2xl font-display font-black text-white leading-tight">{s.value}</div>
+                <div className="text-[10px] sm:text-xs font-display font-bold text-white/60 uppercase tracking-wider mt-1">{s.label}</div>
               </div>
             ))}
           </motion.div>
