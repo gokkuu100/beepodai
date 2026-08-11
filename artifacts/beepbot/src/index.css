@@ -70,36 +70,36 @@
   --elevate-1: rgba(0, 0, 0, 0.03);
   --elevate-2: rgba(0, 0, 0, 0.08);
 
-  /* Playful, electric kids palette */
-  --background: 45 30% 97%; /* #FAF9F5 */
-  --foreground: 222 47% 11%; /* #0F172A */
+  /* BeepBot official brand palette */
+  --background: 0 0% 100%; /* Pure white */
+  --foreground: 228 100% 13%; /* Deep Navy #000D40 */
   
-  --border: 214 32% 91%;
-  --input: 214 32% 91%;
-  --ring: 262 72% 58%; /* Logo purple */
+  --border: 266 30% 88%;
+  --input: 266 30% 88%;
+  --ring: 266 86% 59%; /* Beep Purple */
 
   --card: 0 0% 100%;
-  --card-foreground: 222 47% 11%;
-  --card-border: 214 32% 91%;
+  --card-foreground: 228 100% 13%;
+  --card-border: 266 30% 88%;
 
   --popover: 0 0% 100%;
-  --popover-foreground: 222 47% 11%;
-  --popover-border: 214 32% 91%;
+  --popover-foreground: 228 100% 13%;
+  --popover-border: 266 30% 88%;
 
-  /* Primary: BeepBot Logo Purple */
-  --primary: 262 72% 58%; 
+  /* Primary: Beep Purple #8B3DF0 */
+  --primary: 266 86% 59%;
   --primary-foreground: 0 0% 100%;
 
-  /* Secondary: Sunny Yellow */
-  --secondary: 44 100% 55%; 
-  --secondary-foreground: 222 47% 11%;
+  /* Secondary: Violet Glow #5931E9 */
+  --secondary: 253 81% 55%;
+  --secondary-foreground: 0 0% 100%;
 
   /* Muted: Soft grayish-blue */
   --muted: 210 40% 96.1%;
   --muted-foreground: 215.4 16.3% 46.9%;
 
-  /* Accent: Vibrant Coral/Pink */
-  --accent: 346 87% 60%;
+  /* Accent: Violet Glow (gradient partner) */
+  --accent: 253 81% 55%;
   --accent-foreground: 0 0% 100%;
 
   --destructive: 0 84.2% 60.2%;

@@ -11,7 +11,7 @@ import beepbotHero from '@assets/46822828-644F-4E3A-965C-DDD72FDBCCD1_1786241339
 // @ts-ignore
 import beepbotSpec from '@assets/D0483BFE-5004-456A-8CA5-CB52A31DE290_1786241251828.png';
 // @ts-ignore
-import beepbotLogo from '@assets/BB1_1786445338290.png';
+import beepbotLogo from '@assets/Artboard_7_1786446052689.png';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -50,29 +50,34 @@ function Navbar() {
       transition={{ duration: 0.5, ease: 'easeOut' }}
       className="fixed top-0 inset-x-0 z-50 px-6 py-4 bg-background/85 backdrop-blur-md border-b border-border/40"
     >
-      <div className="max-w-6xl mx-auto flex items-center justify-between">
-        <div className="flex items-center">
-          <motion.img
-            src={beepbotLogo}
-            alt="BeepBot"
-            className="h-10 w-auto object-contain"
-            animate={{ rotate: [0, -3, 3, 0] }}
-            transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-          />
-        </div>
+      <div className="max-w-6xl mx-auto grid grid-cols-3 items-center">
+        {/* Left: nav links */}
         <div className="hidden md:flex items-center gap-8 text-sm font-display font-semibold text-muted-foreground">
           <a href="#features" className="hover:text-foreground transition-colors">Features</a>
           <a href="#specs" className="hover:text-foreground transition-colors">Specs</a>
           <a href="#story" className="hover:text-foreground transition-colors">Our Story</a>
         </div>
-        <motion.a
-          href="#preorder"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="bg-primary text-primary-foreground px-6 py-2.5 rounded-full font-display font-bold text-sm shadow-[0_4px_0_0_hsl(var(--primary)/0.4)] hover:translate-y-[2px] hover:shadow-[0_2px_0_0_hsl(var(--primary)/0.4)] transition-all"
-        >
-          Pre-Order Now
-        </motion.a>
+        <div className="md:hidden" />
+        {/* Center: logo */}
+        <div className="flex justify-center">
+          <img
+            src={beepbotLogo}
+            alt="BeepBot"
+            className="h-14 w-auto object-contain"
+          />
+        </div>
+        {/* Right: CTA */}
+        <div className="flex justify-end">
+          <motion.a
+            href="#preorder"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="text-white px-6 py-2.5 rounded-full font-display font-bold text-sm shadow-[0_4px_0_0_rgba(89,49,233,0.4)] hover:translate-y-[2px] hover:shadow-[0_2px_0_0_rgba(89,49,233,0.4)] transition-all"
+            style={{ background: 'linear-gradient(135deg, #5931E9 0%, #8B3DF0 100%)' }}
+          >
+            Pre-Order Now
+          </motion.a>
+        </div>
       </div>
     </motion.nav>
   );
@@ -142,23 +147,15 @@ function HeroSection() {
           animate="visible"
           className="order-2 lg:order-1"
         >
-          <motion.div
-            variants={fadeInUp}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/20 text-secondary-foreground border border-secondary/30 font-display font-bold text-sm mb-5 -rotate-1"
-          >
-            <Zap className="w-4 h-4 text-secondary fill-secondary" />
-            Your Smart Voice Companion
-          </motion.div>
-
           <motion.div variants={fadeInUp} className="mb-3">
             <span className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-display font-black leading-none tracking-tight text-foreground">
               BEEP
             </span>
             <br />
-            <span className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-display font-black leading-none tracking-tight text-primary">
+            <span className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-display font-black leading-none tracking-tight bg-gradient-to-r from-[#5931E9] to-[#8B3DF0] bg-clip-text text-transparent">
               BOT
             </span>
-            <span className="text-3xl sm:text-4xl font-display font-black text-primary ml-2 align-super">
+            <span className="text-3xl sm:text-4xl font-display font-black bg-gradient-to-r from-[#5931E9] to-[#8B3DF0] bg-clip-text text-transparent ml-2 align-super">
               ))
             </span>
           </motion.div>
@@ -176,7 +173,8 @@ function HeroSection() {
               href="#preorder"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-7 py-4 rounded-2xl font-display font-bold text-base sm:text-lg shadow-[0_6px_0_0_hsl(var(--primary)/0.4)] hover:shadow-[0_3px_0_0_hsl(var(--primary)/0.4)] hover:translate-y-[3px] transition-all"
+              className="inline-flex items-center justify-center gap-2 text-white px-7 py-4 rounded-2xl font-display font-bold text-base sm:text-lg shadow-[0_6px_0_0_rgba(89,49,233,0.4)] hover:shadow-[0_3px_0_0_rgba(89,49,233,0.4)] hover:translate-y-[3px] transition-all"
+              style={{ background: 'linear-gradient(135deg, #5931E9 0%, #8B3DF0 100%)' }}
             >
               Pre-Order BeepBot
               <ChevronRight className="w-5 h-5" />
