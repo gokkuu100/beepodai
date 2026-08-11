@@ -96,7 +96,6 @@ function HeroSection() {
       {/* Ambient glows */}
       <div className="absolute top-24 left-0 w-[500px] h-[500px] bg-primary/15 rounded-full blur-[120px] -z-10" />
       <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-secondary/15 rounded-full blur-[100px] -z-10" />
-
       <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-6 lg:gap-12 items-center">
         {/* Robot image — order-1 on mobile (shows first), order-2 on desktop (shows right) */}
         <motion.div
@@ -153,9 +152,7 @@ function HeroSection() {
           className="order-2 lg:order-1"
         >
           <motion.div variants={fadeInUp} className="mb-3">
-            <span className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-display font-black leading-none tracking-tight text-foreground">
-              BEEP
-            </span>
+            <span className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-display font-black leading-none tracking-tight text-foreground">BEEP BOT</span>
             <br />
             <span className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-display font-black leading-none tracking-tight bg-gradient-to-r from-[#5931E9] to-[#8B3DF0] bg-clip-text text-transparent">
               BOT
