@@ -76,7 +76,7 @@
   
   --border: 214 32% 91%;
   --input: 214 32% 91%;
-  --ring: 247 82% 64%; /* Electric Purple/Blue */
+  --ring: 262 72% 58%; /* Logo purple */
 
   --card: 0 0% 100%;
   --card-foreground: 222 47% 11%;
@@ -86,8 +86,8 @@
   --popover-foreground: 222 47% 11%;
   --popover-border: 214 32% 91%;
 
-  /* Primary: Electric Blue */
-  --primary: 247 82% 64%; 
+  /* Primary: BeepBot Logo Purple */
+  --primary: 262 72% 58%; 
   --primary-foreground: 0 0% 100%;
 
   /* Secondary: Sunny Yellow */
@@ -134,14 +134,14 @@
   --foreground: 45 30% 97%;
   --border: 217.2 32.6% 17.5%;
   --input: 217.2 32.6% 17.5%;
-  --ring: 247 82% 64%;
+  --ring: 262 72% 58%;
   --card: 222 47% 11%;
   --card-foreground: 45 30% 97%;
   --card-border: 217.2 32.6% 17.5%;
   --popover: 222 47% 11%;
   --popover-foreground: 45 30% 97%;
   --popover-border: 217.2 32.6% 17.5%;
-  --primary: 247 82% 64%;
+  --primary: 262 72% 58%;
   --primary-foreground: 0 0% 100%;
   --secondary: 44 100% 55%;
   --secondary-foreground: 222 47% 11%;

@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 import robotHero from "@assets/46822828-644F-4E3A-965C-DDD72FDBCCD1_1786241339014.png";
+// @ts-ignore
+import beepbotLogo from "@assets/BB1_1786445338290.png";
 
 const preOrderSchema = z.object({
   name: z.string().min(2, "Name is required"),
@@ -75,7 +77,7 @@ export default function Home() {
       {/* ── Navbar ── */}
       <nav className="sticky top-0 z-40 w-full border-b border-border/50 bg-background/80 backdrop-blur-md">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <span className="text-xl font-extrabold text-foreground tracking-tight text-glow">BEEP<span className="text-primary">BOT</span></span>
+          <img src={beepbotLogo} alt="BeepBot" className="h-8 w-auto object-contain brightness-0 invert" />
           <div className="hidden md:flex items-center gap-8 text-sm font-semibold text-muted-foreground">
             <a href="#features" className="hover:text-foreground transition-colors">Features</a>
             <a href="#how-it-works" className="hover:text-foreground transition-colors">How It Works</a>
@@ -387,7 +389,7 @@ export default function Home() {
       {/* ── Footer ── */}
       <footer className="px-6 py-10 bg-background border-t border-border">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
-          <span className="text-2xl font-extrabold text-foreground tracking-tight text-glow">BEEP<span className="text-primary">BOT</span></span>
+          <img src={beepbotLogo} alt="BeepBot" className="h-8 w-auto object-contain brightness-0 invert" />
           <div className="flex flex-wrap justify-center gap-6 text-sm font-semibold text-muted-foreground">
             <a href="#" className="hover:text-primary transition-colors">Privacy</a>
             <a href="#" className="hover:text-primary transition-colors">Terms</a>

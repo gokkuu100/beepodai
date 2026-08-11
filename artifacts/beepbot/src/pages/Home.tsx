@@ -10,6 +10,8 @@ import {
 import beepbotHero from '@assets/46822828-644F-4E3A-965C-DDD72FDBCCD1_1786241339014.png';
 // @ts-ignore
 import beepbotSpec from '@assets/D0483BFE-5004-456A-8CA5-CB52A31DE290_1786241251828.png';
+// @ts-ignore
+import beepbotLogo from '@assets/BB1_1786445338290.png';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -49,15 +51,14 @@ function Navbar() {
       className="fixed top-0 inset-x-0 z-50 px-6 py-4 bg-background/85 backdrop-blur-md border-b border-border/40"
     >
       <div className="max-w-6xl mx-auto flex items-center justify-between">
-        <div className="flex items-center gap-2.5 font-display font-black text-2xl tracking-tight text-foreground">
+        <div className="flex items-center">
           <motion.img
-            src={beepbotHero}
+            src={beepbotLogo}
             alt="BeepBot"
-            className="w-9 h-9 object-contain"
-            animate={{ rotate: [0, -5, 5, 0] }}
-            transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+            className="h-10 w-auto object-contain"
+            animate={{ rotate: [0, -3, 3, 0] }}
+            transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
           />
-          <span>Beep<span className="text-primary">Bot</span></span>
         </div>
         <div className="hidden md:flex items-center gap-8 text-sm font-display font-semibold text-muted-foreground">
           <a href="#features" className="hover:text-foreground transition-colors">Features</a>
@@ -713,9 +714,8 @@ function Footer() {
     <footer className="bg-foreground py-10 sm:py-12 px-4 sm:px-6 text-white/50 font-sans">
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col sm:flex-row justify-between items-center gap-6 mb-6 sm:mb-8 pb-6 sm:pb-8 border-b border-white/10">
-          <div className="flex items-center gap-3 font-display font-black text-2xl text-white">
-            <img src={beepbotHero} alt="BeepBot" className="w-9 h-9 object-contain" />
-            Beep<span className="text-primary">Bot</span>
+          <div className="flex items-center">
+            <img src={beepbotLogo} alt="BeepBot" className="h-9 w-auto object-contain brightness-0 invert" />
           </div>
           <div className="flex flex-wrap justify-center gap-4 sm:gap-6 text-sm text-white/50">
             <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
