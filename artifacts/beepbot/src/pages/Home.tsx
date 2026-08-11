@@ -7,7 +7,7 @@ import {
 } from 'lucide-react';
 
 // @ts-ignore
-import beepbotHero from '@assets/46822828-644F-4E3A-965C-DDD72FDBCCD1_1786241339014.png';
+import beepbotHero from '@assets/beepbop_1786446954186.png';
 // @ts-ignore
 import beepbotSpec from '@assets/D0483BFE-5004-456A-8CA5-CB52A31DE290_1786241251828.png';
 // @ts-ignore
@@ -52,7 +52,7 @@ function Navbar() {
     >
       {/* Mobile: logo left, CTA right */}
       <div className="flex md:hidden items-center justify-between">
-        <img src={beepbotLogo} alt="BeepBot" className="h-12 w-auto object-contain" />
+        <img src={beepbotLogo} alt="BeepBot" className="h-16 w-auto object-contain" />
         <motion.a
           href="#preorder"
           whileHover={{ scale: 1.05 }}
@@ -72,7 +72,7 @@ function Navbar() {
           <a href="#story" className="hover:text-foreground transition-colors">Our Story</a>
         </div>
         <div className="flex justify-center">
-          <img src={beepbotLogo} alt="BeepBot" className="h-20 w-auto object-contain" />
+          <img src={beepbotLogo} alt="BeepBot" className="h-28 w-auto object-contain" />
         </div>
         <div className="flex justify-end">
           <motion.a
@@ -110,12 +110,10 @@ function HeroSection() {
             <div className="w-48 h-48 sm:w-72 sm:h-72 lg:w-96 lg:h-96 rounded-full bg-primary/10 blur-3xl" />
           </div>
 
-          <motion.img
+          <img
             src={beepbotHero}
             alt="BeepBot Robot"
-            className="relative z-10 w-48 sm:w-72 lg:w-full lg:max-w-sm xl:max-w-md object-contain drop-shadow-2xl"
-            animate={{ y: [0, -18, 0] }}
-            transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+            className="relative z-10 w-48 sm:w-72 lg:w-full lg:max-w-sm xl:max-w-md object-contain mix-blend-multiply"
           />
 
           {/* Floating feature badges — tablet+ only */}
