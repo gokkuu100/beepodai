@@ -11,7 +11,7 @@ import beepbotHero from '@assets/beepbop_1786446954186.png';
 // @ts-ignore
 import beepbotSpec from '@assets/D0483BFE-5004-456A-8CA5-CB52A31DE290_1786241251828.png';
 // @ts-ignore
-import beepbotLogo from '@assets/Artboard_7_1786446052689.png';
+import beepbotLogo from '@assets/Artboard_9_1786732187420.png';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -57,8 +57,8 @@ function Navbar() {
           href="#preorder"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="text-white px-4 py-2 rounded-full font-display font-bold text-sm whitespace-nowrap shadow-[0_3px_0_0_rgba(89,49,233,0.4)] transition-all"
-          style={{ background: 'linear-gradient(135deg, #5931E9 0%, #8B3DF0 100%)' }}
+          className="text-[#1A1A1A] px-4 py-2 rounded-full font-display font-bold text-sm whitespace-nowrap shadow-[0_3px_0_0_rgba(217,119,6,0.4)] transition-all"
+          style={{ background: 'linear-gradient(135deg, #D97706 0%, #F5A623 100%)' }}
         >
           Pre-Order
         </motion.a>
@@ -80,7 +80,7 @@ function Navbar() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="text-white px-6 py-2.5 rounded-full font-display font-bold text-sm whitespace-nowrap shadow-[0_4px_0_0_rgba(89,49,233,0.4)] hover:translate-y-[2px] hover:shadow-[0_2px_0_0_rgba(89,49,233,0.4)] transition-all"
-            style={{ background: 'linear-gradient(135deg, #5931E9 0%, #8B3DF0 100%)' }}
+            style={{ background: 'linear-gradient(135deg, #D97706 0%, #F5A623 100%)' }}
           >
             Pre-Order Now
           </motion.a>
@@ -94,7 +94,7 @@ function HeroSection() {
   return (
     <section
       className="relative pt-24 pb-16 lg:pt-36 lg:pb-28 px-4 sm:px-6 overflow-hidden rounded-b-[2.5rem]"
-      style={{ background: 'linear-gradient(135deg, #5931E9 0%, #8B3DF0 100%)' }}
+      style={{ background: 'linear-gradient(135deg, #D97706 0%, #F5A623 100%)' }}
     >
       {/* Soft inner glow */}
       <div className="absolute top-0 right-1/4 w-[600px] h-[600px] rounded-full bg-white/5 blur-[140px] pointer-events-none" />
@@ -126,12 +126,12 @@ function HeroSection() {
         >
           <motion.div variants={fadeInUp} className="mb-4">
             <div className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-display font-black leading-none tracking-tighter whitespace-nowrap text-white">
-              BEEP <span className="text-white/90">BOT</span>
+              BEE <span className="text-white/90">POD</span>
             </div>
           </motion.div>
 
           <motion.p variants={fadeInUp} className="text-base sm:text-lg text-white/75 mb-8 max-w-md leading-relaxed font-sans">
-            BeepBot speaks, listens, and helps in any language — the AI companion built to make kids smarter and learning more fun.
+            BeePod speaks, listens, and helps in any language — the AI companion built to make kids smarter and learning more fun.
           </motion.p>
 
           <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-3 mb-8">
@@ -139,9 +139,9 @@ function HeroSection() {
               href="#preorder"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center justify-center gap-2 bg-white text-[#5931E9] px-7 py-4 rounded-2xl font-display font-bold text-base sm:text-lg shadow-[0_6px_0_0_rgba(0,0,0,0.2)] hover:shadow-[0_3px_0_0_rgba(0,0,0,0.2)] hover:translate-y-[3px] transition-all"
+              className="inline-flex items-center justify-center gap-2 bg-white text-[#1A1A1A] px-7 py-4 rounded-2xl font-display font-bold text-base sm:text-lg shadow-[0_6px_0_0_rgba(0,0,0,0.2)] hover:shadow-[0_3px_0_0_rgba(0,0,0,0.2)] hover:translate-y-[3px] transition-all"
             >
-              Pre-Order BeepBot
+              Pre-Order BeePod
               <ChevronRight className="w-5 h-5" />
             </motion.a>
             <motion.a
@@ -259,7 +259,7 @@ function FeaturesSection() {
             initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}
             className="font-display font-bold text-xs tracking-[0.2em] uppercase text-primary mb-4"
           >
-            What BeepBot Can Do
+            What BeePod Can Do
           </motion.p>
           <motion.h2
             initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}
@@ -304,7 +304,7 @@ function HowItWorksSection() {
     { icon: <Users className="w-7 h-7" />, label: 'You Speak', color: 'bg-blue-500' },
     { icon: <Mic className="w-7 h-7" />, label: 'I2S Mic', color: 'bg-violet-500' },
     { icon: <Cpu className="w-7 h-7" />, label: 'ESP32 + AI', color: 'bg-primary' },
-    { icon: <Speaker className="w-7 h-7" />, label: 'BeepBot Speaks', color: 'bg-emerald-500' },
+    { icon: <Speaker className="w-7 h-7" />, label: 'BeePod Speaks', color: 'bg-emerald-500' },
   ];
 
   return (
@@ -437,7 +437,7 @@ function SpecsSection() {
 
             <motion.div variants={fadeInUp} className="mt-5 sm:mt-6 p-4 sm:p-5 bg-primary/10 border border-primary/20 rounded-xl sm:rounded-2xl">
               <p className="font-display font-bold text-primary text-xs sm:text-sm">
-                Open Source — ESP32 based, fully customizable. Build your own skills, connect your own APIs, make BeepBot truly yours.
+                Open Source — ESP32 based, fully customizable. Build your own skills, connect your own APIs, make BeePod truly yours.
               </p>
             </motion.div>
           </motion.div>
@@ -548,7 +548,7 @@ function FounderSection() {
           >
             <motion.p variants={fadeInUp} className="font-display font-bold text-xs tracking-[0.2em] uppercase text-accent mb-3 sm:mb-4 flex items-center gap-2">
               <Heart className="w-4 h-4 fill-accent" />
-              The Heart of BeepBot
+              The Heart of BeePod
             </motion.p>
 
             <motion.h2 variants={fadeInUp} className="text-3xl sm:text-4xl md:text-5xl font-display font-black text-foreground mb-6 sm:mb-8 leading-tight">
@@ -557,7 +557,7 @@ function FounderSection() {
 
             <div className="space-y-4 sm:space-y-5 font-sans text-base sm:text-lg text-foreground/80 leading-relaxed">
               <motion.p variants={fadeInUp}>
-                The story of BeepBot begins with <strong className="text-foreground">Malya</strong> — just 8 years old. She was selling lemonade with her friends when they fired her from her own stand.
+                The story of BeePod begins with <strong className="text-foreground">Malya</strong> — just 8 years old. She was selling lemonade with her friends when they fired her from her own stand.
               </motion.p>
               <motion.p variants={fadeInUp}>
                 Instead of giving up, she made a decision: <strong className="text-foreground">"I'll build my own business — and it'll be bigger than the lemonade stand."</strong>
@@ -575,7 +575,7 @@ function FounderSection() {
               className="mt-6 sm:mt-8 p-4 sm:p-6 bg-white dark:bg-card rounded-xl sm:rounded-2xl border-l-4 border-accent shadow-sm"
             >
               <p className="italic text-muted-foreground text-base sm:text-lg font-sans">
-                "An 8-year-old building a company to make AI accessible to every family. That's the BeepBot promise — and Malya is just getting started."
+                "An 8-year-old building a company to make AI accessible to every family. That's the BeePod promise — and Malya is just getting started."
               </p>
             </motion.blockquote>
           </motion.div>
@@ -617,7 +617,7 @@ function PreOrderSection() {
           />
 
           <h2 className="text-4xl sm:text-5xl md:text-7xl font-display font-black text-white mb-4 sm:mb-6 leading-tight">
-            Be the first family<br className="hidden sm:block" /> to get BeepBot.
+            Be the first family<br className="hidden sm:block" /> to get BeePod.
           </h2>
           <p className="text-base sm:text-xl md:text-2xl text-white/80 font-sans mb-8 sm:mb-12 max-w-2xl mx-auto">
             Join the waitlist and get exclusive early-bird pricing. Limited pre-orders available.
@@ -634,7 +634,7 @@ function PreOrderSection() {
               </div>
               <h3 className="text-2xl sm:text-3xl font-display font-black mb-2 sm:mb-3">You're on the list!</h3>
               <p className="font-sans text-base sm:text-lg text-white/80 max-w-sm">
-                Watch your inbox for updates from Malya and the BeepBot team. Big things are coming.
+                Watch your inbox for updates from Malya and the BeePod team. Big things are coming.
               </p>
             </motion.div>
           ) : (
@@ -660,7 +660,7 @@ function PreOrderSection() {
                 type="submit"
                 className="w-full bg-secondary text-secondary-foreground px-6 sm:px-8 py-4 sm:py-5 rounded-2xl font-display font-black text-lg sm:text-xl shadow-[0_6px_0_0_hsl(44,100%,42%)] hover:shadow-[0_3px_0_0_hsl(44,100%,42%)] hover:translate-y-[3px] transition-all flex items-center justify-center gap-2 sm:gap-3"
               >
-                Reserve My BeepBot
+                Reserve My BeePod
                 <Send className="w-5 h-5 sm:w-6 sm:h-6" />
               </motion.button>
               <p className="text-white/50 text-xs sm:text-sm font-sans">No credit card required. Cancel anytime.</p>
@@ -678,7 +678,7 @@ function Footer() {
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col sm:flex-row justify-between items-center gap-6 mb-6 sm:mb-8 pb-6 sm:pb-8 border-b border-white/10">
           <div className="flex items-center">
-            <img src={beepbotLogo} alt="BeepBot" className="h-9 w-auto object-contain brightness-0 invert" />
+            <img src={beepbotLogo} alt="BeePod" className="h-10 w-auto object-contain" />
           </div>
           <div className="flex flex-wrap justify-center gap-4 sm:gap-6 text-sm text-white/50">
             <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
@@ -688,7 +688,7 @@ function Footer() {
         </div>
         <div className="flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-4 text-center sm:text-left">
           <p className="text-xs sm:text-sm">Built with <Heart className="inline w-3 h-3 sm:w-3.5 sm:h-3.5 fill-red-500 text-red-500" /> using ESP32 — Dreamt up by Malya, age 8.</p>
-          <p className="text-xs sm:text-sm">&copy; {new Date().getFullYear()} BeepBot. Small Bot. Big Voice. Infinite Possibilities.</p>
+          <p className="text-xs sm:text-sm">&copy; {new Date().getFullYear()} BeePod. Your Smart AI Companion.</p>
         </div>
       </div>
     </footer>

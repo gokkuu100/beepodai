@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input";
 
 import robotHero from "@assets/46822828-644F-4E3A-965C-DDD72FDBCCD1_1786241339014.png";
 // @ts-ignore
-import beepbotLogo from "@assets/BB1_1786445338290.png";
+import beepbotLogo from "@assets/Artboard_9_1786732187420.png";
 
 const preOrderSchema = z.object({
   name: z.string().min(2, "Name is required"),
@@ -39,9 +39,9 @@ const features = [
 
 const steps = [
   { label: "You Ask",          icon: Mic },
-  { label: "BeepBot Listens",  icon: Zap },
+  { label: "BeePod Listens",   icon: Zap },
   { label: "AI Thinks",        icon: Globe2 },
-  { label: "BeepBot Answers",  icon: Volume2 },
+  { label: "BeePod Answers",   icon: Volume2 },
 ];
 
 const aiModels = ["ChatGPT", "DeepSeek", "Claude", "Gemini"];
@@ -77,7 +77,7 @@ export default function Home() {
       {/* ── Navbar ── */}
       <nav className="sticky top-0 z-40 w-full border-b border-border/50 bg-background/80 backdrop-blur-md">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <img src={beepbotLogo} alt="BeepBot" className="h-8 w-auto object-contain brightness-0 invert" />
+          <img src={beepbotLogo} alt="BeePod" className="h-8 w-auto object-contain" />
           <div className="hidden md:flex items-center gap-8 text-sm font-semibold text-muted-foreground">
             <a href="#features" className="hover:text-foreground transition-colors">Features</a>
             <a href="#how-it-works" className="hover:text-foreground transition-colors">How It Works</a>
@@ -130,7 +130,7 @@ export default function Home() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
               >
-                BEEPBOT
+                BEEPOD
               </motion.h1>
 
               <motion.p
@@ -304,7 +304,7 @@ export default function Home() {
               <div className="space-y-4 text-base lg:text-lg font-medium leading-relaxed opacity-90">
                 <p>When 8-year-old Malya was "fired" from a neighborhood lemonade stand by her friends, she decided to build something bigger than lemonade.</p>
                 <p>She discovered AI bots but found them far too expensive for kids. Enrolled in an inventing school, she decided to build her own.</p>
-                <p>Months of building, testing, and dreaming led to BeepBot — a smart, friendly, and affordable companion for every family.</p>
+                <p>Months of building, testing, and dreaming led to BeePod — a smart, friendly, and affordable companion for every family.</p>
               </div>
 
               <blockquote className="mt-8 p-5 bg-background/10 border-l-4 border-background/60 rounded-r-2xl font-bold text-lg italic">
@@ -325,7 +325,7 @@ export default function Home() {
             </div>
 
             <h2 className="text-3xl sm:text-4xl font-bold mb-2 text-center text-foreground">
-              Be the first family to get BeepBot.
+              Be the first family to get BeePod.
             </h2>
             <p className="text-center text-muted-foreground mb-8 text-sm">
               Join the waitlist to secure your spot in line.
@@ -377,7 +377,7 @@ export default function Home() {
                   </motion.div>
                   <h3 className="text-xl font-bold text-foreground mb-2">You're on the list!</h3>
                   <p className="text-sm text-muted-foreground font-medium">
-                    We'll email you as soon as BeepBot is ready to ship. Keep an eye on your inbox.
+                    We'll email you as soon as BeePod is ready to ship. Keep an eye on your inbox.
                   </p>
                 </motion.div>
               )}
@@ -389,7 +389,7 @@ export default function Home() {
       {/* ── Footer ── */}
       <footer className="px-6 py-10 bg-background border-t border-border">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
-          <img src={beepbotLogo} alt="BeepBot" className="h-8 w-auto object-contain brightness-0 invert" />
+          <img src={beepbotLogo} alt="BeePod" className="h-8 w-auto object-contain" />
           <div className="flex flex-wrap justify-center gap-6 text-sm font-semibold text-muted-foreground">
             <a href="#" className="hover:text-primary transition-colors">Privacy</a>
             <a href="#" className="hover:text-primary transition-colors">Terms</a>
@@ -413,7 +413,7 @@ export default function Home() {
           >
             <div className="pointer-events-auto max-w-[430px] mx-auto">
               <Button size="lg" className="w-full shadow-2xl h-14" onClick={scrollToPreOrder}>
-                Pre-Order BeepBot
+                Pre-Order BeePod
               </Button>
             </div>
           </motion.div>
