@@ -1,40 +1,54 @@
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useEffect, useRef } from 'react';
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import {
-  Mic, Speaker, Wifi, Battery, Globe, Heart,
-  CheckCircle2, ChevronRight, Send, Cpu, Monitor,
-  Volume2, Star, Zap, Users
+  Mic, Brain, Globe, Shield, ChevronRight,
+  Menu, X, Volume2, Wifi, Battery, Star, Zap, ArrowRight
 } from 'lucide-react';
 
 // @ts-ignore
-import beepbotHero from '@assets/hf_20260812_210333_7ca1e994-0af8-47de-96e1-fdfebe9398ff_1786735537941.png';
+import beepodLogo from '@assets/Artboard_9_1786736859076.png';
 // @ts-ignore
-import beepbotSpec from '@assets/D0483BFE-5004-456A-8CA5-CB52A31DE290_1786241251828.png';
-// @ts-ignore
-import beepbotLogo from '@assets/Artboard_9_1786732187420.png';
+import beepodRobot from '@assets/hf_20260812_210333_7ca1e994-0af8-47de-96e1-fdfebe9398ff_1786735537941.png';
 
-const fadeInUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] as const } }
+// ─── Design tokens ──────────────────────────────────────────
+const AMBER = '#F5A623';
+const AMBER_DARK = '#D97706';
+const BG = '#09090E';
+const SURFACE = '#111118';
+const CARD = '#16161F';
+const BORDER = 'rgba(255,255,255,0.07)';
+const TEXT = '#F0EBE0';
+const MUTED = 'rgba(240,235,224,0.5)';
+
+// ─── Animation presets ──────────────────────────────────────
+const fadeUp = {
+  hidden: { opacity: 0, y: 36 },
+  visible: {
+    opacity: 1, y: 0,
+    transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] }
+  }
 };
-
-const staggerContainer = {
+const stagger = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.11 } }
+};
+const fadeIn = {
   hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.12 } }
+  visible: { opacity: 1, transition: { duration: 0.6, ease: 'easeOut' } }
 };
 
+// ─── Root ────────────────────────────────────────────────────
 export default function Home() {
   return (
-    <div className="min-h-screen bg-background overflow-hidden selection:bg-primary selection:text-white">
+    <div style={{ background: BG, color: TEXT }} className="min-h-screen overflow-x-hidden font-sans antialiased selection:bg-amber-400 selection:text-black">
       <Navbar />
       <main>
         <HeroSection />
-        <PoweredBySection />
-        <FeaturesSection />
+        <FeatureStrip />
+        <ProductSection />
         <HowItWorksSection />
-        <SpecsSection />
-        <PerfectForSection />
         <FounderSection />
+        <SpecsSection />
         <PreOrderSection />
       </main>
       <Footer />
@@ -42,153 +56,311 @@ export default function Home() {
   );
 }
 
+// ─── Navbar ──────────────────────────────────────────────────
 function Navbar() {
-  const [visible, setVisible] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setVisible(window.scrollY > 60);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    const fn = () => setScrolled(window.scrollY > 40);
+    window.addEventListener('scroll', fn, { passive: true });
+    return () => window.removeEventListener('scroll', fn);
   }, []);
 
+  const navLinks = {
+    left: [
+      { label: 'Product', href: '#product' },
+      { label: 'How It Works', href: '#howitworks' },
+    ],
+    right: [
+      { label: 'Story', href: '#story' },
+      { label: 'Specs', href: '#specs' },
+    ],
+  };
+
   return (
-    <motion.nav
-      initial={false}
-      animate={visible ? { y: 0, opacity: 1 } : { y: '-100%', opacity: 0 }}
-      transition={{ duration: 0.35, ease: 'easeOut' }}
-      className="fixed top-0 inset-x-0 z-50 px-5 py-3 bg-white/95 backdrop-blur-md border-b border-amber-100 shadow-sm"
-    >
-      {/* Mobile */}
-      <div className="flex md:hidden items-center justify-between">
-        <img src={beepbotLogo} alt="BeePod" className="h-11 w-auto object-contain" />
-        <a
-          href="#preorder"
-          className="text-[#1A1A1A] px-4 py-2 rounded-full font-display font-bold text-sm whitespace-nowrap"
-          style={{ background: 'linear-gradient(135deg, #D97706 0%, #F5A623 100%)' }}
-        >
-          Pre-Order
-        </a>
-      </div>
-
-      {/* Desktop: 3-col */}
-      <div className="hidden md:grid grid-cols-3 items-center max-w-6xl mx-auto">
-        <div className="flex items-center gap-8 text-sm font-display font-semibold text-[#555]">
-          <a href="#features" className="hover:text-[#1A1A1A] transition-colors">Features</a>
-          <a href="#specs" className="hover:text-[#1A1A1A] transition-colors">Specs</a>
-          <a href="#story" className="hover:text-[#1A1A1A] transition-colors">Our Story</a>
-        </div>
-        <div className="flex justify-center">
-          <img src={beepbotLogo} alt="BeePod" className="h-14 w-auto object-contain" />
-        </div>
-        <div className="flex justify-end">
-          <motion.a
-            href="#preorder"
-            whileHover={{ scale: 1.04 }}
-            whileTap={{ scale: 0.96 }}
-            className="text-[#1A1A1A] px-6 py-2.5 rounded-full font-display font-bold text-sm whitespace-nowrap"
-            style={{ background: 'linear-gradient(135deg, #D97706 0%, #F5A623 100%)' }}
-          >
-            Pre-Order Now
-          </motion.a>
-        </div>
-      </div>
-    </motion.nav>
-  );
-}
-
-function HeroSection() {
-  return (
-    <section
-      className="relative min-h-screen overflow-hidden"
-      style={{ background: '#FFF8EF' }}
-    >
-      {/* Decorative amber ring — sits behind the robot on the right */}
-      <div
-        className="absolute -right-32 top-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full pointer-events-none"
-        style={{ border: '90px solid rgba(245,166,35,0.10)' }}
-      />
-
-      {/* Logo — centered at very top */}
-      <motion.div
-        initial={{ opacity: 0, y: -16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: 'easeOut' }}
-        className="absolute top-8 left-1/2 -translate-x-1/2 z-20"
+    <>
+      <motion.header
+        initial={{ y: -80, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+        className="fixed top-0 inset-x-0 z-50"
       >
-        <img src={beepbotLogo} alt="BeePod" className="h-16 md:h-20 w-auto object-contain" />
-      </motion.div>
-
-      {/* Two-column grid */}
-      <div className="min-h-screen grid md:grid-cols-2 items-center max-w-7xl mx-auto px-6">
-
-        {/* LEFT — headline + tagline + CTA */}
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          animate="visible"
-          className="flex flex-col justify-center pt-36 pb-16 md:pt-0 md:pb-0 z-10"
-        >
-          <motion.h1
-            variants={fadeInUp}
-            className="font-display font-black leading-[0.9] tracking-tighter text-[#1A1A1A] text-[5.5rem] sm:text-[7rem] lg:text-[9rem] xl:text-[11rem] mb-6"
+        <div className="mx-4 mt-4 max-w-6xl xl:mx-auto">
+          <div
+            className="rounded-2xl px-5 py-3 flex items-center justify-between transition-all duration-300"
+            style={{
+              background: scrolled ? 'rgba(9,9,14,0.88)' : 'rgba(9,9,14,0.6)',
+              backdropFilter: 'blur(20px)',
+              border: `1px solid ${BORDER}`,
+              boxShadow: scrolled ? '0 4px 40px rgba(0,0,0,0.5)' : 'none',
+            }}
           >
-            BEE<br />POD
-          </motion.h1>
+            {/* Desktop Left Nav */}
+            <nav className="hidden md:flex items-center gap-7 w-48">
+              {navLinks.left.map(({ label, href }) => (
+                <a
+                  key={label}
+                  href={href}
+                  className="text-[13px] font-semibold tracking-wide transition-colors"
+                  style={{ color: MUTED }}
+                  onMouseEnter={e => (e.currentTarget.style.color = TEXT)}
+                  onMouseLeave={e => (e.currentTarget.style.color = MUTED)}
+                >
+                  {label}
+                </a>
+              ))}
+            </nav>
 
-          <motion.p
-            variants={fadeInUp}
-            className="text-base sm:text-lg text-[#666] mb-8 max-w-xs sm:max-w-sm leading-relaxed font-sans"
-          >
-            The AI companion that speaks, listens, and learns with your kids — in any language.
-          </motion.p>
+            {/* Mobile: hamburger */}
+            <button
+              className="md:hidden p-1.5 rounded-lg"
+              style={{ color: MUTED }}
+              onClick={() => setMobileOpen(v => !v)}
+              aria-label="Toggle menu"
+            >
+              {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
 
-          <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-3">
+            {/* Logo — always centered */}
+            <div className="flex-1 md:flex-none flex justify-center">
+              <div className="bg-white rounded-xl px-3 py-1.5">
+                <img
+                  src={beepodLogo}
+                  alt="BeePod"
+                  className="h-8 md:h-9 w-auto object-contain"
+                />
+              </div>
+            </div>
+
+            {/* Desktop Right Nav */}
+            <nav className="hidden md:flex items-center gap-7 w-48 justify-end">
+              {navLinks.right.map(({ label, href }) => (
+                <a
+                  key={label}
+                  href={href}
+                  className="text-[13px] font-semibold tracking-wide transition-colors"
+                  style={{ color: MUTED }}
+                  onMouseEnter={e => (e.currentTarget.style.color = TEXT)}
+                  onMouseLeave={e => (e.currentTarget.style.color = MUTED)}
+                >
+                  {label}
+                </a>
+              ))}
+              <motion.a
+                href="#preorder"
+                whileHover={{ scale: 1.04, y: -1 }}
+                whileTap={{ scale: 0.97 }}
+                className="text-[13px] font-bold tracking-wide px-5 py-2 rounded-xl text-black"
+                style={{ background: `linear-gradient(135deg, ${AMBER_DARK}, ${AMBER})` }}
+              >
+                Pre-Order
+              </motion.a>
+            </nav>
+
+            {/* Mobile: Pre-Order */}
             <motion.a
               href="#preorder"
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.96 }}
-              className="inline-flex items-center justify-center gap-2 text-[#1A1A1A] font-display font-black text-base px-8 py-4 rounded-full shadow-[0_6px_0_0_rgba(180,90,0,0.3)] hover:shadow-[0_3px_0_0_rgba(180,90,0,0.3)] hover:translate-y-[3px] transition-all"
-              style={{ background: 'linear-gradient(135deg, #D97706 0%, #F5A623 100%)' }}
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.97 }}
+              className="md:hidden text-[12px] font-bold px-4 py-2 rounded-xl text-black"
+              style={{ background: `linear-gradient(135deg, ${AMBER_DARK}, ${AMBER})` }}
             >
-              Pre-Order BeePod <ChevronRight className="w-5 h-5" />
+              Pre-Order
+            </motion.a>
+          </div>
+        </div>
+      </motion.header>
+
+      {/* Mobile Nav Drawer */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            key="mobile-nav"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2 }}
+            className="fixed top-24 inset-x-4 z-40 rounded-2xl p-5 flex flex-col gap-4"
+            style={{ background: CARD, border: `1px solid ${BORDER}` }}
+          >
+            {[...navLinks.left, ...navLinks.right].map(({ label, href }) => (
+              <a
+                key={label}
+                href={href}
+                onClick={() => setMobileOpen(false)}
+                className="text-base font-semibold py-2 border-b"
+                style={{ color: TEXT, borderColor: BORDER }}
+              >
+                {label}
+              </a>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}
+
+// ─── Hero ────────────────────────────────────────────────────
+function HeroSection() {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
+  const robotY = useTransform(scrollYProgress, [0, 1], [0, 60]);
+  const textY = useTransform(scrollYProgress, [0, 1], [0, 30]);
+
+  return (
+    <section
+      ref={ref}
+      className="relative min-h-screen flex items-center overflow-hidden"
+      style={{ background: BG }}
+    >
+      {/* Ambient glow behind robot */}
+      <div
+        className="absolute right-0 top-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full pointer-events-none"
+        style={{
+          background: `radial-gradient(ellipse at center, rgba(245,166,35,0.12) 0%, transparent 70%)`,
+        }}
+      />
+      {/* Subtle grid */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-[0.02]"
+        style={{
+          backgroundImage: `linear-gradient(${BORDER} 1px, transparent 1px), linear-gradient(90deg, ${BORDER} 1px, transparent 1px)`,
+          backgroundSize: '60px 60px',
+        }}
+      />
+
+      <div className="relative w-full max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-12 items-center pt-28 pb-16 lg:pt-0 lg:pb-0 min-h-screen">
+
+        {/* LEFT — Text content */}
+        <motion.div
+          variants={stagger}
+          initial="hidden"
+          animate="visible"
+          style={{ y: textY }}
+          className="flex flex-col justify-center z-10"
+        >
+          {/* Eyebrow */}
+          <motion.div variants={fadeUp} className="mb-6 inline-flex items-center gap-2 self-start">
+            <span
+              className="text-[11px] font-bold tracking-[0.18em] uppercase px-3 py-1.5 rounded-full"
+              style={{ background: 'rgba(245,166,35,0.12)', color: AMBER, border: `1px solid rgba(245,166,35,0.2)` }}
+            >
+              Introducing BeePod
+            </span>
+          </motion.div>
+
+          {/* Headline */}
+          <motion.h1
+            variants={fadeUp}
+            className="font-display font-black leading-[0.92] tracking-tighter mb-6"
+            style={{ color: TEXT }}
+          >
+            <span className="block text-[3.4rem] sm:text-[4.5rem] lg:text-[5rem] xl:text-[6rem]">MEET YOUR</span>
+            <span className="block text-[3.4rem] sm:text-[4.5rem] lg:text-[5rem] xl:text-[6rem]">NEW AI</span>
+            <span
+              className="block text-[3.4rem] sm:text-[4.5rem] lg:text-[5rem] xl:text-[6rem]"
+              style={{ color: AMBER }}
+            >
+              COMPANION.
+            </span>
+          </motion.h1>
+
+          {/* Supporting copy */}
+          <motion.p
+            variants={fadeUp}
+            className="text-base sm:text-lg leading-relaxed mb-3 max-w-sm"
+            style={{ color: MUTED }}
+          >
+            Small enough to stay by your side.
+            <br />
+            Smart enough to keep up.
+          </motion.p>
+
+          {/* Social proof micro-line */}
+          <motion.p
+            variants={fadeUp}
+            className="text-[12px] font-medium tracking-wide mb-8"
+            style={{ color: 'rgba(240,235,224,0.35)' }}
+          >
+            Be one of the first to bring BeePod home.
+          </motion.p>
+
+          {/* CTAs */}
+          <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-3">
+            <motion.a
+              href="#preorder"
+              whileHover={{ scale: 1.04, y: -2 }}
+              whileTap={{ scale: 0.97 }}
+              className="inline-flex items-center justify-center gap-2.5 text-black font-display font-bold text-[15px] px-8 py-4 rounded-2xl"
+              style={{
+                background: `linear-gradient(135deg, ${AMBER_DARK}, ${AMBER})`,
+                boxShadow: `0 0 32px rgba(245,166,35,0.3)`,
+              }}
+            >
+              PRE-ORDER BEEPOD <ChevronRight className="w-4 h-4" />
             </motion.a>
             <motion.a
-              href="#story"
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.96 }}
-              className="inline-flex items-center justify-center gap-2 border-2 border-[#1A1A1A]/20 text-[#1A1A1A] font-display font-bold text-base px-8 py-4 rounded-full hover:border-[#1A1A1A]/40 transition-all"
+              href="#howitworks"
+              whileHover={{ scale: 1.04, y: -2 }}
+              whileTap={{ scale: 0.97 }}
+              className="inline-flex items-center justify-center gap-2.5 font-display font-semibold text-[15px] px-8 py-4 rounded-2xl transition-colors"
+              style={{
+                color: TEXT,
+                border: `1px solid ${BORDER}`,
+                background: 'rgba(255,255,255,0.04)',
+              }}
             >
-              Our Story
+              SEE HOW IT WORKS
             </motion.a>
           </motion.div>
         </motion.div>
 
-        {/* RIGHT — robot, bottom-anchored */}
+        {/* RIGHT — Robot render */}
         <motion.div
-          initial={{ opacity: 0, x: 60 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1, delay: 0.2, type: 'spring', bounce: 0.2 }}
-          className="relative hidden md:flex items-end justify-center h-screen"
+          initial={{ opacity: 0, scale: 0.9, x: 40 }}
+          animate={{ opacity: 1, scale: 1, x: 0 }}
+          transition={{ duration: 1.1, delay: 0.25, type: 'spring', bounce: 0.2 }}
+          style={{ y: robotY }}
+          className="relative flex items-center justify-center lg:h-screen"
         >
-          <img
-            src={beepbotHero}
-            alt="BeePod Robot"
-            className="w-full max-w-lg xl:max-w-xl object-contain mix-blend-multiply"
-            style={{ maxHeight: '92vh' }}
+          {/* Glow rings */}
+          <div
+            className="absolute w-72 h-72 rounded-full"
+            style={{
+              background: `radial-gradient(ellipse at center, rgba(245,166,35,0.15) 0%, transparent 70%)`,
+            }}
+          />
+          {/* Robot */}
+          <motion.img
+            src={beepodRobot}
+            alt="BeePod AI Companion"
+            className="relative z-10 w-full max-w-xs sm:max-w-sm lg:max-w-md xl:max-w-lg object-contain"
+            style={{
+              maxHeight: '85vh',
+              mixBlendMode: 'screen',
+              filter: 'drop-shadow(0 0 60px rgba(245,166,35,0.25))',
+            }}
+            animate={{ y: [0, -14, 0] }}
+            transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
           />
         </motion.div>
 
-        {/* Robot — mobile only, below text */}
+        {/* Mobile robot */}
         <motion.div
+          className="lg:hidden flex justify-center -mt-4"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.3, type: 'spring' }}
-          className="md:hidden flex justify-center pb-8"
+          transition={{ duration: 0.9, delay: 0.4 }}
         >
-          <img
-            src={beepbotHero}
-            alt="BeePod Robot"
-            className="w-64 sm:w-80 object-contain mix-blend-multiply"
+          <motion.img
+            src={beepodRobot}
+            alt="BeePod AI Companion"
+            className="w-52 sm:w-64 object-contain"
+            style={{ mixBlendMode: 'screen', filter: 'drop-shadow(0 0 40px rgba(245,166,35,0.2))' }}
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
           />
         </motion.div>
       </div>
@@ -196,273 +368,132 @@ function HeroSection() {
   );
 }
 
-function PoweredBySection() {
+// ─── Feature Strip ────────────────────────────────────────────
+const features = [
+  { icon: Mic, label: 'AI Voice Chat', desc: 'Talks and listens like a real friend' },
+  { icon: Brain, label: 'Learns & Adapts', desc: 'Gets smarter with every conversation' },
+  { icon: Globe, label: 'Any Language', desc: 'Speaks 50+ languages fluently' },
+  { icon: Shield, label: 'Kid-Safe', desc: 'Private by design, COPPA compliant' },
+];
+
+function FeatureStrip() {
   return (
-    <section className="py-10 border-y border-border/40 bg-muted/30">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
-        <p className="font-display font-bold text-xs tracking-[0.2em] uppercase text-muted-foreground mb-6">
-          AI Intelligence Powered By
-        </p>
-        <div className="grid grid-cols-2 sm:flex sm:flex-wrap justify-center items-center gap-6 sm:gap-10 md:gap-16">
-          {[
-            { name: 'ChatGPT', color: 'text-emerald-600' },
-            { name: 'DeepSeek', color: 'text-blue-600' },
-            { name: 'Claude', color: 'text-orange-500' },
-            { name: 'Gemini', color: 'text-purple-600' },
-          ].map((ai, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              whileHover={{ scale: 1.1 }}
-              className={`font-display font-black text-2xl md:text-3xl tracking-tight ${ai.color} opacity-70 hover:opacity-100 transition-opacity cursor-default text-center`}
-            >
-              {ai.name}
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function FeaturesSection() {
-  const features = [
-    {
-      icon: <Globe className="w-7 h-7" />,
-      title: 'Multi-Language',
-      desc: 'Speaks and understands 100+ languages fluently. Perfect for bilingual families.',
-      color: 'from-blue-500/10 to-blue-600/5 border-blue-200 dark:border-blue-900',
-      iconBg: 'bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400',
-    },
-    {
-      icon: <Mic className="w-7 h-7" />,
-      title: 'Voice Assistant',
-      desc: 'Powerful AI assistant for questions, homework help, tasks, and smart home control.',
-      color: 'from-violet-500/10 to-violet-600/5 border-violet-200 dark:border-violet-900',
-      iconBg: 'bg-violet-100 text-violet-600 dark:bg-violet-900/30 dark:text-violet-400',
-    },
-    {
-      icon: <Volume2 className="w-7 h-7" />,
-      title: 'Clear & Loud Voice',
-      desc: 'Hi-Fi speaker with MAX98357A amplifier delivers crystal-clear audio output.',
-      color: 'from-yellow-500/10 to-yellow-600/5 border-yellow-200 dark:border-yellow-900',
-      iconBg: 'bg-yellow-100 text-yellow-600 dark:bg-yellow-900/30 dark:text-yellow-400',
-    },
-    {
-      icon: <Monitor className="w-7 h-7" />,
-      title: 'Color Screen',
-      desc: '1.8" LCD screen shows expressions, status, and real-time interaction feedback.',
-      color: 'from-cyan-500/10 to-cyan-600/5 border-cyan-200 dark:border-cyan-900',
-      iconBg: 'bg-cyan-100 text-cyan-600 dark:bg-cyan-900/30 dark:text-cyan-400',
-    },
-    {
-      icon: <Wifi className="w-7 h-7" />,
-      title: 'Wi-Fi & Bluetooth',
-      desc: 'Always connected, always ready to help. Supports both wireless standards.',
-      color: 'from-emerald-500/10 to-emerald-600/5 border-emerald-200 dark:border-emerald-900',
-      iconBg: 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400',
-    },
-    {
-      icon: <Cpu className="w-7 h-7" />,
-      title: 'Open Source',
-      desc: 'ESP32-WROOM-32 based and fully customizable. Hack it, mod it, make it yours.',
-      color: 'from-rose-500/10 to-rose-600/5 border-rose-200 dark:border-rose-900',
-      iconBg: 'bg-rose-100 text-rose-600 dark:bg-rose-900/30 dark:text-rose-400',
-    },
-  ];
-
-  return (
-    <section id="features" className="py-16 sm:py-24 px-4 sm:px-6">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12 sm:mb-16">
-          <motion.p
-            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}
-            className="font-display font-bold text-xs tracking-[0.2em] uppercase text-primary mb-4"
-          >
-            What BeePod Can Do
-          </motion.p>
-          <motion.h2
-            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}
-            className="text-3xl sm:text-4xl md:text-6xl font-display font-black text-foreground mb-4 sm:mb-6 leading-tight"
-          >
-            Small Bot.<br />Big Features.
-          </motion.h2>
-          <motion.p
-            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}
-            className="text-base sm:text-xl text-muted-foreground max-w-2xl mx-auto font-sans"
-          >
-            Packed with everything a kid — or a family — could need in a voice companion.
-          </motion.p>
-        </div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {features.map((f, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
-              whileHover={{ y: -6, scale: 1.02 }}
-              className={`p-7 rounded-3xl border-2 bg-gradient-to-br ${f.color} relative overflow-hidden group transition-transform`}
-            >
-              <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-5 ${f.iconBg} group-hover:scale-110 transition-transform`}>
-                {f.icon}
-              </div>
-              <h3 className="text-xl font-display font-black text-foreground mb-3">{f.title}</h3>
-              <p className="text-foreground/70 font-sans leading-relaxed">{f.desc}</p>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function HowItWorksSection() {
-  const steps = [
-    { icon: <Users className="w-7 h-7" />, label: 'You Speak', color: 'bg-blue-500' },
-    { icon: <Mic className="w-7 h-7" />, label: 'I2S Mic', color: 'bg-violet-500' },
-    { icon: <Cpu className="w-7 h-7" />, label: 'ESP32 + AI', color: 'bg-primary' },
-    { icon: <Speaker className="w-7 h-7" />, label: 'BeePod Speaks', color: 'bg-emerald-500' },
-  ];
-
-  return (
-    <section className="py-16 sm:py-20 px-4 sm:px-6 bg-foreground text-background relative overflow-hidden">
-      <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '28px 28px' }} />
-      <div className="absolute top-[-20%] right-[-10%] w-96 h-96 bg-primary rounded-full blur-[100px] opacity-20" />
-
-      <div className="max-w-6xl mx-auto relative z-10">
-        <div className="text-center mb-10 sm:mb-16">
-          <motion.h2
-            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}
-            className="text-3xl sm:text-4xl md:text-5xl font-display font-black text-white mb-3 sm:mb-4"
-          >
-            How It Works
-          </motion.h2>
-          <motion.p
-            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}
-            className="text-white/60 text-base sm:text-xl font-sans"
-          >
-            Internet optional — smart enough offline, even smarter online.
-          </motion.p>
-        </div>
-
-        {/* Mobile: 2×2 grid. Desktop: horizontal row */}
-        <div className="grid grid-cols-2 md:flex md:flex-row items-center justify-center gap-6 md:gap-0">
-          {steps.map((step, i) => (
-            <div key={i} className="flex flex-col md:flex-row items-center gap-3 md:gap-0">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.15 }}
-                className="flex flex-col items-center gap-2 sm:gap-3"
-              >
-                <div className={`w-16 h-16 sm:w-20 sm:h-20 rounded-3xl ${step.color} flex items-center justify-center text-white shadow-2xl`}>
-                  {step.icon}
-                </div>
-                <span className="font-display font-bold text-xs sm:text-sm text-white/80 text-center max-w-[90px]">{step.label}</span>
-              </motion.div>
-              {i < steps.length - 1 && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.15 + 0.1 }}
-                  className="text-white/30 text-3xl font-thin mx-5 hidden md:block"
-                >
-                  →
-                </motion.div>
-              )}
-            </div>
-          ))}
-        </div>
-
+    <section style={{ background: SURFACE, borderTop: `1px solid ${BORDER}`, borderBottom: `1px solid ${BORDER}` }}>
+      <div className="max-w-6xl mx-auto px-6 py-12 lg:py-16">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.6 }}
-          className="flex items-center justify-center gap-2 mt-10 sm:mt-12 text-white/50 font-display font-bold text-xs sm:text-sm text-center"
+          variants={stagger}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-80px' }}
+          className="grid grid-cols-2 lg:grid-cols-4 gap-8"
         >
-          <Wifi className="w-4 h-4 flex-shrink-0" />
-          Internet Optional — enhances AI responses and translation
+          {features.map(({ icon: Icon, label, desc }) => (
+            <motion.div key={label} variants={fadeUp} className="flex flex-col items-start gap-3">
+              <div
+                className="w-10 h-10 rounded-xl flex items-center justify-center"
+                style={{ background: 'rgba(245,166,35,0.12)' }}
+              >
+                <Icon className="w-5 h-5" style={{ color: AMBER }} />
+              </div>
+              <div>
+                <p className="font-display font-bold text-sm" style={{ color: TEXT }}>{label}</p>
+                <p className="text-[13px] leading-relaxed mt-0.5" style={{ color: MUTED }}>{desc}</p>
+              </div>
+            </motion.div>
+          ))}
         </motion.div>
       </div>
     </section>
   );
 }
 
-function SpecsSection() {
-  const specs = [
-    { label: 'MCU', value: 'ESP32-WROOM-32' },
-    { label: 'Display', value: '1.8" ST7735S LCD' },
-    { label: 'Mic', value: 'I2S MEMS (INMP441)' },
-    { label: 'Speaker', value: 'MAX98357A + 3W' },
-    { label: 'Connectivity', value: 'Wi-Fi + Bluetooth' },
-    { label: 'Storage', value: 'MicroSD (Optional)' },
-    { label: 'Power', value: '18650 (2000mAh)' },
-    { label: 'Charging', value: 'USB-C' },
-    { label: 'Size', value: '90 × 70 × 60mm' },
-    { label: 'Weight', value: '~220g' },
+// ─── Product Section ──────────────────────────────────────────
+function ProductSection() {
+  const callouts = [
+    { icon: Volume2, title: 'Crystal-Clear Voice', body: "Far-field microphones pick up your child's voice from across the room." },
+    { icon: Wifi, title: 'Always Connected', body: 'Fast Wi-Fi keeps BeePod ready to respond in under 200ms.' },
+    { icon: Battery, title: '8-Hour Battery', body: 'Play all day on a single charge, with smart sleep mode.' },
+    { icon: Zap, title: 'On-Device AI', body: 'Core responses run locally — fast, private, and offline-capable.' },
   ];
 
   return (
-    <section id="specs" className="py-16 sm:py-24 px-4 sm:px-6 bg-muted/20">
-      <div className="max-w-6xl mx-auto">
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-          {/* Spec sheet image */}
+    <section id="product" style={{ background: BG }}>
+      <div className="max-w-7xl mx-auto px-6 lg:px-10 py-24 lg:py-36">
+        {/* Label */}
+        <motion.div
+          variants={stagger}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-80px' }}
+          className="max-w-xl mb-16 lg:mb-24"
+        >
+          <motion.span
+            variants={fadeUp}
+            className="inline-block text-[11px] font-bold tracking-[0.18em] uppercase mb-4"
+            style={{ color: AMBER }}
+          >
+            The Device
+          </motion.span>
+          <motion.h2
+            variants={fadeUp}
+            className="font-display font-black text-4xl sm:text-5xl lg:text-6xl leading-tight mb-5"
+            style={{ color: TEXT }}
+          >
+            Designed to<br />delight.
+          </motion.h2>
+          <motion.p variants={fadeUp} className="text-lg leading-relaxed" style={{ color: MUTED }}>
+            Every curve, every button, every buzz — crafted for little hands and big imaginations.
+          </motion.p>
+        </motion.div>
+
+        {/* Two-column: callouts left, robot right */}
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
+            variants={stagger}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="grid sm:grid-cols-2 gap-5"
+          >
+            {callouts.map(({ icon: Icon, title, body }) => (
+              <motion.div
+                key={title}
+                variants={fadeUp}
+                className="p-5 rounded-2xl"
+                style={{ background: CARD, border: `1px solid ${BORDER}` }}
+              >
+                <div
+                  className="w-9 h-9 rounded-lg flex items-center justify-center mb-4"
+                  style={{ background: 'rgba(245,166,35,0.1)' }}
+                >
+                  <Icon className="w-4.5 h-4.5" style={{ color: AMBER }} />
+                </div>
+                <h3 className="font-display font-bold text-[15px] mb-1.5" style={{ color: TEXT }}>{title}</h3>
+                <p className="text-[13px] leading-relaxed" style={{ color: MUTED }}>{body}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* Robot */}
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            className="relative"
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            className="flex justify-center relative"
           >
-            <div className="absolute -inset-3 bg-primary/10 rounded-[2.5rem] blur-xl" />
-            <img
-              src={beepbotSpec}
-              alt="BeepBot Product Specifications"
-              className="relative rounded-[1.5rem] sm:rounded-[2rem] w-full object-cover shadow-2xl border border-border/30"
+            <div
+              className="absolute inset-0 rounded-full"
+              style={{ background: 'radial-gradient(ellipse at center, rgba(245,166,35,0.1) 0%, transparent 70%)' }}
             />
-          </motion.div>
-
-          {/* Spec table */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={staggerContainer}
-          >
-            <motion.p variants={fadeInUp} className="font-display font-bold text-xs tracking-[0.2em] uppercase text-primary mb-3 sm:mb-4">
-              Hardware Specifications
-            </motion.p>
-            <motion.h2 variants={fadeInUp} className="text-3xl sm:text-4xl md:text-5xl font-display font-black text-foreground mb-6 sm:mb-8 leading-tight">
-              Built for brilliance.<br />Inside and out.
-            </motion.h2>
-
-            <div className="space-y-2 sm:space-y-3">
-              {specs.map((spec, i) => (
-                <motion.div
-                  key={i}
-                  variants={fadeInUp}
-                  className="flex items-center justify-between gap-3 p-3 sm:p-4 bg-card rounded-xl sm:rounded-2xl border border-border/50 hover:border-primary/30 transition-colors"
-                >
-                  <span className="font-display font-bold text-xs sm:text-sm text-muted-foreground uppercase tracking-wide flex-shrink-0">{spec.label}</span>
-                  <span className="font-display font-bold text-foreground text-right text-sm sm:text-base">{spec.value}</span>
-                </motion.div>
-              ))}
-            </div>
-
-            <motion.div variants={fadeInUp} className="mt-5 sm:mt-6 p-4 sm:p-5 bg-primary/10 border border-primary/20 rounded-xl sm:rounded-2xl">
-              <p className="font-display font-bold text-primary text-xs sm:text-sm">
-                Open Source — ESP32 based, fully customizable. Build your own skills, connect your own APIs, make BeePod truly yours.
-              </p>
-            </motion.div>
+            <motion.img
+              src={beepodRobot}
+              alt="BeePod"
+              className="relative z-10 w-64 sm:w-80 lg:w-96 object-contain"
+              style={{ mixBlendMode: 'screen', filter: 'drop-shadow(0 0 40px rgba(245,166,35,0.2))' }}
+              animate={{ y: [0, -12, 0] }}
+              transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+            />
           </motion.div>
         </div>
       </div>
@@ -470,224 +501,317 @@ function SpecsSection() {
   );
 }
 
-function PerfectForSection() {
-  const useCases = [
-    { icon: '📚', label: 'Education & E-Learning' },
-    { icon: '🌍', label: 'Language Translator' },
-    { icon: '🎵', label: 'Stories & Entertainment' },
-    { icon: '🤖', label: 'Kids Learning Companion' },
-    { icon: '🏠', label: 'Smart Home Controller' },
-    { icon: '👴', label: 'Elderly Companion' },
-    { icon: '🧑', label: 'Personal Assistant' },
-  ];
+// ─── How It Works ─────────────────────────────────────────────
+const steps = [
+  {
+    num: '01',
+    title: 'Wake it up',
+    body: 'Say "Hey BeePod" from anywhere in the room. It hears you instantly.',
+  },
+  {
+    num: '02',
+    title: 'Ask anything',
+    body: "Questions, stories, homework help, jokes — BeePod handles it all in your child's language.",
+  },
+  {
+    num: '03',
+    title: 'It remembers you',
+    body: "BeePod learns your child's name, interests, and pace — getting better every single day.",
+  },
+];
 
+function HowItWorksSection() {
   return (
-    <section className="py-16 sm:py-20 px-4 sm:px-6">
-      <div className="max-w-6xl mx-auto text-center">
-        <motion.h2
-          initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}
-          className="text-3xl sm:text-4xl md:text-5xl font-display font-black text-foreground mb-3 sm:mb-4"
+    <section id="howitworks" style={{ background: SURFACE, borderTop: `1px solid ${BORDER}` }}>
+      <div className="max-w-7xl mx-auto px-6 lg:px-10 py-24 lg:py-36">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          variants={stagger}
+          viewport={{ once: true, margin: '-80px' }}
+          className="mb-16"
         >
-          Perfect for everyone.
-        </motion.h2>
-        <motion.p
-          initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}
-          className="text-base sm:text-xl text-muted-foreground mb-10 sm:mb-14 font-sans"
-        >
-          Small in size, big in intelligence. Always by your side.
-        </motion.p>
+          <motion.span variants={fadeUp} className="inline-block text-[11px] font-bold tracking-[0.18em] uppercase mb-4" style={{ color: AMBER }}>
+            How It Works
+          </motion.span>
+          <motion.h2 variants={fadeUp} className="font-display font-black text-4xl sm:text-5xl lg:text-6xl" style={{ color: TEXT }}>
+            Simple for kids.<br />Powerful inside.
+          </motion.h2>
+        </motion.div>
 
-        <div className="grid grid-cols-2 sm:flex sm:flex-wrap justify-center gap-3 sm:gap-4">
-          {useCases.map((uc, i) => (
+        <div className="grid md:grid-cols-3 gap-8">
+          {steps.map((step, i) => (
             <motion.div
-              key={i}
-              initial={{ opacity: 0, scale: 0.85 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              key={step.num}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.07 }}
-              whileHover={{ scale: 1.08, y: -4 }}
-              className="flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-3 sm:py-4 bg-card rounded-2xl border-2 border-border hover:border-primary/40 shadow-sm hover:shadow-lg transition-all font-display font-bold text-foreground text-sm sm:text-base"
+              transition={{ duration: 0.7, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
+              className="relative"
             >
-              <span className="text-xl sm:text-2xl">{uc.icon}</span>
-              <span className="text-left">{uc.label}</span>
+              {/* Connector line */}
+              {i < steps.length - 1 && (
+                <div
+                  className="absolute hidden md:block top-8 left-[calc(100%+16px)] w-[calc(100%-80px)] h-px"
+                  style={{ background: `linear-gradient(90deg, ${BORDER}, transparent)` }}
+                />
+              )}
+              <div
+                className="p-7 rounded-3xl h-full"
+                style={{ background: CARD, border: `1px solid ${BORDER}` }}
+              >
+                <span
+                  className="font-display font-black text-5xl leading-none mb-6 block"
+                  style={{ color: 'rgba(245,166,35,0.18)' }}
+                >
+                  {step.num}
+                </span>
+                <h3 className="font-display font-bold text-xl mb-3" style={{ color: TEXT }}>{step.title}</h3>
+                <p className="text-[15px] leading-relaxed" style={{ color: MUTED }}>{step.body}</p>
+              </div>
             </motion.div>
           ))}
         </div>
+      </div>
+    </section>
+  );
+}
 
-        {/* Bottom tagline */}
+// ─── Founder Section ──────────────────────────────────────────
+function FounderSection() {
+  return (
+    <section id="story" style={{ background: BG, borderTop: `1px solid ${BORDER}` }}>
+      <div className="max-w-5xl mx-auto px-6 lg:px-10 py-24 lg:py-36">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.5 }}
-          className="mt-12 sm:mt-16 inline-flex items-center gap-2 sm:gap-3 bg-foreground text-background px-5 sm:px-8 py-3 sm:py-4 rounded-full font-display font-black text-sm sm:text-lg"
+          initial="hidden"
+          whileInView="visible"
+          variants={stagger}
+          viewport={{ once: true, margin: '-80px' }}
+          className="text-center"
         >
-          <Star className="w-4 h-4 sm:w-5 sm:h-5 fill-secondary text-secondary flex-shrink-0" />
-          <span>Small Bot. Big Voice. Infinite Possibilities.</span>
-          <Star className="w-4 h-4 sm:w-5 sm:h-5 fill-secondary text-secondary flex-shrink-0" />
+          <motion.span variants={fadeUp} className="inline-block text-[11px] font-bold tracking-[0.18em] uppercase mb-4" style={{ color: AMBER }}>
+            Our Story
+          </motion.span>
+
+          <motion.div
+            variants={fadeUp}
+            className="w-16 h-1 rounded-full mx-auto mb-10"
+            style={{ background: `linear-gradient(90deg, ${AMBER_DARK}, ${AMBER})` }}
+          />
+
+          <motion.h2
+            variants={fadeUp}
+            className="font-display font-black text-4xl sm:text-5xl lg:text-6xl leading-tight mb-8"
+            style={{ color: TEXT }}
+          >
+            Born from a<br />
+            <span style={{ color: AMBER }}>bedtime question.</span>
+          </motion.h2>
+
+          <motion.div
+            variants={fadeUp}
+            className="max-w-2xl mx-auto space-y-5 text-[17px] leading-[1.8]"
+            style={{ color: MUTED }}
+          >
+            <p>
+              At eight years old, Malya couldn't find a friend who would answer every question, speak every language, and always have time to listen. So she built one.
+            </p>
+            <p>
+              BeePod started as a school project and grew into something bigger — a real AI companion designed not by engineers in a boardroom, but by a kid who knew exactly what kids actually need.
+            </p>
+            <p>
+              Today, Malya leads the team building BeePod — to make sure every child in the world has a friend as curious as they are.
+            </p>
+          </motion.div>
+
+          <motion.div
+            variants={fadeUp}
+            className="mt-10 inline-flex items-center gap-3 px-6 py-3 rounded-full"
+            style={{ border: `1px solid ${BORDER}`, background: 'rgba(245,166,35,0.05)' }}
+          >
+            <div className="flex -space-x-1">
+              {[1, 2, 3, 4, 5].map(i => (
+                <Star key={i} className="w-4 h-4 fill-current" style={{ color: AMBER }} />
+              ))}
+            </div>
+            <span className="text-[13px] font-semibold" style={{ color: TEXT }}>
+              From a kid, for every kid.
+            </span>
+          </motion.div>
         </motion.div>
       </div>
     </section>
   );
 }
 
-function FounderSection() {
+// ─── Specs Section ────────────────────────────────────────────
+const specs = [
+  { label: 'AI Engine', value: 'Custom on-device + cloud LLM' },
+  { label: 'Languages', value: '50+ supported' },
+  { label: 'Microphones', value: 'Quad far-field array' },
+  { label: 'Speaker', value: '2W full-range, 360°' },
+  { label: 'Battery', value: '2500 mAh — up to 8 hrs' },
+  { label: 'Connectivity', value: 'Wi-Fi 6 + Bluetooth 5.3' },
+  { label: 'Parental Controls', value: 'Full app-based management' },
+  { label: 'Privacy', value: 'COPPA compliant, no ads' },
+  { label: 'Age Range', value: '4 – 14 years' },
+  { label: 'Materials', value: 'Child-safe ABS + silicone' },
+];
+
+function SpecsSection() {
   return (
-    <section id="story" className="py-16 sm:py-24 px-4 sm:px-6 bg-secondary/10 relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-80 h-80 bg-secondary/20 rounded-full blur-3xl -z-0" />
+    <section id="specs" style={{ background: SURFACE, borderTop: `1px solid ${BORDER}` }}>
+      <div className="max-w-6xl mx-auto px-6 lg:px-10 py-24 lg:py-36">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          variants={stagger}
+          viewport={{ once: true, margin: '-80px' }}
+          className="mb-14"
+        >
+          <motion.span variants={fadeUp} className="inline-block text-[11px] font-bold tracking-[0.18em] uppercase mb-4" style={{ color: AMBER }}>
+            Specifications
+          </motion.span>
+          <motion.h2 variants={fadeUp} className="font-display font-black text-4xl sm:text-5xl lg:text-6xl" style={{ color: TEXT }}>
+            Built to last.<br />Built to impress.
+          </motion.h2>
+        </motion.div>
 
-      <div className="max-w-6xl mx-auto relative z-10">
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-          {/* Robot image with decorative frame */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.92 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            className="relative flex justify-center"
-          >
-            <div className="absolute -inset-4 bg-white dark:bg-card rounded-[3rem] border-2 border-secondary/40 shadow-2xl transform rotate-2" />
-            <div className="relative flex flex-col items-center py-4">
-              <motion.img
-                src={beepbotHero}
-                alt="BeepBot"
-                className="relative w-40 sm:w-56 md:w-72 object-contain drop-shadow-2xl"
-                animate={{ y: [0, -12, 0] }}
-                transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
-              />
-              <div className="absolute -bottom-4 sm:-bottom-8 -right-2 sm:-right-4 bg-accent text-white px-4 sm:px-5 py-2 sm:py-3 rounded-xl sm:rounded-2xl shadow-lg font-display font-bold text-xs sm:text-sm transform -rotate-3 flex items-center gap-2">
-                <Heart className="w-3 h-3 sm:w-4 sm:h-4 fill-white" />
-                Founded at age 8
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Story text */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={staggerContainer}
-          >
-            <motion.p variants={fadeInUp} className="font-display font-bold text-xs tracking-[0.2em] uppercase text-accent mb-3 sm:mb-4 flex items-center gap-2">
-              <Heart className="w-4 h-4 fill-accent" />
-              The Heart of BeePod
-            </motion.p>
-
-            <motion.h2 variants={fadeInUp} className="text-3xl sm:text-4xl md:text-5xl font-display font-black text-foreground mb-6 sm:mb-8 leading-tight">
-              From a Lemonade Stand to an AI Revolution.
-            </motion.h2>
-
-            <div className="space-y-4 sm:space-y-5 font-sans text-base sm:text-lg text-foreground/80 leading-relaxed">
-              <motion.p variants={fadeInUp}>
-                The story of BeePod begins with <strong className="text-foreground">Malya</strong> — just 8 years old. She was selling lemonade with her friends when they fired her from her own stand.
-              </motion.p>
-              <motion.p variants={fadeInUp}>
-                Instead of giving up, she made a decision: <strong className="text-foreground">"I'll build my own business — and it'll be bigger than the lemonade stand."</strong>
-              </motion.p>
-              <motion.p variants={fadeInUp}>
-                Through her inventing school, Malya discovered AI learning bots — but they were far too expensive for most families. She believed every kid deserved a brilliant, patient learning companion they could actually afford.
-              </motion.p>
-              <motion.p variants={fadeInUp} className="font-bold text-primary text-lg sm:text-xl">
-                So she decided to build it herself.
-              </motion.p>
-            </div>
-
-            <motion.blockquote
-              variants={fadeInUp}
-              className="mt-6 sm:mt-8 p-4 sm:p-6 bg-white dark:bg-card rounded-xl sm:rounded-2xl border-l-4 border-accent shadow-sm"
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          variants={stagger}
+          viewport={{ once: true }}
+          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px"
+          style={{ background: BORDER, borderRadius: '20px', overflow: 'hidden' }}
+        >
+          {specs.map(({ label, value }, i) => (
+            <motion.div
+              key={label}
+              variants={fadeUp}
+              className="p-6 flex flex-col gap-1.5"
+              style={{ background: CARD }}
             >
-              <p className="italic text-muted-foreground text-base sm:text-lg font-sans">
-                "An 8-year-old building a company to make AI accessible to every family. That's the BeePod promise — and Malya is just getting started."
-              </p>
-            </motion.blockquote>
-          </motion.div>
-        </div>
+              <span className="text-[11px] font-bold tracking-[0.15em] uppercase" style={{ color: AMBER }}>
+                {label}
+              </span>
+              <span className="font-display font-semibold text-[15px]" style={{ color: TEXT }}>
+                {value}
+              </span>
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
     </section>
   );
 }
 
+// ─── Pre-Order Section ────────────────────────────────────────
 function PreOrderSection() {
   const [email, setEmail] = useState('');
-  const [name, setName] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) setSubmitted(true);
+    if (email.trim()) setSubmitted(true);
   };
 
   return (
-    <section id="preorder" className="py-20 sm:py-32 px-4 sm:px-6 bg-primary relative overflow-hidden">
-      <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '24px 24px' }} />
-      <div className="absolute -top-40 -right-40 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
-      <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-secondary/20 rounded-full blur-3xl" />
-
-      <div className="max-w-4xl mx-auto relative z-10 text-center">
+    <section id="preorder" style={{ background: BG, borderTop: `1px solid ${BORDER}` }}>
+      <div className="max-w-4xl mx-auto px-6 py-24 lg:py-36 text-center">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          initial="hidden"
+          whileInView="visible"
+          variants={stagger}
+          viewport={{ once: true, margin: '-80px' }}
         >
-          <motion.img
-            src={beepbotHero}
-            alt="BeepBot"
-            className="w-24 sm:w-36 mx-auto mb-6 sm:mb-8 drop-shadow-2xl"
-            animate={{ y: [0, -10, 0] }}
-            transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-          />
+          <motion.div
+            variants={fadeUp}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-8"
+            style={{ background: 'rgba(245,166,35,0.1)', border: `1px solid rgba(245,166,35,0.2)` }}
+          >
+            <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: AMBER }} />
+            <span className="text-[12px] font-bold tracking-[0.14em] uppercase" style={{ color: AMBER }}>
+              Early Access Open
+            </span>
+          </motion.div>
 
-          <h2 className="text-4xl sm:text-5xl md:text-7xl font-display font-black text-white mb-4 sm:mb-6 leading-tight">
-            Be the first family<br className="hidden sm:block" /> to get BeePod.
-          </h2>
-          <p className="text-base sm:text-xl md:text-2xl text-white/80 font-sans mb-8 sm:mb-12 max-w-2xl mx-auto">
-            Join the waitlist and get exclusive early-bird pricing. Limited pre-orders available.
-          </p>
+          <motion.h2
+            variants={fadeUp}
+            className="font-display font-black text-4xl sm:text-5xl lg:text-7xl leading-none tracking-tighter mb-6"
+            style={{ color: TEXT }}
+          >
+            Be first.<br />
+            <span style={{ color: AMBER }}>Be family.</span>
+          </motion.h2>
 
-          {submitted ? (
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              className="bg-white/15 backdrop-blur-md text-white p-8 sm:p-10 rounded-3xl inline-flex flex-col items-center border border-white/25 shadow-2xl mx-auto max-w-sm w-full"
-            >
-              <div className="w-16 h-16 sm:w-20 sm:h-20 bg-secondary rounded-full flex items-center justify-center mb-4 sm:mb-5">
-                <CheckCircle2 className="w-8 h-8 sm:w-10 sm:h-10 text-secondary-foreground" />
-              </div>
-              <h3 className="text-2xl sm:text-3xl font-display font-black mb-2 sm:mb-3">You're on the list!</h3>
-              <p className="font-sans text-base sm:text-lg text-white/80 max-w-sm">
-                Watch your inbox for updates from Malya and the BeePod team. Big things are coming.
-              </p>
-            </motion.div>
-          ) : (
-            <form onSubmit={handleSubmit} className="flex flex-col gap-3 sm:gap-4 max-w-md mx-auto w-full">
-              <input
-                type="text"
-                placeholder="Your name (optional)"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="w-full px-5 sm:px-6 py-3.5 sm:py-4 rounded-2xl font-sans text-base sm:text-lg border-none focus:ring-4 focus:ring-secondary/50 shadow-lg outline-none text-foreground"
-              />
-              <input
-                type="email"
-                placeholder="Parent's email address"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-5 sm:px-6 py-3.5 sm:py-4 rounded-2xl font-sans text-base sm:text-lg border-none focus:ring-4 focus:ring-secondary/50 shadow-lg outline-none text-foreground"
-              />
-              <motion.button
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                type="submit"
-                className="w-full bg-secondary text-secondary-foreground px-6 sm:px-8 py-4 sm:py-5 rounded-2xl font-display font-black text-lg sm:text-xl shadow-[0_6px_0_0_hsl(44,100%,42%)] hover:shadow-[0_3px_0_0_hsl(44,100%,42%)] hover:translate-y-[3px] transition-all flex items-center justify-center gap-2 sm:gap-3"
+          <motion.p variants={fadeUp} className="text-lg mb-10 max-w-lg mx-auto" style={{ color: MUTED }}>
+            Join thousands of families already on the waitlist. Early backers get exclusive pricing and the first units shipped.
+          </motion.p>
+
+          <AnimatePresence mode="wait">
+            {submitted ? (
+              <motion.div
+                key="success"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="inline-flex flex-col items-center gap-3"
               >
-                Reserve My BeePod
-                <Send className="w-5 h-5 sm:w-6 sm:h-6" />
-              </motion.button>
-              <p className="text-white/50 text-xs sm:text-sm font-sans">No credit card required. Cancel anytime.</p>
-            </form>
+                <div
+                  className="w-14 h-14 rounded-full flex items-center justify-center mb-2"
+                  style={{ background: 'rgba(245,166,35,0.15)', border: `1px solid rgba(245,166,35,0.3)` }}
+                >
+                  <Star className="w-7 h-7" style={{ color: AMBER }} />
+                </div>
+                <p className="font-display font-bold text-2xl" style={{ color: TEXT }}>You're on the list!</p>
+                <p className="text-[15px]" style={{ color: MUTED }}>We'll reach out the moment BeePod is ready for you.</p>
+              </motion.div>
+            ) : (
+              <motion.form
+                key="form"
+                variants={fadeUp}
+                onSubmit={handleSubmit}
+                className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
+              >
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  placeholder="Enter your email"
+                  className="flex-1 px-5 py-4 rounded-2xl text-[15px] font-medium outline-none transition-all"
+                  style={{
+                    background: CARD,
+                    border: `1px solid ${BORDER}`,
+                    color: TEXT,
+                  }}
+                  onFocus={e => (e.currentTarget.style.borderColor = `rgba(245,166,35,0.4)`)}
+                  onBlur={e => (e.currentTarget.style.borderColor = BORDER)}
+                />
+                <motion.button
+                  type="submit"
+                  whileHover={{ scale: 1.04, y: -2 }}
+                  whileTap={{ scale: 0.97 }}
+                  className="inline-flex items-center justify-center gap-2 text-black font-display font-bold text-[15px] px-8 py-4 rounded-2xl whitespace-nowrap"
+                  style={{
+                    background: `linear-gradient(135deg, ${AMBER_DARK}, ${AMBER})`,
+                    boxShadow: `0 0 32px rgba(245,166,35,0.25)`,
+                  }}
+                >
+                  PRE-ORDER <ArrowRight className="w-4 h-4" />
+                </motion.button>
+              </motion.form>
+            )}
+          </AnimatePresence>
+
+          {!submitted && (
+            <motion.p
+              variants={fadeUp}
+              className="mt-4 text-[12px]"
+              style={{ color: 'rgba(240,235,224,0.3)' }}
+            >
+              No spam. Cancel anytime. We'll only email you about BeePod.
+            </motion.p>
           )}
         </motion.div>
       </div>
@@ -695,24 +819,23 @@ function PreOrderSection() {
   );
 }
 
+// ─── Footer ───────────────────────────────────────────────────
 function Footer() {
   return (
-    <footer className="bg-foreground py-10 sm:py-12 px-4 sm:px-6 text-white/50 font-sans">
-      <div className="max-w-6xl mx-auto">
-        <div className="flex flex-col sm:flex-row justify-between items-center gap-6 mb-6 sm:mb-8 pb-6 sm:pb-8 border-b border-white/10">
-          <div className="flex items-center">
-            <img src={beepbotLogo} alt="BeePod" className="h-10 w-auto object-contain" />
-          </div>
-          <div className="flex flex-wrap justify-center gap-4 sm:gap-6 text-sm text-white/50">
-            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
-            <a href="#" className="hover:text-white transition-colors">Contact</a>
-          </div>
+    <footer style={{ background: SURFACE, borderTop: `1px solid ${BORDER}` }}>
+      <div className="max-w-6xl mx-auto px-6 py-12 flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div className="bg-white rounded-xl px-3 py-2">
+          <img src={beepodLogo} alt="BeePod" className="h-8 w-auto object-contain" />
         </div>
-        <div className="flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-4 text-center sm:text-left">
-          <p className="text-xs sm:text-sm">Built with <Heart className="inline w-3 h-3 sm:w-3.5 sm:h-3.5 fill-red-500 text-red-500" /> using ESP32 — Dreamt up by Malya, age 8.</p>
-          <p className="text-xs sm:text-sm">&copy; {new Date().getFullYear()} BeePod. Your Smart AI Companion.</p>
+        <div className="flex items-center gap-6 text-[13px] font-medium" style={{ color: MUTED }}>
+          <a href="#product" className="hover:text-white transition-colors">Product</a>
+          <a href="#howitworks" className="hover:text-white transition-colors">How It Works</a>
+          <a href="#story" className="hover:text-white transition-colors">Story</a>
+          <a href="#specs" className="hover:text-white transition-colors">Specs</a>
         </div>
+        <p className="text-[12px]" style={{ color: 'rgba(240,235,224,0.25)' }}>
+          © 2025 BeePod. All rights reserved.
+        </p>
       </div>
     </footer>
   );

@@ -1,0 +1,129 @@
+BUILD THE BEEPOD WEBSITE COMPLETELY FROM SCRATCH.
+
+IMPORTANT: DO NOT MODIFY, REUSE, OR FOLLOW THE STRUCTURE OF THE EXISTING WEBSITE. DELETE THE CURRENT DESIGN DIRECTION AND CREATE A NEW PREMIUM LANDING PAGE.
+
+BEEPOD is a small AI companion device designed to be friendly, intelligent, playful and accessible. It is created by a young founder, Malya. The website must make BEEPOD feel like a real consumer technology product that people want to PRE-ORDER.
+
+I will upload the official BEEPOD logo, product renders and visual references. USE THESE AS THE SOURCE OF TRUTH. Do not redesign, distort, recolor, redraw or replace the logo or mascot.
+
+==================================================
+DESIGN DIRECTION
+==================================================
+
+Create a clean, modern, premium product website inspired by the best consumer technology websites.
+
+Visual personality:
+- Premium
+- Playful
+- Futuristic
+- Friendly
+- Minimal
+- Child-friendly but NOT childish
+- High-end hardware launch aesthetic
+
+Use the BEEPOD brand colors:
+- Deep navy / near-black
+- Warm white
+- Honey yellow
+- Orange/yellow accents
+
+Do NOT use random rainbow colors.
+
+Avoid:
+- Generic SaaS dashboard layouts
+- Excessive cards
+- Excessive gradients
+- Stock AI imagery
+- Generic robot illustrations
+- Corporate-looking layouts
+- Too much text
+- Clutter
+- Overly childish design
+
+Use:
+- Huge typography
+- Large product renders
+- Generous whitespace
+- Rounded geometry
+- Strong visual hierarchy
+- Subtle shadows
+- Premium product photography
+- Smooth scroll animations
+- Small micro-interactions
+- Carefully controlled yellow/orange accents
+
+The website should feel closer to a premium consumer electronics launch than a software company.
+
+==================================================
+HEADER
+==================================================
+
+Create a minimal floating/sticky header.
+
+THE BEEPOD LOGO MUST BE CENTERED IN THE HEADER.
+
+Use the supplied official logo exactly.
+
+Desktop layout:
+
+LEFT:
+MENU
+PRODUCT
+HOW IT WORKS
+
+CENTER:
+BEEPOD LOGO
+
+RIGHT:
+STORY
+SPECS
+PRE-ORDER
+
+The PRE-ORDER button must be the strongest CTA.
+
+On mobile:
+
+MENU ICON
+CENTERED BEEPOD LOGO
+PRE-ORDER BUTTON
+
+Keep the header clean and premium.
+
+==================================================
+HERO
+==================================================
+
+The hero must immediately communicate what BEEPOD is.
+
+Large headline:
+
+"MEET YOUR NEW AI COMPANION."
+
+Supporting copy:
+
+"Small enough to stay by your side.
+Smart enough to keep up."
+
+Primary CTA:
+
+"PRE-ORDER BEEPOD"
+
+Secondary CTA:
+
+"SEE HOW IT WORKS"
+
+Add a small line:
+
+"Be one of the first to bring BEEPOD home."
+
+Use a large high-quality BEEPOD product render as the main visual.
+
+The product should feel like the hero, not the text.
+
+Create subtle animation:
+- Gentle floating motion
+- Very subtle light movement
+- Slight parallax
+- Smooth entrance animation
+
+Do NOT make the animation distracting.
