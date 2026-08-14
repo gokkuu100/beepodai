@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import {
   Mic, Speaker, Wifi, Battery, Globe, Heart,
@@ -43,43 +43,49 @@ export default function Home() {
 }
 
 function Navbar() {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setVisible(window.scrollY > 60);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   return (
     <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5, ease: 'easeOut' }}
-      className="fixed top-0 inset-x-0 z-50 px-6 py-4 bg-background/85 backdrop-blur-md border-b border-border/40"
+      initial={false}
+      animate={visible ? { y: 0, opacity: 1 } : { y: '-100%', opacity: 0 }}
+      transition={{ duration: 0.35, ease: 'easeOut' }}
+      className="fixed top-0 inset-x-0 z-50 px-5 py-3 bg-white/95 backdrop-blur-md border-b border-amber-100 shadow-sm"
     >
-      {/* Mobile: logo left, CTA right */}
+      {/* Mobile */}
       <div className="flex md:hidden items-center justify-between">
-        <img src={beepbotLogo} alt="BeepBot" className="h-16 w-auto object-contain" />
-        <motion.a
+        <img src={beepbotLogo} alt="BeePod" className="h-11 w-auto object-contain" />
+        <a
           href="#preorder"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="text-[#1A1A1A] px-4 py-2 rounded-full font-display font-bold text-sm whitespace-nowrap shadow-[0_3px_0_0_rgba(217,119,6,0.4)] transition-all"
+          className="text-[#1A1A1A] px-4 py-2 rounded-full font-display font-bold text-sm whitespace-nowrap"
           style={{ background: 'linear-gradient(135deg, #D97706 0%, #F5A623 100%)' }}
         >
           Pre-Order
-        </motion.a>
+        </a>
       </div>
 
-      {/* Desktop: 3-col — nav | big centered logo | CTA */}
+      {/* Desktop: 3-col */}
       <div className="hidden md:grid grid-cols-3 items-center max-w-6xl mx-auto">
-        <div className="flex items-center gap-8 text-sm font-display font-semibold text-muted-foreground">
-          <a href="#features" className="hover:text-foreground transition-colors">Features</a>
-          <a href="#specs" className="hover:text-foreground transition-colors">Specs</a>
-          <a href="#story" className="hover:text-foreground transition-colors">Our Story</a>
+        <div className="flex items-center gap-8 text-sm font-display font-semibold text-[#555]">
+          <a href="#features" className="hover:text-[#1A1A1A] transition-colors">Features</a>
+          <a href="#specs" className="hover:text-[#1A1A1A] transition-colors">Specs</a>
+          <a href="#story" className="hover:text-[#1A1A1A] transition-colors">Our Story</a>
         </div>
         <div className="flex justify-center">
-          <img src={beepbotLogo} alt="BeepBot" className="h-28 w-auto object-contain" />
+          <img src={beepbotLogo} alt="BeePod" className="h-14 w-auto object-contain" />
         </div>
         <div className="flex justify-end">
           <motion.a
             href="#preorder"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="text-white px-6 py-2.5 rounded-full font-display font-bold text-sm whitespace-nowrap shadow-[0_4px_0_0_rgba(89,49,233,0.4)] hover:translate-y-[2px] hover:shadow-[0_2px_0_0_rgba(89,49,233,0.4)] transition-all"
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.96 }}
+            className="text-[#1A1A1A] px-6 py-2.5 rounded-full font-display font-bold text-sm whitespace-nowrap"
             style={{ background: 'linear-gradient(135deg, #D97706 0%, #F5A623 100%)' }}
           >
             Pre-Order Now
@@ -93,82 +99,73 @@ function Navbar() {
 function HeroSection() {
   return (
     <section
-      className="relative pt-24 pb-16 lg:pt-36 lg:pb-28 px-4 sm:px-6 overflow-hidden rounded-b-[2.5rem]"
-      style={{ background: 'linear-gradient(135deg, #D97706 0%, #F5A623 100%)' }}
+      className="relative min-h-screen flex flex-col items-center overflow-hidden"
+      style={{ background: '#FFF8EF' }}
     >
-      {/* Soft inner glow */}
-      <div className="absolute top-0 right-1/4 w-[600px] h-[600px] rounded-full bg-white/5 blur-[140px] pointer-events-none" />
+      {/* Faint decorative ring — echoes the brand mascot circle */}
+      <div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full pointer-events-none"
+        style={{ border: '80px solid rgba(245,166,35,0.07)' }}
+      />
 
-      <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-6 lg:gap-12 items-center">
-        {/* Robot — right on desktop, top on mobile */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.88, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 1, type: 'spring', bounce: 0.3 }}
-          className="relative flex justify-center items-center order-1 lg:order-2 lg:h-[580px]"
+      {/* Logo — big, centered at the top (acts as the hero "header") */}
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, ease: 'easeOut' }}
+        className="relative z-10 pt-10 pb-4"
+      >
+        <img src={beepbotLogo} alt="BeePod" className="h-24 md:h-32 w-auto object-contain" />
+      </motion.div>
+
+      {/* Headline + CTA — centred in remaining space */}
+      <motion.div
+        variants={staggerContainer}
+        initial="hidden"
+        animate="visible"
+        className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-4 pb-64 md:pb-72"
+      >
+        <motion.h1
+          variants={fadeInUp}
+          className="font-display font-black leading-none tracking-tighter text-[#1A1A1A] text-7xl sm:text-8xl md:text-9xl lg:text-[11rem] xl:text-[13rem] mb-4"
         >
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-56 h-56 sm:w-80 sm:h-80 lg:w-[420px] lg:h-[420px] rounded-full bg-white/10 blur-3xl" />
-          </div>
-          <img
-            src={beepbotHero}
-            alt="BeepBot Robot"
-            className="relative z-10 w-52 sm:w-80 lg:w-full lg:max-w-md xl:max-w-lg object-contain drop-shadow-2xl"
-          />
-        </motion.div>
+          BEE POD
+        </motion.h1>
 
-        {/* Text — left on desktop, below robot on mobile */}
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          animate="visible"
-          className="order-2 lg:order-1"
+        <motion.p
+          variants={fadeInUp}
+          className="text-base sm:text-lg md:text-xl text-[#666] mb-8 max-w-sm md:max-w-md leading-relaxed font-sans"
         >
-          <motion.div variants={fadeInUp} className="mb-4">
-            <div className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-display font-black leading-none tracking-tighter whitespace-nowrap text-white">
-              BEE <span className="text-white/90">POD</span>
-            </div>
-          </motion.div>
+          The AI companion that speaks, listens, and learns with your kids — in any language.
+        </motion.p>
 
-          <motion.p variants={fadeInUp} className="text-base sm:text-lg text-white/75 mb-8 max-w-md leading-relaxed font-sans">
-            BeePod speaks, listens, and helps in any language — the AI companion built to make kids smarter and learning more fun.
-          </motion.p>
+        <motion.a
+          variants={fadeInUp}
+          href="#preorder"
+          whileHover={{ scale: 1.05, y: -2 }}
+          whileTap={{ scale: 0.96 }}
+          className="inline-flex items-center gap-2 text-[#1A1A1A] font-display font-black text-base sm:text-lg px-8 py-4 rounded-full shadow-[0_6px_0_0_rgba(180,90,0,0.35)] hover:shadow-[0_3px_0_0_rgba(180,90,0,0.35)] hover:translate-y-[3px] transition-all"
+          style={{ background: 'linear-gradient(135deg, #D97706 0%, #F5A623 100%)' }}
+        >
+          Pre-Order BeePod
+          <ChevronRight className="w-5 h-5" />
+        </motion.a>
+      </motion.div>
 
-          <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-3 mb-8">
-            <motion.a
-              href="#preorder"
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center justify-center gap-2 bg-white text-[#1A1A1A] px-7 py-4 rounded-2xl font-display font-bold text-base sm:text-lg shadow-[0_6px_0_0_rgba(0,0,0,0.2)] hover:shadow-[0_3px_0_0_rgba(0,0,0,0.2)] hover:translate-y-[3px] transition-all"
-            >
-              Pre-Order BeePod
-              <ChevronRight className="w-5 h-5" />
-            </motion.a>
-            <motion.a
-              href="#story"
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center justify-center gap-2 border-2 border-white/40 text-white px-7 py-4 rounded-2xl font-display font-bold text-base sm:text-lg hover:bg-white/10 hover:translate-y-[3px] transition-all"
-            >
-              Our Story
-            </motion.a>
-          </motion.div>
-
-          {/* Quick stats */}
-          <motion.div variants={fadeInUp} className="grid grid-cols-3 gap-3">
-            {[
-              { value: '100+', label: 'Languages' },
-              { value: 'AI', label: 'Powered' },
-              { value: 'Kids', label: 'First' }
-            ].map((s, i) => (
-              <div key={i} className="text-center p-3 sm:p-4 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20">
-                <div className="text-lg sm:text-2xl font-display font-black text-white leading-tight">{s.value}</div>
-                <div className="text-[10px] sm:text-xs font-display font-bold text-white/60 uppercase tracking-wider mt-1">{s.label}</div>
-              </div>
-            ))}
-          </motion.div>
-        </motion.div>
-      </div>
+      {/* Robot rising from the bottom — absolutely positioned */}
+      <motion.div
+        initial={{ opacity: 0, y: 80 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay: 0.4, type: 'spring', bounce: 0.25 }}
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-52 sm:w-64 md:w-80 lg:w-96 z-10"
+      >
+        <img
+          src={beepbotHero}
+          alt="BeePod Robot"
+          className="w-full object-contain"
+          style={{ filter: 'drop-shadow(0 -8px 30px rgba(245,166,35,0.3))' }}
+        />
+      </motion.div>
     </section>
   );
 }
