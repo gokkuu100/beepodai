@@ -13,6 +13,14 @@ import beepodLogo from '@assets/Artboard_9_1786736859076.png';
 import beepodLogoWhite from '@assets/WHITE_LOGO__1786738581248.png';
 // @ts-ignore
 import beepodRobot from '@assets/hf_20260812_210333_7ca1e994-0af8-47de-96e1-fdfebe9398ff_1786735537941.png';
+// @ts-ignore
+import logoGemini from '@assets/Gemini_language_model_logo_1786738681958.png';
+// @ts-ignore
+import logoDeepSeek from '@assets/DeepSeek_logo.svg_1786738681959.webp';
+// @ts-ignore
+import logoChatGPT from '@assets/new-ChatGPT-logo-black-png-large-size_1786738681959.png';
+// @ts-ignore
+import logoClaude from '@assets/Claude_AI_logo.svg_1786738715630.webp';
 
 // ─── Brand Palette ───────────────────────────────────────────
 const ESPRESSO   = '#1A0F00';   // Deep Espresso (primary dark)
@@ -64,6 +72,7 @@ export default function Home() {
       <Navbar />
       <main>
         <HeroSection />
+        <LLMLogosStrip />
         <FeatureStrip />
         <HowItWorksSection />
         <ProductShowcase />
@@ -128,7 +137,7 @@ function Navbar() {
 
             {/* Logo — centered, white bg so white logo shows directly */}
             <div className="flex-1 md:flex-none flex justify-center">
-              <img src={beepodLogoWhite} alt="BeePod" className="h-10 md:h-12 w-auto object-contain" />
+              <img src={beepodLogo} alt="BeePod" className="h-10 md:h-12 w-auto object-contain" />
             </div>
 
             {/* Desktop Right */}
@@ -269,6 +278,53 @@ const features = [
   { icon: Globe,   label: 'Any Language',     desc: 'Speaks 50+ languages fluently' },
   { icon: Shield,  label: 'Kid-Safe',         desc: 'Private by design, no ads ever' },
 ];
+
+// ─── LLM Logos Strip (after hero) ────────────────────────────
+function LLMLogosStrip() {
+  const llms: { src: string; alt: string; invert?: boolean; blend?: boolean }[] = [
+    { src: logoChatGPT,  alt: 'ChatGPT',   invert: true  },
+    { src: logoGemini,   alt: 'Gemini',    blend: true   },
+    { src: logoClaude,   alt: 'Claude',    invert: true  },
+    { src: logoDeepSeek, alt: 'DeepSeek',  blend: true   },
+  ];
+
+  return (
+    <section style={{ background: ESPRESSO, borderTop: `1px solid ${BORDER_DARK}` }}>
+      <div className="max-w-5xl mx-auto px-6 py-10 lg:py-14">
+        <motion.div
+          initial="hidden" whileInView="visible" variants={stagger}
+          viewport={{ once: true, margin: '-60px' }}
+        >
+          <motion.p
+            variants={fadeUp}
+            className="text-center text-[10px] font-bold tracking-[0.22em] uppercase mb-8"
+            style={{ color: 'rgba(255,154,0,0.5)' }}
+          >
+            Compatible with leading AI engines
+          </motion.p>
+
+          <motion.div
+            variants={fadeUp}
+            className="flex flex-wrap items-center justify-center gap-10 md:gap-16"
+          >
+            {llms.map(({ src, alt, invert, blend }) => (
+              <img
+                key={alt}
+                src={src}
+                alt={alt}
+                className="h-7 md:h-8 w-auto object-contain opacity-70 hover:opacity-100 transition-opacity duration-300"
+                style={{
+                  filter: invert ? 'brightness(0) invert(1)' : undefined,
+                  mixBlendMode: blend ? 'screen' : undefined,
+                } as React.CSSProperties}
+              />
+            ))}
+          </motion.div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
 
 function FeatureStrip() {
   return (
