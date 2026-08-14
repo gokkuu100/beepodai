@@ -1,0 +1,236 @@
+
+Explain that BEEPOD connects the hardware experience with AI intelligence.
+
+Do not claim capabilities that have not been provided.
+
+==================================================
+SECTION 5 — HOW IT WORKS
+==================================================
+
+Use a beautiful animated four-step process.
+
+Headline:
+
+"JUST TALK TO BEEPOD."
+
+Step 01:
+YOU SPEAK
+
+Step 02:
+BEEPOD LISTENS
+
+Step 03:
+AI PROCESSES
+
+Step 04:
+BEEPOD RESPONDS
+
+Create subtle animated arrows connecting the steps.
+
+Show the actual BEEPOD device in the process.
+
+Include:
+
+"Internet can enhance BEEPOD's AI experience and capabilities."
+
+Do not invent technical functionality beyond the supplied specifications.
+
+==================================================
+SECTION 6 — PRODUCT SHOWCASE
+==================================================
+
+Headline:
+
+"MEET BEEPOD."
+
+Create a premium interactive product gallery.
+
+Show:
+FRONT
+45° FRONT
+SIDE
+BACK
+45° REAR
+
+Use the supplied product renders.
+
+Allow the user to switch between views.
+
+Add subtle 3D-style movement/parallax if possible.
+
+Keep the background clean.
+
+Headline underneath:
+
+"MADE TO BE YOUR COMPANION."
+
+Short copy:
+
+"Expressive, approachable and always ready to help."
+
+==================================================
+SECTION 7 — WHO IS BEEPOD FOR?
+==================================================
+
+Headline:
+
+"MADE FOR CURIOUS MINDS."
+
+Create four use cases:
+
+KIDS & LEARNING
+Homework help, questions, stories and discovery.
+
+FAMILIES
+A friendly AI companion for everyday interaction.
+
+LANGUAGE & TRANSLATION
+Communicate, learn and explore different languages.
+
+EVERYDAY ASSISTANCE
+Ask questions, get information, brainstorm and interact.
+
+Do not claim medical, safety or other regulated capabilities.
+
+==================================================
+SECTION 8 — TECHNICAL SPECIFICATIONS
+==================================================
+
+Headline:
+
+"INSIDE BEEPOD."
+
+Create a beautiful minimalist specification table.
+
+Use ONLY these specifications unless I provide updated information:
+
+MCU
+ESP32-WROOM-32
+
+DISPLAY
+1.8" ST7735S LCD
+
+MIC
+I2S MEMS (INMP441)
+
+SPEAKER
+MAX98357A + 3W
+
+CONNECTIVITY
+Wi-Fi + Bluetooth
+
+STORAGE
+MicroSD (Optional)
+
+POWER
+18650 (2000mAh)
+
+CHARGING
+USB-C
+
+SIZE
+90 × 70 × 60mm
+
+WEIGHT
+~220g
+
+Make this section visually premium rather than looking like a boring technical datasheet.
+
+==================================================
+SECTION 9 — THE STORY
+==================================================
+
+This is an important emotional section.
+
+Headline:
+
+"FROM A LEMONADE STAND TO AN AI REVOLUTION."
+
+Tell the founder story:
+
+"The story of BEEPOD begins with Malya — just 8 years old. She was selling lemonade with her friends when they fired her from her own stand.
+
+Instead of giving up, she made a decision:
+
+'I'll build my own business — and it'll be bigger than the lemonade stand.'
+
+Through her inventing school, Malya discovered AI learning bots — but they were far too expensive for most families.
+
+She believed every kid deserved a brilliant, patient learning companion they could actually afford.
+
+So she decided to build it herself."
+
+Present this as a powerful visual storytelling section, not a wall of text.
+
+Include the founder's story prominently but tastefully.
+
+==================================================
+SECTION 10 — PRE-ORDER
+==================================================
+
+THIS IS THE MOST IMPORTANT CONVERSION SECTION.
+
+Headline:
+
+"BE ONE OF THE FIRST TO MEET BEEPOD."
+
+Copy:
+
+"BEEPOD is being built for curious minds, families and anyone who wants a smarter, friendlier way to interact with AI."
+
+Large CTA:
+
+"PRE-ORDER BEEPOD"
+
+Add a simple pre-order form.
+
+Fields:
+
+Name
+Email
+Phone
+Country
+
+Button:
+
+"JOIN THE BEEPOD PRE-ORDER"
+
+After submission show a clean confirmation state.
+
+Do not process real payments unless a payment system is specifically configured.
+
+==================================================
+FINAL CTA
+==================================================
+
+Create a huge visual closing section.
+
+Headline:
+
+"SMALL BOT.
+BIG VOICE.
+INFINITE POSSIBILITIES."
+
+Show BEEPOD prominently.
+
+CTA:
+
+"PRE-ORDER BEEPOD"
+
+==================================================
+FOOTER
+==================================================
+
+BEEPOD logo
+
+Navigation:
+Product
+Features
+How It Works
+Specs
+Story
+Pre-Order
+
+Social links placeholders.
+
+Copyright.
