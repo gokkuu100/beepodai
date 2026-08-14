@@ -10,6 +10,8 @@ import {
 // @ts-ignore
 import beepodLogo from '@assets/Artboard_9_1786736859076.png';
 // @ts-ignore
+import beepodLogoWhite from '@assets/WHITE_LOGO__1786738581248.png';
+// @ts-ignore
 import beepodRobot from '@assets/hf_20260812_210333_7ca1e994-0af8-47de-96e1-fdfebe9398ff_1786735537941.png';
 
 // ─── Brand Palette ───────────────────────────────────────────
@@ -99,10 +101,10 @@ function Navbar() {
           <div
             className="rounded-2xl px-5 py-3 flex items-center justify-between transition-all duration-300"
             style={{
-              background: scrolled ? `rgba(26,15,0,0.92)` : `rgba(26,15,0,0.7)`,
+              background: WHITE,
               backdropFilter: 'blur(20px)',
-              border: `1px solid ${BORDER_DARK}`,
-              boxShadow: scrolled ? `0 4px 40px rgba(0,0,0,0.5)` : 'none',
+              border: `1px solid rgba(26,15,0,0.08)`,
+              boxShadow: scrolled ? `0 4px 24px rgba(0,0,0,0.12)` : `0 2px 12px rgba(0,0,0,0.06)`,
             }}
           >
             {/* Desktop Left */}
@@ -110,9 +112,9 @@ function Navbar() {
               {[['Product', '#product'], ['How It Works', '#howitworks']].map(([label, href]) => (
                 <a key={label} href={href}
                   className="text-[13px] font-semibold tracking-wide transition-colors"
-                  style={{ color: MUTED_DARK }}
-                  onMouseEnter={e => (e.currentTarget.style.color = WARM_WHITE)}
-                  onMouseLeave={e => (e.currentTarget.style.color = MUTED_DARK)}
+                  style={{ color: MUTED_LIGHT }}
+                  onMouseEnter={e => (e.currentTarget.style.color = ESPRESSO)}
+                  onMouseLeave={e => (e.currentTarget.style.color = MUTED_LIGHT)}
                 >
                   {label}
                 </a>
@@ -120,15 +122,13 @@ function Navbar() {
             </nav>
 
             {/* Mobile hamburger */}
-            <button className="md:hidden p-1.5" style={{ color: MUTED_DARK }} onClick={() => setMobileOpen(v => !v)}>
+            <button className="md:hidden p-1.5" style={{ color: MUTED_LIGHT }} onClick={() => setMobileOpen(v => !v)}>
               {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
 
-            {/* Logo — centered */}
+            {/* Logo — centered, white bg so white logo shows directly */}
             <div className="flex-1 md:flex-none flex justify-center">
-              <div className="bg-white rounded-xl px-3 py-1.5">
-                <img src={beepodLogo} alt="BeePod" className="h-8 md:h-9 w-auto object-contain" />
-              </div>
+              <img src={beepodLogoWhite} alt="BeePod" className="h-10 md:h-12 w-auto object-contain" />
             </div>
 
             {/* Desktop Right */}
@@ -136,15 +136,15 @@ function Navbar() {
               {[['Story', '#story'], ['Specs', '#specs']].map(([label, href]) => (
                 <a key={label} href={href}
                   className="text-[13px] font-semibold tracking-wide transition-colors"
-                  style={{ color: MUTED_DARK }}
-                  onMouseEnter={e => (e.currentTarget.style.color = WARM_WHITE)}
-                  onMouseLeave={e => (e.currentTarget.style.color = MUTED_DARK)}
+                  style={{ color: MUTED_LIGHT }}
+                  onMouseEnter={e => (e.currentTarget.style.color = ESPRESSO)}
+                  onMouseLeave={e => (e.currentTarget.style.color = MUTED_LIGHT)}
                 >
                   {label}
                 </a>
               ))}
               <motion.a href="#preorder" whileHover={{ scale: 1.04, y: -1 }} whileTap={{ scale: 0.97 }}
-                className="text-[13px] font-bold tracking-wide px-5 py-2 rounded-xl text-black"
+                className="text-[13px] font-bold tracking-wide px-5 py-2 rounded-xl text-black whitespace-nowrap"
                 style={{ background: `linear-gradient(135deg, ${AMBER_GLOW}, ${BEE_ORANGE})` }}
               >
                 Pre-Order
@@ -153,7 +153,7 @@ function Navbar() {
 
             {/* Mobile Pre-Order */}
             <motion.a href="#preorder" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
-              className="md:hidden text-[12px] font-bold px-4 py-2 rounded-xl text-black"
+              className="md:hidden text-[12px] font-bold px-4 py-2 rounded-xl text-black whitespace-nowrap"
               style={{ background: `linear-gradient(135deg, ${AMBER_GLOW}, ${BEE_ORANGE})` }}
             >
               Pre-Order
