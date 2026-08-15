@@ -137,7 +137,7 @@ function Navbar() {
             <nav className="hidden md:flex items-center gap-7 w-56">
               {[['About', '#about'], ['How It Works', '#howitworks'], ['Product', '#product']].map(([label, href]) => (
                 <a key={label} href={href}
-                  className="text-[13px] font-semibold tracking-wide transition-colors"
+                  className="text-[13px] font-semibold tracking-wide transition-colors whitespace-nowrap"
                   style={{ color: 'rgba(255,248,240,0.75)' }}
                   onMouseEnter={e => (e.currentTarget.style.color = BEE_ORANGE)}
                   onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,248,240,0.75)')}
@@ -270,8 +270,6 @@ function HeroSection() {
           <motion.img src={beepodProduct} alt="BeePod AI Companion"
             className="w-full max-w-sm sm:max-w-md lg:max-w-xl xl:max-w-2xl object-contain"
             style={{ maxHeight: '80vh', mixBlendMode: 'screen', filter: `drop-shadow(0 0 80px rgba(255,154,0,0.3))` }}
-            animate={{ y: [0, -14, 0] }}
-            transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
           />
         </motion.div>
       </div>
