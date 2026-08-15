@@ -219,15 +219,6 @@ function HeroSection() {
             </span>
           </motion.div>
 
-          {/* Hero logo — mix-blend-screen removes the white bg on dark */}
-          <motion.div variants={fadeUp} className="mb-4">
-            <img
-              src={beepodLogoHero}
-              alt="BeePod — Your Smart AI Companion"
-              className="w-64 sm:w-80 lg:w-96 xl:w-[28rem] h-auto object-contain"
-              style={{ mixBlendMode: 'screen' }}
-            />
-          </motion.div>
 
           <motion.h1 variants={fadeUp}
             className="font-display font-black leading-[0.92] tracking-tighter mb-6"
