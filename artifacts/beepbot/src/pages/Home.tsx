@@ -20,6 +20,8 @@ import beepodRobot from '@assets/hf_20260812_210333_7ca1e994-0af8-47de-96e1-fdfe
 // @ts-ignore
 import beepodProduct from '@assets/hf_20260811_110546_2b68d97f-4bff-483f-9180-81b18433b94ezzz_1786762097113.png';
 // @ts-ignore
+import beepodBlack from '@assets/hf_20260811_110546_2b68d97f-4bff-483f-9180-81b18433b94e_1786762579063.png';
+// @ts-ignore
 import productFront from '@assets/1_1786762343371.png';
 // @ts-ignore
 import productFront2 from '@assets/2_1786762343371.png';
@@ -864,7 +866,7 @@ function FinalCTA() {
               <div className="w-64 h-64 sm:w-96 sm:h-96 rounded-full"
                 style={{ background: `radial-gradient(ellipse at center, rgba(255,154,0,0.15) 0%, transparent 70%)` }} />
             </div>
-            <motion.img src={beepodRobot} alt="BeePod"
+            <motion.img src={beepodBlack} alt="BeePod"
               className="relative z-10 w-52 sm:w-72 lg:w-80 object-contain"
               style={{ mixBlendMode: 'screen', filter: `drop-shadow(0 0 60px rgba(255,154,0,0.35))` }}
               animate={{ y: [0, -14, 0] }}
