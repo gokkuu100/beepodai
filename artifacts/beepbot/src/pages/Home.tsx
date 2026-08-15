@@ -256,7 +256,7 @@ function HeroSection() {
   const [active, setActive] = useState(0);
 
   useEffect(() => {
-    const t = setInterval(() => setActive(a => (a + 1) % slides.length), 5500);
+    const t = setInterval(() => setActive(a => (a + 1) % slides.length), 4000);
     return () => clearInterval(t);
   }, []);
 
