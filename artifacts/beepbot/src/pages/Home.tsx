@@ -260,8 +260,8 @@ function HeroSection() {
           <div className="absolute w-80 h-80 rounded-full"
             style={{ background: `radial-gradient(ellipse at center, rgba(255,154,0,0.18) 0%, transparent 70%)` }} />
           <motion.img src={beepodProduct} alt="BeePod AI Companion"
-            className="relative z-10 w-full max-w-xs sm:max-w-sm lg:max-w-md xl:max-w-lg object-contain"
-            style={{ maxHeight: '85vh', mixBlendMode: 'screen', filter: `drop-shadow(0 0 60px rgba(255,154,0,0.3))` }}
+            className="relative z-10 w-full max-w-sm sm:max-w-md lg:max-w-xl xl:max-w-2xl object-contain"
+            style={{ maxHeight: '95vh', mixBlendMode: 'screen', filter: `drop-shadow(0 0 60px rgba(255,154,0,0.3))` }}
             animate={{ y: [0, -14, 0] }}
             transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
           />
