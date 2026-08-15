@@ -586,7 +586,7 @@ const audiences = [
 // ─── Parent App Section ───────────────────────────────────────
 function PhoneMockup() {
   return (
-    <div className="relative mx-auto" style={{ width: 260, filter: 'drop-shadow(0 40px 80px rgba(0,0,0,0.6))' }}>
+    <div className="relative mx-auto" style={{ width: 260, filter: 'drop-shadow(0 40px 80px rgba(0,0,0,0.7))' }}>
       {/* Phone shell */}
       <div className="relative rounded-[40px] overflow-hidden"
         style={{ background: '#0d0d0d', border: '8px solid #222', boxShadow: 'inset 0 0 0 1px #333' }}>
@@ -594,99 +594,41 @@ function PhoneMockup() {
         <div className="flex justify-center pt-3 pb-1">
           <div className="w-20 h-5 rounded-full" style={{ background: '#000' }} />
         </div>
-
-        {/* Screen */}
-        <div className="px-0" style={{ background: '#111', minHeight: 480 }}>
-
-          {/* App header */}
-          <div className="px-4 pt-2 pb-3 flex items-center justify-between"
-            style={{ background: '#1a1a1a', borderBottom: '1px solid #2a2a2a' }}>
-            <div>
-              <p className="text-[9px] font-bold tracking-widest uppercase" style={{ color: BEE_ORANGE }}>BeePod</p>
-              <p className="text-[13px] font-bold text-white leading-tight">Parent Dashboard</p>
-            </div>
-            <div className="w-7 h-7 rounded-full flex items-center justify-center text-[12px]"
-              style={{ background: 'rgba(255,154,0,0.15)', border: '1px solid rgba(255,154,0,0.3)' }}>🔔</div>
-          </div>
-
-          {/* Child card */}
-          <div className="mx-3 mt-3 p-3 rounded-2xl"
-            style={{ background: 'linear-gradient(135deg,#2a1800,#1a1000)', border: '1px solid rgba(255,154,0,0.2)' }}>
-            <div className="flex items-center gap-2 mb-2">
-              <div className="w-8 h-8 rounded-full flex items-center justify-center text-[14px]"
-                style={{ background: 'rgba(255,154,0,0.2)' }}>🤖</div>
-              <div>
-                <p className="text-white text-[12px] font-bold">Malya's BeePod</p>
-                <div className="flex items-center gap-1">
-                  <div className="w-1.5 h-1.5 rounded-full bg-green-400" />
-                  <p className="text-[9px]" style={{ color: 'rgba(255,248,240,0.5)' }}>Active now</p>
-                </div>
-              </div>
-            </div>
-            {/* Usage bar */}
-            <div className="flex items-center justify-between mb-1">
-              <p className="text-[9px]" style={{ color: 'rgba(255,248,240,0.5)' }}>Today's usage</p>
-              <p className="text-[9px] font-bold" style={{ color: BEE_ORANGE }}>45 min / 2 hr</p>
-            </div>
-            <div className="w-full h-1.5 rounded-full" style={{ background: 'rgba(255,154,0,0.15)' }}>
-              <div className="h-full rounded-full" style={{ width: '37.5%', background: `linear-gradient(90deg,${AMBER_GLOW},${BEE_ORANGE})` }} />
+        {/* Splash screen */}
+        <div className="flex flex-col items-center justify-center gap-5"
+          style={{ background: ESPRESSO, minHeight: 480, padding: '40px 24px' }}>
+          {/* Glow ring */}
+          <div className="relative flex items-center justify-center">
+            <div className="absolute w-28 h-28 rounded-full"
+              style={{ background: 'radial-gradient(ellipse, rgba(255,154,0,0.25) 0%, transparent 70%)' }} />
+            <div className="w-20 h-20 rounded-2xl flex items-center justify-center text-4xl relative z-10"
+              style={{ background: `linear-gradient(135deg, ${AMBER_GLOW}, ${BEE_ORANGE})` }}>
+              🐝
             </div>
           </div>
-
-          {/* Recent activity */}
-          <div className="px-3 mt-3">
-            <p className="text-[9px] font-bold tracking-widest uppercase mb-2" style={{ color: 'rgba(255,248,240,0.35)' }}>Recent Activity</p>
-            {[
-              { emoji: '🔭', topic: 'Asked about space', time: '2m ago' },
-              { emoji: '📚', topic: 'Spelling practice', time: '18m ago' },
-              { emoji: '🎵', topic: 'Sang a song', time: '34m ago' },
-            ].map(({ emoji, topic, time }) => (
-              <div key={topic} className="flex items-center gap-2 py-2"
-                style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-                <span className="text-[13px]">{emoji}</span>
-                <p className="text-[11px] text-white flex-1">{topic}</p>
-                <p className="text-[9px]" style={{ color: 'rgba(255,248,240,0.35)' }}>{time}</p>
-              </div>
+          {/* Name */}
+          <div className="text-center">
+            <p className="font-display font-black text-[22px] tracking-tight leading-tight"
+              style={{ color: WARM_WHITE }}>BeePod</p>
+            <p className="text-[11px] font-bold tracking-[0.2em] uppercase mt-1"
+              style={{ color: BEE_ORANGE }}>Parent App</p>
+          </div>
+          {/* Loading dots */}
+          <div className="flex gap-2 mt-4">
+            {[0, 1, 2].map(i => (
+              <div key={i} className="w-1.5 h-1.5 rounded-full"
+                style={{ background: i === 1 ? BEE_ORANGE : 'rgba(255,154,0,0.3)' }} />
             ))}
-          </div>
-
-          {/* Quick controls */}
-          <div className="mx-3 mt-3 grid grid-cols-2 gap-2">
-            {[
-              { icon: '⏸️', label: 'Pause' },
-              { icon: '🔒', label: 'Filters' },
-              { icon: '📊', label: 'Reports' },
-              { icon: '⚙️', label: 'Settings' },
-            ].map(({ icon, label }) => (
-              <div key={label} className="py-2 rounded-xl flex flex-col items-center gap-1"
-                style={{ background: '#1e1e1e', border: '1px solid #2a2a2a' }}>
-                <span className="text-[14px]">{icon}</span>
-                <p className="text-[9px] font-semibold" style={{ color: 'rgba(255,248,240,0.6)' }}>{label}</p>
-              </div>
-            ))}
-          </div>
-
-          {/* Bottom nav */}
-          <div className="flex justify-around items-center px-4 py-3 mt-3"
-            style={{ borderTop: '1px solid #1e1e1e' }}>
-            {['🏠','👤','📊','⚙️'].map((icon, i) => (
-              <div key={i} className="flex flex-col items-center gap-0.5">
-                <span className="text-[14px]">{icon}</span>
-                {i === 0 && <div className="w-1 h-1 rounded-full" style={{ background: BEE_ORANGE }} />}
-              </div>
-            ))}
-          </div>
-
-          {/* Home indicator */}
-          <div className="flex justify-center pb-2">
-            <div className="w-16 h-1 rounded-full" style={{ background: '#333' }} />
           </div>
         </div>
+        {/* Home indicator */}
+        <div className="flex justify-center py-2" style={{ background: ESPRESSO }}>
+          <div className="w-16 h-1 rounded-full" style={{ background: '#333' }} />
+        </div>
       </div>
-
       {/* Ambient glow */}
-      <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-48 h-24 rounded-full pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse, rgba(255,154,0,0.15) 0%, transparent 70%)', filter: 'blur(16px)' }} />
+      <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-48 h-20 rounded-full pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse, rgba(255,154,0,0.18) 0%, transparent 70%)', filter: 'blur(20px)' }} />
     </div>
   );
 }
@@ -726,17 +668,14 @@ function ParentAppSection() {
               The BeePod Parent App gives you full visibility and control over your child's AI companion — right from your phone.
             </motion.p>
 
-            <motion.div variants={stagger} className="grid sm:grid-cols-2 gap-4">
-              {features.map(({ icon, title, desc }) => (
+            <motion.div variants={stagger} className="grid grid-cols-2 gap-3">
+              {features.map(({ icon, title }) => (
                 <motion.div key={title} variants={fadeUp}
-                  className="flex gap-3 p-4 rounded-2xl"
+                  className="flex items-center gap-3 px-4 py-3 rounded-2xl"
                   style={{ background: CARD_DARK, border: `1px solid ${BORDER_DARK}` }}>
-                  <span className="text-xl mt-0.5 shrink-0">{icon}</span>
-                  <div>
-                    <h3 className="font-display font-bold text-[13px] tracking-tight mb-0.5"
-                      style={{ color: WARM_WHITE }}>{title}</h3>
-                    <p className="text-[12px] leading-relaxed" style={{ color: MUTED_DARK }}>{desc}</p>
-                  </div>
+                  <span className="text-xl shrink-0">{icon}</span>
+                  <h3 className="font-display font-semibold text-[13px] tracking-tight leading-snug"
+                    style={{ color: WARM_WHITE }}>{title}</h3>
                 </motion.div>
               ))}
             </motion.div>
