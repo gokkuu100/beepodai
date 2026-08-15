@@ -268,7 +268,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Malya's Story ── */}
+      {/* ── Malia's Story ── */}
       <section id="story-section" className="px-6 py-16 lg:py-24 bg-accent text-accent-foreground relative overflow-hidden">
         <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 blur-[120px] rounded-full pointer-events-none" />
 
@@ -302,14 +302,14 @@ export default function Home() {
               </h2>
 
               <div className="space-y-4 text-base lg:text-lg font-medium leading-relaxed opacity-90">
-                <p>When 8-year-old Malya was "fired" from a neighborhood lemonade stand by her friends, she decided to build something bigger than lemonade.</p>
+                <p>When 8-year-old Malia was "fired" from a neighborhood lemonade stand by her friends, she decided to build something bigger than lemonade.</p>
                 <p>She discovered AI bots but found them far too expensive for kids. Enrolled in an inventing school, she decided to build her own.</p>
                 <p>Months of building, testing, and dreaming led to BeePod — a smart, friendly, and affordable companion for every family.</p>
               </div>
 
               <blockquote className="mt-8 p-5 bg-background/10 border-l-4 border-background/60 rounded-r-2xl font-bold text-lg italic">
                 "I wanted to build a robot that could talk to anyone in the world. So I did."
-                <span className="text-sm font-semibold opacity-70 mt-2 block">— Malya</span>
+                <span className="text-sm font-semibold opacity-70 mt-2 block">— Malia</span>
               </blockquote>
             </motion.div>
           </div>
@@ -396,7 +396,7 @@ export default function Home() {
             <a href="#" className="hover:text-primary transition-colors">Contact</a>
           </div>
           <p className="text-sm text-muted-foreground font-medium bg-card px-4 py-2 rounded-full border border-border">
-            Dreamt up by Malya, age 8
+            Dreamt up by Malia, age 8
           </p>
         </div>
       </footer>

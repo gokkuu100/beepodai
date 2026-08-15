@@ -368,7 +368,7 @@ function AboutSection() {
             <motion.p variants={fadeUp}
               className="text-[17px] leading-relaxed"
               style={{ color: MUTED_LIGHT }}>
-              Invented by Malya, age 8, BeePod started as a lemonade-stand dream. Today it's a real product designed to make every child feel heard, supported, and endlessly curious.
+              Invented by Malia, age 8, BeePod started as a lemonade-stand dream. Today it's a real product designed to make every child feel heard, supported, and endlessly curious.
             </motion.p>
           </motion.div>
 
@@ -822,7 +822,7 @@ function FounderSection() {
               style={{ color: MUTED_DARK }}>
               <motion.p variants={fadeUp}>
                 The story of BeePod begins with{' '}
-                <span style={{ color: WARM_WHITE, fontWeight: 600 }}>Malya</span>
+                <span style={{ color: WARM_WHITE, fontWeight: 600 }}>Malia</span>
                 {' '}— just 8 years old. She was selling lemonade with her friends when they fired her from her own stand.
               </motion.p>
               <motion.p variants={fadeUp}>
@@ -838,7 +838,7 @@ function FounderSection() {
             <motion.div variants={stagger} className="space-y-6 text-[17px] leading-[1.8]"
               style={{ color: MUTED_DARK }}>
               <motion.p variants={fadeUp}>
-                Through her inventing school, Malya discovered AI learning bots — but they were far too expensive for most families.
+                Through her inventing school, Malia discovered AI learning bots — but they were far too expensive for most families.
               </motion.p>
               <motion.p variants={fadeUp}>
                 She believed{' '}
@@ -861,7 +861,7 @@ function FounderSection() {
             </div>
             <div>
               <p className="font-display font-bold text-sm" style={{ color: WARM_WHITE }}>
-                Malya, Founder — Age 8
+                Malia, Founder — Age 8
               </p>
               <p className="text-[12px]" style={{ color: MUTED_DARK }}>
                 Kid-invented. Kid-approved. Built for every kid.
@@ -1108,7 +1108,7 @@ function Footer() {
             © 2025 BeePod. All rights reserved.
           </p>
           <p className="text-[12px]" style={{ color: 'rgba(255,248,240,0.2)' }}>
-            Invented by Malya, age 8.
+            Invented by Malia, age 8.
           </p>
         </div>
       </div>
