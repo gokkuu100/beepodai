@@ -14,6 +14,8 @@ import beepodLogoWhite from '@assets/WHITE_LOGO__1786738581248.png';
 // @ts-ignore
 import beepodLogoFooter from '@assets/WHITE_LOGO__1786759298246.png';
 // @ts-ignore
+import beepodLogoHero from '@assets/WHITE_LOGO__1786760473895.png';
+// @ts-ignore
 import beepodRobot from '@assets/hf_20260812_210333_7ca1e994-0af8-47de-96e1-fdfebe9398ff_1786735537941.png';
 // @ts-ignore
 import logoGemini from '@assets/Gemini_language_model_logo_1786738681958.png';
@@ -215,14 +217,20 @@ function HeroSection() {
             </span>
           </motion.div>
 
+          {/* Hero logo — mix-blend-screen removes the white bg on dark */}
+          <motion.div variants={fadeUp} className="mb-4">
+            <img
+              src={beepodLogoHero}
+              alt="BeePod — Your Smart AI Companion"
+              className="w-64 sm:w-80 lg:w-96 xl:w-[28rem] h-auto object-contain"
+              style={{ mixBlendMode: 'screen' }}
+            />
+          </motion.div>
+
           <motion.h1 variants={fadeUp}
             className="font-display font-black leading-[0.92] tracking-tighter mb-6"
-            style={{ color: WARM_WHITE }}>
-            <span className="block text-[3.4rem] sm:text-[4.5rem] lg:text-[5rem] xl:text-[6rem]">MEET YOUR</span>
-            <span className="block text-[3.4rem] sm:text-[4.5rem] lg:text-[5rem] xl:text-[6rem]">NEW AI</span>
-            <span className="block text-[3.4rem] sm:text-[4.5rem] lg:text-[5rem] xl:text-[6rem]" style={{ color: BEE_ORANGE }}>
-              COMPANION.
-            </span>
+            style={{ color: BEE_ORANGE }}>
+            <span className="block text-[3.4rem] sm:text-[4.5rem] lg:text-[5rem] xl:text-[6rem]">COMPANION.</span>
           </motion.h1>
 
           <motion.p variants={fadeUp} className="text-base sm:text-lg leading-relaxed mb-2 max-w-sm" style={{ color: MUTED_DARK }}>
