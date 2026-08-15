@@ -20,6 +20,14 @@ import beepodRobot from '@assets/hf_20260812_210333_7ca1e994-0af8-47de-96e1-fdfe
 // @ts-ignore
 import beepodProduct from '@assets/hf_20260811_110546_2b68d97f-4bff-483f-9180-81b18433b94ezzz_1786762097113.png';
 // @ts-ignore
+import productFront from '@assets/1_1786762343371.png';
+// @ts-ignore
+import productFront2 from '@assets/2_1786762343371.png';
+// @ts-ignore
+import productSide from '@assets/3_1786762343370.png';
+// @ts-ignore
+import productBack from '@assets/4_1786762343369.png';
+// @ts-ignore
 import logoGemini from '@assets/Gemini_language_model_logo_1786738681958.png';
 // @ts-ignore
 import logoDeepSeek from '@assets/DeepSeek_logo.svg_1786738681959.webp';
@@ -448,17 +456,16 @@ function HowItWorksSection() {
 }
 
 // ─── SECTION 4: Product Showcase (WHITE bg) ──────────────────
-const angles = ['FRONT', '45° FRONT', 'SIDE', 'BACK', '45° REAR'];
-const angleTransforms: Record<string, string> = {
-  'FRONT':    'perspective(800px) rotateY(0deg)',
-  '45° FRONT':'perspective(800px) rotateY(-20deg)',
-  'SIDE':     'perspective(800px) rotateY(-45deg)',
-  'BACK':     'perspective(800px) rotateY(-160deg) scaleX(-1)',
-  '45° REAR': 'perspective(800px) rotateY(-135deg) scaleX(-1)',
-};
+const productViews: { label: string; img: string; desc: string }[] = [
+  { label: 'FRONT',   img: productFront,  desc: 'Smiling LED face display — always expressive.' },
+  { label: 'FRONT+',  img: productFront2, desc: 'Full-body view with the BeePod branding.' },
+  { label: 'SIDE',    desc: 'Compact silhouette — small enough for any desk.',  img: productSide  },
+  { label: 'BACK',    desc: 'Speaker grille and USB-C charging port.', img: productBack  },
+];
 
 function ProductShowcase() {
-  const [active, setActive] = useState('FRONT');
+  const [active, setActive] = useState(0);
+  const view = productViews[active];
 
   return (
     <section id="product" style={{ background: WHITE, borderTop: `1px solid ${BORDER_LIGHT}` }}>
@@ -479,53 +486,56 @@ function ProductShowcase() {
 
         {/* Gallery */}
         <div className="flex flex-col items-center gap-10">
-          {/* Angle tabs */}
+          {/* View tabs */}
           <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }} className="flex flex-wrap justify-center gap-2">
-            {angles.map(a => (
-              <button key={a} onClick={() => setActive(a)}
+            {productViews.map((v, i) => (
+              <button key={v.label} onClick={() => setActive(i)}
                 className="text-[11px] font-bold tracking-[0.1em] px-4 py-2 rounded-full transition-all duration-300"
                 style={{
-                  background: active === a ? `linear-gradient(135deg, ${AMBER_GLOW}, ${BEE_ORANGE})` : CARD_LIGHT,
-                  color: active === a ? '#000' : MUTED_LIGHT,
-                  border: `1px solid ${active === a ? 'transparent' : BORDER_LIGHT}`,
+                  background: active === i ? `linear-gradient(135deg, ${AMBER_GLOW}, ${BEE_ORANGE})` : CARD_LIGHT,
+                  color: active === i ? '#000' : MUTED_LIGHT,
+                  border: `1px solid ${active === i ? 'transparent' : BORDER_LIGHT}`,
                 }}>
-                {a}
+                {v.label}
               </button>
             ))}
           </motion.div>
 
-          {/* Robot render */}
-          <div className="relative flex items-center justify-center h-72 sm:h-96">
+          {/* Product image */}
+          <div className="relative flex items-center justify-center h-80 sm:h-[28rem]">
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-64 h-64 rounded-full"
-                style={{ background: `radial-gradient(ellipse at center, rgba(255,154,0,0.07) 0%, transparent 70%)` }} />
+              <div className="w-72 h-72 rounded-full"
+                style={{ background: `radial-gradient(ellipse at center, rgba(255,154,0,0.08) 0%, transparent 70%)` }} />
             </div>
             <AnimatePresence mode="wait">
               <motion.img
                 key={active}
-                src={beepodRobot}
-                alt={`BeePod — ${active}`}
-                className="h-full object-contain relative z-10"
-                initial={{ opacity: 0, scale: 0.92 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.92 }}
-                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                style={{ transform: angleTransforms[active], transition: 'transform 0.5s ease' }}
+                src={view.img}
+                alt={`BeePod — ${view.label}`}
+                className="h-full object-contain relative z-10 drop-shadow-xl"
+                initial={{ opacity: 0, scale: 0.94, y: 10 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.94, y: -10 }}
+                transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
               />
             </AnimatePresence>
           </div>
 
-          {/* Sub-headline */}
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }} className="text-center max-w-lg">
-            <h3 className="font-display font-black text-2xl sm:text-3xl mb-3" style={{ color: ESPRESSO }}>
-              MADE TO BE YOUR COMPANION.
-            </h3>
-            <p className="text-[16px] leading-relaxed" style={{ color: MUTED_LIGHT }}>
-              Expressive, approachable and always ready to help.
-            </p>
-          </motion.div>
+          {/* View description */}
+          <AnimatePresence mode="wait">
+            <motion.div key={active}
+              initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.3 }}
+              className="text-center max-w-lg">
+              <h3 className="font-display font-black text-2xl sm:text-3xl mb-3" style={{ color: ESPRESSO }}>
+                MADE TO BE YOUR COMPANION.
+              </h3>
+              <p className="text-[16px] leading-relaxed" style={{ color: MUTED_LIGHT }}>
+                {view.desc}
+              </p>
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
     </section>
