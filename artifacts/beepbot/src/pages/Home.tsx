@@ -12,6 +12,8 @@ import beepodLogo from '@assets/Artboard_9_1786736859076.png';
 // @ts-ignore
 import beepodLogoWhite from '@assets/WHITE_LOGO__1786738581248.png';
 // @ts-ignore
+import beepodLogoFooter from '@assets/WHITE_LOGO__1786759298246.png';
+// @ts-ignore
 import beepodRobot from '@assets/hf_20260812_210333_7ca1e994-0af8-47de-96e1-fdfebe9398ff_1786735537941.png';
 // @ts-ignore
 import logoGemini from '@assets/Gemini_language_model_logo_1786738681958.png';
@@ -883,9 +885,12 @@ function Footer() {
         <div className="grid md:grid-cols-3 gap-10 mb-12">
           {/* Logo + tagline */}
           <div className="flex flex-col gap-4">
-            <div className="bg-white rounded-xl px-3 py-2 self-start">
-              <img src={beepodLogo} alt="BeePod" className="h-9 w-auto object-contain" />
-            </div>
+            <img
+              src={beepodLogoFooter}
+              alt="BeePod"
+              className="h-24 w-auto object-contain self-start"
+              style={{ mixBlendMode: 'screen' }}
+            />
             <p className="text-[13px] leading-relaxed max-w-[200px]" style={{ color: MUTED_DARK }}>
               Your smart AI companion. Built by a kid, for every kid.
             </p>
