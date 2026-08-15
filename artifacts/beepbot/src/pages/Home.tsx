@@ -93,6 +93,7 @@ export default function Home() {
         <FeatureStrip />
         <HowItWorksSection />
         <ProductShowcase />
+        <ParentAppSection />
         <WhoIsItForSection />
         <SpecsSection />
         <FounderSection />
@@ -161,7 +162,7 @@ function Navbar() {
 
             {/* Desktop Right */}
             <nav className="hidden md:flex items-center gap-7 w-56 justify-end">
-              {[['Parent App', '#preorder'], ['Specs', '#specs'], ['Story', '#story']].map(([label, href]) => (
+              {[['Parent App', '#parentapp'], ['Specs', '#specs'], ['Story', '#story']].map(([label, href]) => (
                 <a key={label} href={href}
                   className="text-[13px] font-semibold tracking-wide transition-colors whitespace-nowrap"
                   style={{ color: 'rgba(255,248,240,0.75)' }}
@@ -581,6 +582,97 @@ const audiences = [
   { icon: Languages, title: 'LANGUAGE & TRANSLATION',    desc: 'Communicate, learn and explore different languages.' },
   { icon: HelpCircle,title: 'EVERYDAY ASSISTANCE',       desc: 'Ask questions, get information, brainstorm and interact.' },
 ];
+
+// ─── Parent App Section ───────────────────────────────────────
+function ParentAppSection() {
+  const features = [
+    {
+      icon: '👁️',
+      title: 'Monitor Conversations',
+      desc: 'Review everything BeePod talks about with your child — full transparency, always.',
+    },
+    {
+      icon: '⏱️',
+      title: 'Screen Time Controls',
+      desc: 'Set daily usage limits and quiet hours so BeePod rests when your family does.',
+    },
+    {
+      icon: '🔒',
+      title: 'Safe Content Filters',
+      desc: 'Age-appropriate guardrails built in. You decide what topics BeePod can discuss.',
+    },
+    {
+      icon: '📊',
+      title: 'Learning Reports',
+      desc: 'Weekly summaries of your child\'s curiosity — questions asked, topics explored, skills growing.',
+    },
+    {
+      icon: '🔔',
+      title: 'Real-Time Alerts',
+      desc: 'Get notified instantly if BeePod detects anything that needs a parent\'s attention.',
+    },
+    {
+      icon: '🌐',
+      title: 'Multi-Device Family',
+      desc: 'Manage multiple BeePods across your household from one parent dashboard.',
+    },
+  ];
+
+  return (
+    <section id="parentapp" style={{ background: ESPRESSO }}>
+      <div className="max-w-6xl mx-auto px-6 lg:px-10 py-24 lg:py-32">
+
+        {/* Header */}
+        <motion.div initial="hidden" whileInView="visible" variants={stagger}
+          viewport={{ once: true, margin: '-80px' }}
+          className="text-center mb-16">
+          <motion.span variants={fadeUp}
+            className="block text-[11px] font-bold tracking-[0.18em] uppercase mb-4"
+            style={{ color: BEE_ORANGE }}>
+            Parent App
+          </motion.span>
+          <motion.h2 variants={fadeUp}
+            className="font-display font-black text-4xl sm:text-5xl lg:text-6xl tracking-tighter mb-5"
+            style={{ color: WARM_WHITE }}>
+            YOU'RE ALWAYS<br />
+            <span style={{ color: BEE_ORANGE }}>IN CONTROL.</span>
+          </motion.h2>
+          <motion.p variants={fadeUp}
+            className="text-[17px] leading-relaxed max-w-xl mx-auto"
+            style={{ color: MUTED_DARK }}>
+            The BeePod Parent App gives you full visibility and control over your child's AI companion — right from your phone.
+          </motion.p>
+        </motion.div>
+
+        {/* Features grid */}
+        <motion.div initial="hidden" whileInView="visible" variants={stagger}
+          viewport={{ once: true, margin: '-80px' }}
+          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {features.map(({ icon, title, desc }) => (
+            <motion.div key={title} variants={fadeUp}
+              className="p-6 rounded-2xl flex flex-col gap-3"
+              style={{ background: CARD_DARK, border: `1px solid ${BORDER_DARK}` }}>
+              <span className="text-2xl">{icon}</span>
+              <h3 className="font-display font-bold text-[18px] tracking-tight"
+                style={{ color: WARM_WHITE }}>{title}</h3>
+              <p className="text-[14px] leading-relaxed" style={{ color: MUTED_DARK }}>{desc}</p>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* CTA */}
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.3 }}
+          className="mt-14 flex justify-center">
+          <AmberButton href="#preorder">
+            GET EARLY ACCESS <ChevronRight className="w-4 h-4" />
+          </AmberButton>
+        </motion.div>
+
+      </div>
+    </section>
+  );
+}
 
 function WhoIsItForSection() {
   return (
