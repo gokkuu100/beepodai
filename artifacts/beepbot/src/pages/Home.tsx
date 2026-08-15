@@ -942,7 +942,8 @@ function PreOrderSection() {
     <section id="preorder" style={{ background: WHITE, borderTop: `1px solid ${BORDER_LIGHT}` }}>
       <div className="max-w-4xl mx-auto px-6 py-24 lg:py-36">
         <motion.div initial="hidden" whileInView="visible" variants={stagger}
-          viewport={{ once: true, margin: '-80px' }}>
+          viewport={{ once: true, margin: '-80px' }}
+          className="flex flex-col items-center text-center">
           <motion.div variants={fadeUp} className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-8"
             style={{ background: 'rgba(255,154,0,0.08)', border: `1px solid rgba(255,154,0,0.2)` }}>
             <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: BEE_ORANGE }} />
@@ -967,7 +968,7 @@ function PreOrderSection() {
             {submitted ? (
               <motion.div key="success"
                 initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
-                className="flex flex-col items-start gap-4">
+                className="flex flex-col items-center gap-4">
                 <div className="w-14 h-14 rounded-2xl flex items-center justify-center"
                   style={{ background: 'rgba(255,154,0,0.1)', border: `1px solid rgba(255,154,0,0.25)` }}>
                   <Star className="w-7 h-7" style={{ color: BEE_ORANGE }} />
