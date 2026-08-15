@@ -128,10 +128,10 @@ function Navbar() {
         transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
         className="fixed top-0 inset-x-0 z-50 transition-all duration-300"
         style={{
-          background: scrolled ? 'rgba(255,255,255,0.97)' : 'rgba(26,15,0,0.55)',
-          backdropFilter: 'blur(24px)',
-          borderBottom: scrolled ? '1px solid rgba(0,0,0,0.08)' : '1px solid rgba(255,154,0,0.06)',
-          boxShadow: scrolled ? '0 4px 24px rgba(0,0,0,0.08)' : 'none',
+          background: scrolled ? 'rgba(255,255,255,0.97)' : ESPRESSO,
+          backdropFilter: scrolled ? 'blur(24px)' : 'none',
+          borderBottom: scrolled ? '1px solid rgba(0,0,0,0.08)' : `1px solid ${BORDER_DARK}`,
+          boxShadow: scrolled ? '0 4px 24px rgba(0,0,0,0.08)' : '0 4px 24px rgba(0,0,0,0.3)',
         }}
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
