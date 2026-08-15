@@ -114,10 +114,10 @@ function Navbar() {
           <div
             className="rounded-2xl px-5 py-3 flex items-center justify-between transition-all duration-300"
             style={{
-              background: WHITE,
-              backdropFilter: 'blur(20px)',
-              border: `1px solid rgba(26,15,0,0.08)`,
-              boxShadow: scrolled ? `0 4px 24px rgba(0,0,0,0.12)` : `0 2px 12px rgba(0,0,0,0.06)`,
+              background: scrolled ? 'rgba(26,15,0,0.75)' : 'transparent',
+              backdropFilter: scrolled ? 'blur(20px)' : 'none',
+              border: `1px solid ${scrolled ? 'rgba(255,154,0,0.12)' : 'transparent'}`,
+              boxShadow: scrolled ? `0 4px 24px rgba(0,0,0,0.3)` : 'none',
             }}
           >
             {/* Desktop Left */}
@@ -125,9 +125,9 @@ function Navbar() {
               {[['Product', '#product'], ['How It Works', '#howitworks']].map(([label, href]) => (
                 <a key={label} href={href}
                   className="text-[13px] font-semibold tracking-wide transition-colors"
-                  style={{ color: MUTED_LIGHT }}
-                  onMouseEnter={e => (e.currentTarget.style.color = ESPRESSO)}
-                  onMouseLeave={e => (e.currentTarget.style.color = MUTED_LIGHT)}
+                  style={{ color: 'rgba(255,248,240,0.75)' }}
+                  onMouseEnter={e => (e.currentTarget.style.color = BEE_ORANGE)}
+                  onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,248,240,0.75)')}
                 >
                   {label}
                 </a>
@@ -135,13 +135,15 @@ function Navbar() {
             </nav>
 
             {/* Mobile hamburger */}
-            <button className="md:hidden p-1.5" style={{ color: MUTED_LIGHT }} onClick={() => setMobileOpen(v => !v)}>
+            <button className="md:hidden p-1.5" style={{ color: WARM_WHITE }} onClick={() => setMobileOpen(v => !v)}>
               {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
 
-            {/* Logo — centered, white bg so white logo shows directly */}
+            {/* Logo — white pill so coloured logo is visible on dark navbar */}
             <div className="flex-1 md:flex-none flex justify-center">
-              <img src={beepodLogo} alt="BeePod" className="h-10 md:h-12 w-auto object-contain" />
+              <div className="bg-white rounded-xl px-3 py-1.5">
+                <img src={beepodLogo} alt="BeePod" className="h-8 md:h-10 w-auto object-contain" />
+              </div>
             </div>
 
             {/* Desktop Right */}
@@ -149,9 +151,9 @@ function Navbar() {
               {[['Story', '#story'], ['Specs', '#specs']].map(([label, href]) => (
                 <a key={label} href={href}
                   className="text-[13px] font-semibold tracking-wide transition-colors"
-                  style={{ color: MUTED_LIGHT }}
-                  onMouseEnter={e => (e.currentTarget.style.color = ESPRESSO)}
-                  onMouseLeave={e => (e.currentTarget.style.color = MUTED_LIGHT)}
+                  style={{ color: 'rgba(255,248,240,0.75)' }}
+                  onMouseEnter={e => (e.currentTarget.style.color = BEE_ORANGE)}
+                  onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,248,240,0.75)')}
                 >
                   {label}
                 </a>
