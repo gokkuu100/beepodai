@@ -139,7 +139,7 @@ function Navbar() {
 
             {/* Logo — centered, white bg so white logo shows directly */}
             <div className="flex-1 md:flex-none flex justify-center">
-              <img src={beepodLogo} alt="BeePod" className="h-14 md:h-16 w-auto object-contain" />
+              <img src={beepodLogo} alt="BeePod" className="h-10 md:h-12 w-auto object-contain" />
             </div>
 
             {/* Desktop Right */}
@@ -197,49 +197,48 @@ function Navbar() {
 // ─── SECTION 1: Hero ─────────────────────────────────────────
 function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden"
-      style={{ background: 'linear-gradient(140deg, #FFB300 0%, #FF9A00 45%, #F57C00 100%)' }}>
-      {/* Subtle radial light top-left */}
-      <div className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse at center, rgba(255,255,255,0.18) 0%, transparent 65%)' }} />
-      {/* Honey-comb dot grid */}
-      <div className="absolute inset-0 pointer-events-none opacity-[0.06]"
-        style={{ backgroundImage: `radial-gradient(circle, #1A0F00 1px, transparent 1px)`, backgroundSize: '28px 28px' }} />
+    <section className="relative min-h-screen flex items-center overflow-hidden" style={{ background: ESPRESSO }}>
+      {/* Ambient glow */}
+      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full pointer-events-none"
+        style={{ background: `radial-gradient(ellipse at center, rgba(255,154,0,0.13) 0%, transparent 65%)` }} />
+      {/* Grid */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.025]"
+        style={{ backgroundImage: `linear-gradient(${BORDER_DARK} 1px, transparent 1px), linear-gradient(90deg, ${BORDER_DARK} 1px, transparent 1px)`, backgroundSize: '60px 60px' }} />
 
       <div className="relative w-full max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-12 items-center pt-28 pb-16 lg:pt-0 lg:pb-0 min-h-screen">
         {/* Left */}
         <motion.div variants={stagger} initial="hidden" animate="visible" className="flex flex-col justify-center z-10">
           <motion.div variants={fadeUp} className="mb-6 inline-flex items-center gap-2 self-start">
-            <span className="text-[11px] font-bold tracking-[0.18em] uppercase px-4 py-1.5 rounded-full"
-              style={{ background: 'rgba(26,15,0,0.12)', color: ESPRESSO, border: `1px solid rgba(26,15,0,0.2)` }}>
+            <span className="text-[11px] font-bold tracking-[0.18em] uppercase px-3 py-1.5 rounded-full"
+              style={{ background: 'rgba(255,154,0,0.12)', color: BEE_ORANGE, border: `1px solid rgba(255,154,0,0.25)` }}>
               Introducing BeePod
             </span>
           </motion.div>
 
           <motion.h1 variants={fadeUp}
             className="font-display font-black leading-[0.92] tracking-tighter mb-6"
-            style={{ color: ESPRESSO }}>
-            <span className="block text-[3.4rem] sm:text-[4.5rem] lg:text-[5rem] xl:text-[6rem]">COMPANION.</span>
+            style={{ color: WARM_WHITE }}>
+            <span className="block text-[3.4rem] sm:text-[4.5rem] lg:text-[5rem] xl:text-[6rem]">MEET YOUR</span>
+            <span className="block text-[3.4rem] sm:text-[4.5rem] lg:text-[5rem] xl:text-[6rem]">NEW AI</span>
+            <span className="block text-[3.4rem] sm:text-[4.5rem] lg:text-[5rem] xl:text-[6rem]" style={{ color: BEE_ORANGE }}>
+              COMPANION.
+            </span>
           </motion.h1>
 
-          <motion.p variants={fadeUp} className="text-base sm:text-lg leading-relaxed mb-2 max-w-sm font-semibold" style={{ color: 'rgba(26,15,0,0.75)' }}>
+          <motion.p variants={fadeUp} className="text-base sm:text-lg leading-relaxed mb-2 max-w-sm" style={{ color: MUTED_DARK }}>
             Small enough to stay by your side.<br />Smart enough to keep up.
           </motion.p>
-          <motion.p variants={fadeUp} className="text-[12px] font-medium tracking-wide mb-8" style={{ color: 'rgba(26,15,0,0.45)' }}>
+          <motion.p variants={fadeUp} className="text-[12px] font-medium tracking-wide mb-8" style={{ color: 'rgba(255,248,240,0.3)' }}>
             Be one of the first to bring BeePod home.
           </motion.p>
 
           <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-3">
-            {/* Dark primary button on amber bg */}
-            <motion.a href="#preorder"
-              whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }}
-              className="inline-flex items-center justify-center gap-2 font-display font-bold text-[15px] px-8 py-4 rounded-2xl transition-all"
-              style={{ background: ESPRESSO, color: '#FFF8F0' }}>
+            <AmberButton href="#preorder">
               PRE-ORDER BEEPOD <ChevronRight className="w-4 h-4" />
-            </motion.a>
+            </AmberButton>
             <motion.a href="#howitworks" whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }}
               className="inline-flex items-center justify-center gap-2.5 font-display font-semibold text-[15px] px-8 py-4 rounded-2xl transition-colors"
-              style={{ color: ESPRESSO, border: `2px solid rgba(26,15,0,0.25)`, background: 'rgba(26,15,0,0.06)' }}>
+              style={{ color: WARM_WHITE, border: `1px solid rgba(255,248,240,0.12)`, background: 'rgba(255,248,240,0.04)' }}>
               SEE HOW IT WORKS
             </motion.a>
           </motion.div>
@@ -251,11 +250,11 @@ function HeroSection() {
           transition={{ duration: 1.1, delay: 0.25, type: 'spring', bounce: 0.2 }}
           className="relative hidden lg:flex items-center justify-center lg:h-screen"
         >
-          <div className="absolute w-96 h-96 rounded-full"
-            style={{ background: 'radial-gradient(ellipse at center, rgba(255,255,255,0.25) 0%, transparent 65%)' }} />
+          <div className="absolute w-80 h-80 rounded-full"
+            style={{ background: `radial-gradient(ellipse at center, rgba(255,154,0,0.18) 0%, transparent 70%)` }} />
           <motion.img src={beepodRobot} alt="BeePod AI Companion"
             className="relative z-10 w-full max-w-xs sm:max-w-sm lg:max-w-md xl:max-w-lg object-contain"
-            style={{ maxHeight: '85vh', filter: `drop-shadow(0 20px 60px rgba(26,15,0,0.25))` }}
+            style={{ maxHeight: '85vh', mixBlendMode: 'screen', filter: `drop-shadow(0 0 60px rgba(255,154,0,0.3))` }}
             animate={{ y: [0, -14, 0] }}
             transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
           />
@@ -264,7 +263,7 @@ function HeroSection() {
           initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.4 }}>
           <motion.img src={beepodRobot} alt="BeePod" className="w-52 sm:w-64 object-contain"
-            style={{ filter: `drop-shadow(0 16px 40px rgba(26,15,0,0.2))` }}
+            style={{ mixBlendMode: 'screen', filter: `drop-shadow(0 0 40px rgba(255,154,0,0.25))` }}
             animate={{ y: [0, -10, 0] }}
             transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
           />
