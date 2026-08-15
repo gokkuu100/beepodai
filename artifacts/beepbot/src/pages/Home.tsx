@@ -496,7 +496,7 @@ function ProductShowcase() {
                 key={active}
                 src={view.img}
                 alt={`BeePod — ${view.label}`}
-                className="h-full object-contain relative z-10 drop-shadow-xl"
+                className="h-full object-contain relative z-10"
                 initial={{ opacity: 0, scale: 0.94, y: 10 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.94, y: -10 }}
