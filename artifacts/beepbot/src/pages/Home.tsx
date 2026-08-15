@@ -255,8 +255,16 @@ function HeroSection() {
 
   const [active, setActive] = useState(0);
 
+  // Preload all hero images on mount so transitions are instant
   useEffect(() => {
-    const t = setInterval(() => setActive(a => (a + 1) % slides.length), 5000);
+    [heroKids, beepodProduct].forEach(src => {
+      const img = new Image();
+      img.src = src;
+    });
+  }, []);
+
+  useEffect(() => {
+    const t = setInterval(() => setActive(a => (a + 1) % slides.length), 7000);
     return () => clearInterval(t);
   }, []);
 
