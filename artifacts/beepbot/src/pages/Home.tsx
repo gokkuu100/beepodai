@@ -18,6 +18,8 @@ import beepodLogoHero from '@assets/WHITE_LOGO__1786760473895.png';
 // @ts-ignore
 import beepodRobot from '@assets/hf_20260812_210333_7ca1e994-0af8-47de-96e1-fdfebe9398ff_1786735537941.png';
 // @ts-ignore
+import beepodProduct from '@assets/hf_20260811_110546_2b68d97f-4bff-483f-9180-81b18433b94ezzz_1786762097113.png';
+// @ts-ignore
 import logoGemini from '@assets/Gemini_language_model_logo_1786738681958.png';
 // @ts-ignore
 import logoDeepSeek from '@assets/DeepSeek_logo.svg_1786738681959.webp';
@@ -257,7 +259,7 @@ function HeroSection() {
         >
           <div className="absolute w-80 h-80 rounded-full"
             style={{ background: `radial-gradient(ellipse at center, rgba(255,154,0,0.18) 0%, transparent 70%)` }} />
-          <motion.img src={beepodRobot} alt="BeePod AI Companion"
+          <motion.img src={beepodProduct} alt="BeePod AI Companion"
             className="relative z-10 w-full max-w-xs sm:max-w-sm lg:max-w-md xl:max-w-lg object-contain"
             style={{ maxHeight: '85vh', mixBlendMode: 'screen', filter: `drop-shadow(0 0 60px rgba(255,154,0,0.3))` }}
             animate={{ y: [0, -14, 0] }}
@@ -267,7 +269,7 @@ function HeroSection() {
         <motion.div className="lg:hidden flex justify-center -mt-4"
           initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.4 }}>
-          <motion.img src={beepodRobot} alt="BeePod" className="w-52 sm:w-64 object-contain"
+          <motion.img src={beepodProduct} alt="BeePod" className="w-52 sm:w-64 object-contain"
             style={{ mixBlendMode: 'screen', filter: `drop-shadow(0 0 40px rgba(255,154,0,0.25))` }}
             animate={{ y: [0, -10, 0] }}
             transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
