@@ -89,6 +89,7 @@ export default function Home() {
       <main>
         <HeroSection />
         <LLMLogosStrip />
+        <AboutSection />
         <FeatureStrip />
         <HowItWorksSection />
         <ProductShowcase />
@@ -134,7 +135,7 @@ function Navbar() {
           >
             {/* Desktop Left */}
             <nav className="hidden md:flex items-center gap-7 w-56">
-              {[['Product', '#product'], ['How It Works', '#howitworks']].map(([label, href]) => (
+              {[['About', '#about'], ['How It Works', '#howitworks'], ['Product', '#product']].map(([label, href]) => (
                 <a key={label} href={href}
                   className="text-[13px] font-semibold tracking-wide transition-colors"
                   style={{ color: 'rgba(255,248,240,0.75)' }}
@@ -154,15 +155,15 @@ function Navbar() {
             {/* Logo — white pill so coloured logo is visible on dark navbar */}
             <div className="flex-1 md:flex-none flex justify-center">
               <div className="bg-white rounded-xl px-3 py-1.5">
-                <img src={beepodLogo} alt="BeePod" className="h-12 md:h-[60px] w-auto object-contain" />
+                <img src={beepodLogo} alt="BeePod" className="h-[55px] md:h-[69px] w-auto object-contain" />
               </div>
             </div>
 
             {/* Desktop Right */}
             <nav className="hidden md:flex items-center gap-7 w-56 justify-end">
-              {[['Story', '#story'], ['Specs', '#specs']].map(([label, href]) => (
+              {[['Parent App', '#preorder'], ['Specs', '#specs'], ['Story', '#story']].map(([label, href]) => (
                 <a key={label} href={href}
-                  className="text-[13px] font-semibold tracking-wide transition-colors"
+                  className="text-[13px] font-semibold tracking-wide transition-colors whitespace-nowrap"
                   style={{ color: 'rgba(255,248,240,0.75)' }}
                   onMouseEnter={e => (e.currentTarget.style.color = BEE_ORANGE)}
                   onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,248,240,0.75)')}
@@ -197,7 +198,7 @@ function Navbar() {
             className="fixed top-24 inset-x-4 z-40 rounded-2xl p-5 flex flex-col gap-4"
             style={{ background: CARD_DARK, border: `1px solid ${BORDER_DARK}` }}
           >
-            {[['Product','#product'],['How It Works','#howitworks'],['Story','#story'],['Specs','#specs']].map(([l, h]) => (
+            {[['About','#about'],['How It Works','#howitworks'],['Product','#product'],['Parent App','#preorder'],['Specs','#specs'],['Story','#story']].map(([l, h]) => (
               <a key={l} href={h} onClick={() => setMobileOpen(false)}
                 className="text-base font-semibold py-2 border-b"
                 style={{ color: WARM_WHITE, borderColor: BORDER_DARK }}
@@ -221,23 +222,23 @@ function HeroSection() {
       <div className="absolute inset-0 pointer-events-none opacity-[0.025]"
         style={{ backgroundImage: `linear-gradient(${BORDER_DARK} 1px, transparent 1px), linear-gradient(90deg, ${BORDER_DARK} 1px, transparent 1px)`, backgroundSize: '60px 60px' }} />
 
-      <div className="relative w-full max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-12 items-center pt-28 pb-16 lg:pt-0 lg:pb-0 min-h-screen">
-        {/* Left */}
-        <motion.div variants={stagger} initial="hidden" animate="visible" className="flex flex-col justify-center z-10">
-          <motion.div variants={fadeUp} className="mb-6 inline-flex items-center gap-2 self-start">
+      <div className="relative w-full max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-8 items-center min-h-screen pt-24 pb-8">
+        {/* Left — text, centered within column */}
+        <motion.div variants={stagger} initial="hidden" animate="visible"
+          className="flex flex-col items-center lg:items-start text-center lg:text-left z-10">
+          <motion.div variants={fadeUp} className="mb-5">
             <span className="text-[11px] font-bold tracking-[0.18em] uppercase px-3 py-1.5 rounded-full"
               style={{ background: 'rgba(255,154,0,0.12)', color: BEE_ORANGE, border: `1px solid rgba(255,154,0,0.25)` }}>
               Introducing BeePod
             </span>
           </motion.div>
 
-
           <motion.h1 variants={fadeUp}
-            className="font-display font-black leading-[0.92] tracking-tighter mb-6"
+            className="font-display font-black leading-[0.92] tracking-tighter mb-5"
             style={{ color: WARM_WHITE }}>
-            <span className="block text-[3.4rem] sm:text-[4.5rem] lg:text-[5rem] xl:text-[6rem]">MEET YOUR</span>
-            <span className="block text-[3.4rem] sm:text-[4.5rem] lg:text-[5rem] xl:text-[6rem]">NEW AI</span>
-            <span className="block text-[3.4rem] sm:text-[4.5rem] lg:text-[5rem] xl:text-[6rem]" style={{ color: BEE_ORANGE }}>
+            <span className="block text-[3.2rem] sm:text-[4.2rem] lg:text-[4.8rem] xl:text-[5.8rem]">MEET YOUR</span>
+            <span className="block text-[3.2rem] sm:text-[4.2rem] lg:text-[4.8rem] xl:text-[5.8rem]">NEW AI</span>
+            <span className="block text-[3.2rem] sm:text-[4.2rem] lg:text-[4.8rem] xl:text-[5.8rem]" style={{ color: BEE_ORANGE }}>
               COMPANION.
             </span>
           </motion.h1>
@@ -245,7 +246,7 @@ function HeroSection() {
           <motion.p variants={fadeUp} className="text-base sm:text-lg leading-relaxed mb-2 max-w-sm" style={{ color: MUTED_DARK }}>
             Small enough to stay by your side.<br />Smart enough to keep up.
           </motion.p>
-          <motion.p variants={fadeUp} className="text-[12px] font-medium tracking-wide mb-8" style={{ color: 'rgba(255,248,240,0.3)' }}>
+          <motion.p variants={fadeUp} className="text-[12px] font-medium tracking-wide mb-7" style={{ color: 'rgba(255,248,240,0.3)' }}>
             Be one of the first to bring BeePod home.
           </motion.p>
 
@@ -261,27 +262,15 @@ function HeroSection() {
           </motion.div>
         </motion.div>
 
-        {/* Right — Robot */}
+        {/* Right — product image */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9, x: 40 }} animate={{ opacity: 1, scale: 1, x: 0 }}
+          initial={{ opacity: 0, scale: 0.92, x: 40 }} animate={{ opacity: 1, scale: 1, x: 0 }}
           transition={{ duration: 1.1, delay: 0.25, type: 'spring', bounce: 0.2 }}
-          className="relative hidden lg:flex items-center justify-center lg:h-screen"
-        >
-          <div className="absolute w-80 h-80 rounded-full"
-            style={{ background: `radial-gradient(ellipse at center, rgba(255,154,0,0.18) 0%, transparent 70%)` }} />
+          className="relative flex items-center justify-center h-full">
           <motion.img src={beepodProduct} alt="BeePod AI Companion"
-            className="relative z-10 w-full max-w-sm sm:max-w-md lg:max-w-xl xl:max-w-2xl object-contain"
-            style={{ maxHeight: '95vh', mixBlendMode: 'screen', filter: `drop-shadow(0 0 60px rgba(255,154,0,0.3))` }}
+            className="w-full max-w-sm sm:max-w-md lg:max-w-xl xl:max-w-2xl object-contain"
+            style={{ maxHeight: '80vh', mixBlendMode: 'screen', filter: `drop-shadow(0 0 80px rgba(255,154,0,0.3))` }}
             animate={{ y: [0, -14, 0] }}
-            transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-          />
-        </motion.div>
-        <motion.div className="lg:hidden flex justify-center -mt-4"
-          initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.4 }}>
-          <motion.img src={beepodProduct} alt="BeePod" className="w-52 sm:w-64 object-contain"
-            style={{ mixBlendMode: 'screen', filter: `drop-shadow(0 0 40px rgba(255,154,0,0.25))` }}
-            animate={{ y: [0, -10, 0] }}
             transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
           />
         </motion.div>
@@ -340,6 +329,66 @@ function LLMLogosStrip() {
             ))}
           </motion.div>
         </motion.div>
+      </div>
+    </section>
+  );
+}
+
+// ─── About Section ───────────────────────────────────────────
+function AboutSection() {
+  const stats = [
+    { number: '50+',   label: 'Languages spoken'  },
+    { number: '4',     label: 'AI engines inside'  },
+    { number: '24/7',  label: 'Always available'   },
+    { number: 'Age 3+', label: 'Designed for'      },
+  ];
+
+  return (
+    <section id="about" style={{ background: WHITE, borderTop: `1px solid ${BORDER_LIGHT}` }}>
+      <div className="max-w-6xl mx-auto px-6 lg:px-10 py-24 lg:py-32">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+
+          {/* Left — copy */}
+          <motion.div initial="hidden" whileInView="visible" variants={stagger}
+            viewport={{ once: true, margin: '-80px' }}>
+            <motion.span variants={fadeUp}
+              className="block text-[11px] font-bold tracking-[0.18em] uppercase mb-4"
+              style={{ color: BEE_ORANGE }}>
+              About BeePod
+            </motion.span>
+            <motion.h2 variants={fadeUp}
+              className="font-display font-black text-4xl sm:text-5xl lg:text-[3.5rem] leading-[0.95] tracking-tighter mb-6"
+              style={{ color: ESPRESSO }}>
+              THE WORLD'S FIRST AI COMPANION FOR KIDS.
+            </motion.h2>
+            <motion.p variants={fadeUp}
+              className="text-[17px] leading-relaxed mb-4"
+              style={{ color: MUTED_LIGHT }}>
+              BeePod is more than a gadget — it's a voice-powered AI companion that talks, listens, teaches, and grows with your child. Powered by the world's leading AI models, it brings the future of learning into a kid-safe robot.
+            </motion.p>
+            <motion.p variants={fadeUp}
+              className="text-[17px] leading-relaxed"
+              style={{ color: MUTED_LIGHT }}>
+              Invented by Malya, age 8, BeePod started as a lemonade-stand dream. Today it's a real product designed to make every child feel heard, supported, and endlessly curious.
+            </motion.p>
+          </motion.div>
+
+          {/* Right — stats grid */}
+          <motion.div initial="hidden" whileInView="visible" variants={stagger}
+            viewport={{ once: true, margin: '-80px' }}
+            className="grid grid-cols-2 gap-5">
+            {stats.map(({ number, label }) => (
+              <motion.div key={label} variants={fadeUp}
+                className="flex flex-col gap-2 p-6 rounded-2xl"
+                style={{ background: CARD_LIGHT, border: `1px solid ${BORDER_LIGHT}` }}>
+                <span className="font-display font-black text-3xl sm:text-4xl"
+                  style={{ color: BEE_ORANGE }}>{number}</span>
+                <span className="text-[14px] font-semibold" style={{ color: MUTED_LIGHT }}>{label}</span>
+              </motion.div>
+            ))}
+          </motion.div>
+
+        </div>
       </div>
     </section>
   );
