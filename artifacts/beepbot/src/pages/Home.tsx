@@ -745,7 +745,7 @@ function ParentAppSection() {
 
 function WhoIsItForSection() {
   return (
-    <section style={{ background: ESPRESSO, borderTop: `1px solid ${BORDER_DARK}` }}>
+    <section style={{ background: WHITE, borderTop: `1px solid ${BORDER_LIGHT}` }}>
       <div className="max-w-7xl mx-auto px-6 lg:px-10 py-24 lg:py-36">
         <motion.div initial="hidden" whileInView="visible" variants={stagger}
           viewport={{ once: true, margin: '-80px' }} className="mb-16">
@@ -755,7 +755,7 @@ function WhoIsItForSection() {
           </motion.span>
           <motion.h2 variants={fadeUp}
             className="font-display font-black text-4xl sm:text-5xl lg:text-6xl xl:text-7xl"
-            style={{ color: WARM_WHITE }}>
+            style={{ color: ESPRESSO }}>
             MADE FOR<br />CURIOUS MINDS.
           </motion.h2>
         </motion.div>
@@ -767,7 +767,7 @@ function WhoIsItForSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
               className="p-7 rounded-3xl flex flex-col gap-5 group hover:border-amber-400 transition-colors duration-300"
-              style={{ background: CARD_DARK, border: `1px solid ${BORDER_DARK}` }}>
+              style={{ background: CARD_LIGHT, border: `1px solid ${BORDER_LIGHT}` }}>
               <div className="w-12 h-12 rounded-2xl flex items-center justify-center"
                 style={{ background: 'rgba(255,154,0,0.1)' }}>
                 <Icon className="w-6 h-6" style={{ color: BEE_ORANGE }} />
@@ -775,7 +775,7 @@ function WhoIsItForSection() {
               <div>
                 <h3 className="font-display font-bold text-[13px] tracking-[0.1em] mb-2"
                   style={{ color: BEE_ORANGE }}>{title}</h3>
-                <p className="text-[14px] leading-relaxed" style={{ color: MUTED_DARK }}>{desc}</p>
+                <p className="text-[14px] leading-relaxed" style={{ color: MUTED_LIGHT }}>{desc}</p>
               </div>
             </motion.div>
           ))}
