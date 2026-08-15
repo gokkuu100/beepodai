@@ -437,19 +437,6 @@ function HowItWorksSection() {
         </div>
 
         {/* Robot in process */}
-        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }} transition={{ duration: 0.9, delay: 0.5 }}
-          className="mt-16 flex justify-center">
-          <div className="relative">
-            <div className="absolute inset-0 rounded-full"
-              style={{ background: `radial-gradient(ellipse at center, rgba(255,154,0,0.12) 0%, transparent 70%)` }} />
-            <motion.img src={beepodRobot} alt="BeePod" className="w-40 sm:w-56 relative z-10 object-contain"
-              style={{ mixBlendMode: 'screen', filter: `drop-shadow(0 0 30px rgba(255,154,0,0.2))` }}
-              animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-            />
-          </div>
-        </motion.div>
       </div>
     </section>
   );
