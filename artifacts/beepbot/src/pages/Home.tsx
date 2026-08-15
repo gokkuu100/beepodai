@@ -588,55 +588,101 @@ const audiences = [
 // ─── Parent App Section ───────────────────────────────────────
 function PhoneMockup() {
   return (
-    <div className="relative mx-auto" style={{ width: 260, filter: 'drop-shadow(0 40px 80px rgba(0,0,0,0.7))' }}>
-      {/* Phone shell */}
-      <div className="relative rounded-[40px] overflow-hidden"
-        style={{ background: '#0d0d0d', border: '8px solid #222', boxShadow: 'inset 0 0 0 1px #333' }}>
-        {/* Dynamic island */}
-        <div className="flex justify-center pt-3 pb-1">
-          <div className="w-20 h-5 rounded-full" style={{ background: '#000' }} />
-        </div>
-        {/* Splash screen */}
-        <div className="flex flex-col items-center justify-center gap-5"
-          style={{ background: ESPRESSO, minHeight: 480, padding: '40px 24px' }}>
-          {/* Logo */}
-          <div className="relative flex items-center justify-center">
-            <div className="absolute w-40 h-40 rounded-full"
-              style={{ background: 'radial-gradient(ellipse, rgba(255,154,0,0.18) 0%, transparent 70%)' }} />
-            <img src={beepodLogoColor} alt="BeePod"
-              className="relative z-10 w-36 object-contain" />
+    <div className="relative mx-auto" style={{ width: 255 }}>
+      {/* Outer titanium frame */}
+      <div className="relative"
+        style={{
+          borderRadius: 52,
+          padding: 3,
+          background: 'linear-gradient(160deg, #c8c8ca 0%, #8e8e93 40%, #6e6e73 70%, #b0b0b5 100%)',
+          boxShadow: '0 0 0 1px rgba(0,0,0,0.25), 0 40px 80px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,255,255,0.15)',
+        }}>
+        {/* Inner bezel */}
+        <div style={{ borderRadius: 50, overflow: 'hidden', background: '#000' }}>
+          {/* Status bar area + dynamic island */}
+          <div className="relative flex justify-center items-start pt-[14px] pb-[6px]"
+            style={{ background: '#fff' }}>
+            {/* Dynamic island pill */}
+            <div style={{
+              width: 110, height: 30, borderRadius: 20,
+              background: '#000',
+              boxShadow: '0 0 0 1px rgba(0,0,0,0.8)',
+            }} />
           </div>
-          {/* Label */}
-          <p className="text-[11px] font-bold tracking-[0.22em] uppercase"
-            style={{ color: BEE_ORANGE }}>Parent App</p>
-          {/* Loading dots */}
-          <div className="flex gap-2 mt-4">
-            {[0, 1, 2].map(i => (
-              <div key={i} className="w-1.5 h-1.5 rounded-full"
-                style={{ background: i === 1 ? BEE_ORANGE : 'rgba(255,154,0,0.3)' }} />
-            ))}
+
+          {/* Splash screen — white bg */}
+          <div className="flex flex-col items-center justify-center gap-4"
+            style={{ background: '#ffffff', minHeight: 470, padding: '30px 20px 20px' }}>
+
+            {/* Soft amber glow circle behind logo */}
+            <div className="relative flex items-center justify-center">
+              <div className="absolute w-44 h-44 rounded-full"
+                style={{ background: 'radial-gradient(ellipse, rgba(255,154,0,0.12) 0%, transparent 70%)' }} />
+              <img src={beepodLogoColor} alt="BeePod"
+                className="relative z-10 w-40 object-contain" />
+            </div>
+
+            {/* Label */}
+            <div className="text-center">
+              <p className="text-[10px] font-bold tracking-[0.25em] uppercase"
+                style={{ color: BEE_ORANGE }}>Parent App</p>
+            </div>
+
+            {/* Loading bar */}
+            <div className="w-24 h-1 rounded-full mt-2" style={{ background: 'rgba(255,154,0,0.15)' }}>
+              <div className="h-full rounded-full w-2/3"
+                style={{ background: `linear-gradient(90deg, ${AMBER_GLOW}, ${BEE_ORANGE})` }} />
+            </div>
           </div>
-        </div>
-        {/* Home indicator */}
-        <div className="flex justify-center py-2" style={{ background: ESPRESSO }}>
-          <div className="w-16 h-1 rounded-full" style={{ background: '#333' }} />
+
+          {/* Home indicator */}
+          <div className="flex justify-center py-2" style={{ background: '#fff' }}>
+            <div className="w-20 h-[5px] rounded-full" style={{ background: '#000' }} />
+          </div>
         </div>
       </div>
+
+      {/* Side buttons (volume + power) */}
+      <div className="absolute left-0 top-[90px] w-[3px] h-8 rounded-r"
+        style={{ background: '#9a9a9f', left: -2 }} />
+      <div className="absolute left-0 top-[135px] w-[3px] h-10 rounded-r"
+        style={{ background: '#9a9a9f', left: -2 }} />
+      <div className="absolute right-0 top-[110px] w-[3px] h-14 rounded-l"
+        style={{ background: '#9a9a9f', right: -2 }} />
+
       {/* Ambient glow */}
       <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-48 h-20 rounded-full pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse, rgba(255,154,0,0.18) 0%, transparent 70%)', filter: 'blur(20px)' }} />
+        style={{ background: 'radial-gradient(ellipse, rgba(255,154,0,0.2) 0%, transparent 70%)', filter: 'blur(20px)' }} />
     </div>
   );
 }
 
 function ParentAppSection() {
-  const features = [
-    { icon: '👁️', title: 'Monitor Conversations', desc: 'Full transparency into every topic BeePod discusses with your child.' },
-    { icon: '⏱️', title: 'Screen Time Controls', desc: 'Set daily limits and quiet hours so BeePod rests when your family does.' },
-    { icon: '🔒', title: 'Safe Content Filters', desc: 'Age-appropriate guardrails. You decide what topics BeePod can explore.' },
-    { icon: '📊', title: 'Learning Reports', desc: 'Weekly summaries — questions asked, topics explored, skills growing.' },
-    { icon: '🔔', title: 'Real-Time Alerts', desc: "Get notified instantly if BeePod detects anything needing your attention." },
-    { icon: '🌐', title: 'Multi-Device Family', desc: 'Manage multiple BeePods across your household from one dashboard.' },
+  const features: { icon: React.ReactNode; title: string }[] = [
+    {
+      icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>,
+      title: 'Monitor Conversations',
+    },
+    {
+      icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>,
+      title: 'Screen Time Controls',
+    },
+    {
+      icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>,
+      title: 'Safe Content Filters',
+    },
+    {
+      icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>,
+      title: 'Learning Reports',
+    },
+    {
+      icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>,
+      title: 'Real-Time Alerts',
+    },
+    {
+      icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>,
+      title: 'Multi-Device Family',
+    },
   ];
 
   return (
@@ -669,7 +715,7 @@ function ParentAppSection() {
                 <motion.div key={title} variants={fadeUp}
                   className="flex items-center gap-3 px-4 py-3 rounded-2xl"
                   style={{ background: CARD_DARK, border: `1px solid ${BORDER_DARK}` }}>
-                  <span className="text-xl shrink-0">{icon}</span>
+                  <span className="shrink-0" style={{ color: BEE_ORANGE }}>{icon}</span>
                   <h3 className="font-display font-semibold text-[13px] tracking-tight leading-snug"
                     style={{ color: WARM_WHITE }}>{title}</h3>
                 </motion.div>
