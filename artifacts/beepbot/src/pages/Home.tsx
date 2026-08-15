@@ -248,19 +248,8 @@ function HeroSection() {
       sub: '',
       cta1: { label: 'PRE-ORDER BEEPOD', href: '#preorder' },
       cta2: { label: 'LEARN MORE', href: '#about' },
-      visual: (
-        <motion.img
-          key="slide1-img"
-          src={heroKids}
-          alt="Kids learning with BeePod"
-          className="w-full max-w-sm sm:max-w-md lg:max-w-xl xl:max-w-2xl object-contain rounded-3xl"
-          style={{ maxHeight: '80vh', filter: 'drop-shadow(0 20px 60px rgba(0,0,0,0.4))' }}
-          initial={{ opacity: 0, scale: 0.92, x: 40 }}
-          animate={{ opacity: 1, scale: 1, x: 0 }}
-          exit={{ opacity: 0, scale: 0.92, x: -40 }}
-          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-        />
-      ),
+      visual: null,
+      fullImage: heroKids,
     },
   ];
 
@@ -273,6 +262,104 @@ function HeroSection() {
 
   const slide = slides[active];
 
+  const isFullImage = !!(slide as any).fullImage;
+
+  // ── Shared dots control ──
+  const Dots = ({ centered }: { centered?: boolean }) => (
+    <div className={`flex items-center gap-3 mt-10 ${centered ? 'justify-center' : ''}`}>
+      {slides.map((_, i) => (
+        <button key={i} onClick={() => setActive(i)}
+          className="transition-all duration-300 rounded-full"
+          style={{
+            width: i === active ? '28px' : '8px',
+            height: '8px',
+            background: i === active ? BEE_ORANGE : 'rgba(255,248,240,0.25)',
+          }}
+        />
+      ))}
+    </div>
+  );
+
+  // ── Shared text block ──
+  const TextBlock = ({ centered }: { centered?: boolean }) => (
+    <AnimatePresence mode="wait">
+      <motion.div key={active}
+        variants={stagger} initial="hidden" animate="visible"
+        exit={{ opacity: 0, y: -20, transition: { duration: 0.3 } }}
+        className={`flex flex-col z-10 ${centered ? 'items-center text-center max-w-3xl mx-auto' : 'items-center lg:items-start text-center lg:text-left'}`}>
+        <motion.div variants={fadeUp} className="mb-5">
+          <span className="text-[11px] font-bold tracking-[0.18em] uppercase px-3 py-1.5 rounded-full"
+            style={{ background: 'rgba(255,154,0,0.12)', color: BEE_ORANGE, border: `1px solid rgba(255,154,0,0.25)` }}>
+            {slide.badge}
+          </span>
+        </motion.div>
+
+        <motion.h1 variants={fadeUp}
+          className="font-display font-black leading-[0.92] tracking-tighter mb-5"
+          style={{ color: WARM_WHITE }}>
+          {slide.headline.map((line, i) => (
+            <span key={i} className="block text-[2.8rem] sm:text-[3.8rem] lg:text-[4.4rem] xl:text-[5.2rem]"
+              style={i === slide.accentLine ? { color: BEE_ORANGE } : {}}>
+              {line}
+            </span>
+          ))}
+        </motion.h1>
+
+        <motion.p variants={fadeUp}
+          className={`text-base sm:text-lg leading-relaxed mb-2 ${centered ? 'max-w-xl' : 'max-w-md'}`}
+          style={{ color: MUTED_DARK }}>
+          {slide.body}
+        </motion.p>
+        {slide.sub && (
+          <motion.p variants={fadeUp} className="text-[12px] font-medium tracking-wide mb-7"
+            style={{ color: 'rgba(255,248,240,0.3)' }}>
+            {slide.sub}
+          </motion.p>
+        )}
+
+        <motion.div variants={fadeUp} className={`flex flex-col sm:flex-row gap-3 mt-6 ${centered ? 'justify-center' : ''}`}>
+          <AmberButton href={slide.cta1.href}>
+            {slide.cta1.label} <ChevronRight className="w-4 h-4" />
+          </AmberButton>
+          <motion.a href={slide.cta2.href} whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }}
+            className="inline-flex items-center justify-center gap-2.5 font-display font-semibold text-[15px] px-8 py-4 rounded-2xl"
+            style={{ color: WARM_WHITE, border: `1px solid rgba(255,248,240,0.12)`, background: 'rgba(255,248,240,0.04)' }}>
+            {slide.cta2.label}
+          </motion.a>
+        </motion.div>
+
+        <Dots centered={centered} />
+      </motion.div>
+    </AnimatePresence>
+  );
+
+  if (isFullImage) {
+    return (
+      <section className="relative min-h-screen flex items-end overflow-hidden">
+        {/* Full bleed background image */}
+        <AnimatePresence mode="wait">
+          <motion.img
+            key={active}
+            src={(slide as any).fullImage}
+            alt="BeePod hero"
+            className="absolute inset-0 w-full h-full object-cover"
+            initial={{ opacity: 0, scale: 1.04 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 1.04 }}
+            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+          />
+        </AnimatePresence>
+        {/* Dark gradient overlay — heavy at bottom for text legibility */}
+        <div className="absolute inset-0 pointer-events-none"
+          style={{ background: 'linear-gradient(to bottom, rgba(26,15,0,0.35) 0%, rgba(26,15,0,0.15) 40%, rgba(26,15,0,0.75) 75%, rgba(26,15,0,0.95) 100%)' }} />
+        {/* Content */}
+        <div className="relative w-full max-w-7xl mx-auto px-6 lg:px-10 pb-20 pt-36">
+          <TextBlock centered />
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden" style={{ background: ESPRESSO }}>
       {/* Ambient glow */}
@@ -283,64 +370,7 @@ function HeroSection() {
         style={{ backgroundImage: `linear-gradient(${BORDER_DARK} 1px, transparent 1px), linear-gradient(90deg, ${BORDER_DARK} 1px, transparent 1px)`, backgroundSize: '60px 60px' }} />
 
       <div className="relative w-full max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-8 items-center min-h-screen pt-36 pb-16">
-        {/* Left — text */}
-        <AnimatePresence mode="wait">
-          <motion.div key={active}
-            variants={stagger} initial="hidden" animate="visible" exit={{ opacity: 0, y: -20, transition: { duration: 0.3 } }}
-            className="flex flex-col items-center lg:items-start text-center lg:text-left z-10">
-            <motion.div variants={fadeUp} className="mb-5">
-              <span className="text-[11px] font-bold tracking-[0.18em] uppercase px-3 py-1.5 rounded-full"
-                style={{ background: 'rgba(255,154,0,0.12)', color: BEE_ORANGE, border: `1px solid rgba(255,154,0,0.25)` }}>
-                {slide.badge}
-              </span>
-            </motion.div>
-
-            <motion.h1 variants={fadeUp}
-              className="font-display font-black leading-[0.92] tracking-tighter mb-5"
-              style={{ color: WARM_WHITE }}>
-              {slide.headline.map((line, i) => (
-                <span key={i} className="block text-[2.8rem] sm:text-[3.8rem] lg:text-[4.4rem] xl:text-[5.2rem]"
-                  style={i === slide.accentLine ? { color: BEE_ORANGE } : {}}>
-                  {line}
-                </span>
-              ))}
-            </motion.h1>
-
-            <motion.p variants={fadeUp} className="text-base sm:text-lg leading-relaxed mb-2 max-w-md" style={{ color: MUTED_DARK }}>
-              {slide.body}
-            </motion.p>
-            {slide.sub && (
-              <motion.p variants={fadeUp} className="text-[12px] font-medium tracking-wide mb-7" style={{ color: 'rgba(255,248,240,0.3)' }}>
-                {slide.sub}
-              </motion.p>
-            )}
-
-            <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-3 mt-6">
-              <AmberButton href={slide.cta1.href}>
-                {slide.cta1.label} <ChevronRight className="w-4 h-4" />
-              </AmberButton>
-              <motion.a href={slide.cta2.href} whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }}
-                className="inline-flex items-center justify-center gap-2.5 font-display font-semibold text-[15px] px-8 py-4 rounded-2xl"
-                style={{ color: WARM_WHITE, border: `1px solid rgba(255,248,240,0.12)`, background: 'rgba(255,248,240,0.04)' }}>
-                {slide.cta2.label}
-              </motion.a>
-            </motion.div>
-
-            {/* Dots */}
-            <div className="flex items-center gap-3 mt-10">
-              {slides.map((_, i) => (
-                <button key={i} onClick={() => setActive(i)}
-                  className="transition-all duration-300 rounded-full"
-                  style={{
-                    width: i === active ? '28px' : '8px',
-                    height: '8px',
-                    background: i === active ? BEE_ORANGE : 'rgba(255,248,240,0.25)',
-                  }}
-                />
-              ))}
-            </div>
-          </motion.div>
-        </AnimatePresence>
+        <TextBlock />
 
         {/* Right — visual */}
         <div className="relative flex items-center justify-center h-full">
