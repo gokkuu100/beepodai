@@ -18,7 +18,7 @@ import beepodLogoHero from '@assets/WHITE_LOGO__1786760473895.png';
 // @ts-ignore
 import beepodRobot from '@assets/hf_20260812_210333_7ca1e994-0af8-47de-96e1-fdfebe9398ff_1786735537941.png';
 // @ts-ignore
-import beepodProduct from '@assets/hf_20260811_110546_2b68d97f-4bff-483f-9180-81b18433b94ezzz_1786762097113.png';
+import beepodProduct from '@assets/hf_20260811_110546_2b68d97f-4bff-483f-9180-81b18433b94e-Recove_1786787702362.png';
 // @ts-ignore
 import beepodBlack from '@assets/hf_20260811_110546_2b68d97f-4bff-483f-9180-81b18433b94e_1786762579063.png';
 // @ts-ignore
