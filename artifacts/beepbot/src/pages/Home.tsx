@@ -154,7 +154,7 @@ function Navbar() {
             {/* Logo — white pill so coloured logo is visible on dark navbar */}
             <div className="flex-1 md:flex-none flex justify-center">
               <div className="bg-white rounded-xl px-3 py-1.5">
-                <img src={beepodLogo} alt="BeePod" className="h-10 md:h-[50px] w-auto object-contain" />
+                <img src={beepodLogo} alt="BeePod" className="h-12 md:h-[60px] w-auto object-contain" />
               </div>
             </div>
 
