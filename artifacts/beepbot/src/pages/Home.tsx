@@ -41,6 +41,8 @@ import logoChatGPT from '@assets/new-ChatGPT-logo-black-png-large-size_178673868
 import logoClaude from '@assets/Claude_AI_logo.svg_1786738715630.webp';
 // @ts-ignore
 import heroKids from '@assets/hf_20260815_103355_cd0bc32e-3188-43ec-96e7-68b8aacda9dc_(1)_1786790249687.png';
+// @ts-ignore
+import heroBoys from '@assets/hf_20260815_111449_ab9e07eb-27f0-4df4-883d-67a97e80f63d_1786793612783.png';
 
 // ─── Brand Palette ───────────────────────────────────────────
 const ESPRESSO   = '#1A0F00';   // Deep Espresso (primary dark)
@@ -251,13 +253,24 @@ function HeroSection() {
       visual: null,
       fullImage: heroKids,
     },
+    {
+      badge: 'Built for Bold Questions',
+      headline: ['ASK BOLD.', 'LEARN MORE.'],
+      accentLine: 1,
+      body: <>Their curiosity has no limits. BeePod is ready for the questions.</>,
+      sub: '',
+      cta1: { label: 'PRE-ORDER BEEPOD', href: '#preorder' },
+      cta2: { label: 'SEE HOW IT WORKS', href: '#howitworks' },
+      visual: null,
+      fullImage: heroBoys,
+    },
   ];
 
   const [active, setActive] = useState(0);
 
   // Preload all hero images on mount so transitions are instant
   useEffect(() => {
-    [heroKids, beepodProduct].forEach(src => {
+    [heroKids, heroBoys, beepodProduct].forEach(src => {
       const img = new Image();
       img.src = src;
     });
@@ -356,9 +369,20 @@ function HeroSection() {
         animate={{ opacity: active === 1 ? 1 : 0, scale: active === 1 ? 1 : 1.06 }}
         transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
       />
-      {/* Gradient overlay for slide 2 */}
+      {/* ── Slide 3: boys treehouse photo — always in DOM ── */}
+      <motion.img
+        src={heroBoys}
+        alt=""
+        aria-hidden
+        fetchPriority="high"
+        decoding="async"
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+        animate={{ opacity: active === 2 ? 1 : 0, scale: active === 2 ? 1 : 1.06 }}
+        transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+      />
+      {/* Gradient overlay for slides 2 & 3 */}
       <motion.div className="absolute inset-0 pointer-events-none"
-        animate={{ opacity: active === 1 ? 1 : 0 }}
+        animate={{ opacity: active === 1 || active === 2 ? 1 : 0 }}
         transition={{ duration: 1 }}
         style={{ background: 'linear-gradient(to bottom, rgba(26,15,0,0.4) 0%, rgba(26,15,0,0.1) 35%, rgba(26,15,0,0.7) 70%, rgba(26,15,0,0.96) 100%)' }}
       />
