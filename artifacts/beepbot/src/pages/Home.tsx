@@ -133,7 +133,7 @@ function Navbar() {
         }}
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
-          <div className="flex items-center justify-between h-[96px]">
+          <div className="flex items-center justify-between h-[112px]">
 
             {/* Desktop Left nav */}
             <nav className="hidden md:flex items-center gap-8 flex-1">
@@ -158,7 +158,7 @@ function Navbar() {
                 <img
                   src={scrolled ? beepodLogo : beepodLogoWhite}
                   alt="BeePod"
-                  className="h-[76px] md:h-[91px] w-auto object-contain transition-all duration-300"
+                  className="h-[91px] md:h-[109px] w-auto object-contain transition-all duration-300"
                 />
               </a>
             </div>
