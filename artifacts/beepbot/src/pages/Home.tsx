@@ -242,8 +242,8 @@ function HeroSection() {
     },
     {
       badge: 'For Curious Minds',
-      headline: ['MEET BEEPOD.', 'YOUR CHILD\'S AI', 'LEARNING COMPANION.'],
-      accentLine: 0,
+      headline: ['LESS SCREEN TIME.', 'MORE CURIOSITY.'],
+      accentLine: 1,
       body: <>Less screen time. More curiosity. BeePod helps kids ask questions, understand concepts, and learn through natural conversation—without reaching for a phone.</>,
       sub: '',
       cta1: { label: 'PRE-ORDER BEEPOD', href: '#preorder' },
@@ -354,7 +354,7 @@ function HeroSection() {
           style={{ background: 'linear-gradient(to bottom, rgba(26,15,0,0.35) 0%, rgba(26,15,0,0.15) 40%, rgba(26,15,0,0.75) 75%, rgba(26,15,0,0.95) 100%)' }} />
         {/* Content */}
         <div className="relative w-full max-w-7xl mx-auto px-6 lg:px-10 pb-20 pt-36">
-          <TextBlock centered />
+          <TextBlock />
         </div>
       </section>
     );
