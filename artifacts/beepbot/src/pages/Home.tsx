@@ -22,6 +22,8 @@ import beepodProduct from '@assets/hf_20260811_110546_2b68d97f-4bff-483f-9180-81
 // @ts-ignore
 import beepodBlack from '@assets/hf_20260811_110546_2b68d97f-4bff-483f-9180-81b18433b94e_1786762579063.png';
 // @ts-ignore
+import beepodLogoColor from '@assets/Artboard_9_1786787602742.png';
+// @ts-ignore
 import productFront from '@assets/1_1786762343371.png';
 // @ts-ignore
 import productFront2 from '@assets/2_1786762343371.png';
@@ -597,22 +599,16 @@ function PhoneMockup() {
         {/* Splash screen */}
         <div className="flex flex-col items-center justify-center gap-5"
           style={{ background: ESPRESSO, minHeight: 480, padding: '40px 24px' }}>
-          {/* Glow ring */}
+          {/* Logo */}
           <div className="relative flex items-center justify-center">
-            <div className="absolute w-28 h-28 rounded-full"
-              style={{ background: 'radial-gradient(ellipse, rgba(255,154,0,0.25) 0%, transparent 70%)' }} />
-            <div className="w-20 h-20 rounded-2xl flex items-center justify-center text-4xl relative z-10"
-              style={{ background: `linear-gradient(135deg, ${AMBER_GLOW}, ${BEE_ORANGE})` }}>
-              🐝
-            </div>
+            <div className="absolute w-40 h-40 rounded-full"
+              style={{ background: 'radial-gradient(ellipse, rgba(255,154,0,0.18) 0%, transparent 70%)' }} />
+            <img src={beepodLogoColor} alt="BeePod"
+              className="relative z-10 w-36 object-contain" />
           </div>
-          {/* Name */}
-          <div className="text-center">
-            <p className="font-display font-black text-[22px] tracking-tight leading-tight"
-              style={{ color: WARM_WHITE }}>BeePod</p>
-            <p className="text-[11px] font-bold tracking-[0.2em] uppercase mt-1"
-              style={{ color: BEE_ORANGE }}>Parent App</p>
-          </div>
+          {/* Label */}
+          <p className="text-[11px] font-bold tracking-[0.22em] uppercase"
+            style={{ color: BEE_ORANGE }}>Parent App</p>
           {/* Loading dots */}
           <div className="flex gap-2 mt-4">
             {[0, 1, 2].map(i => (
