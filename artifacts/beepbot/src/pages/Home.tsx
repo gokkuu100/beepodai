@@ -222,8 +222,12 @@ function HeroSection() {
 
           <motion.h1 variants={fadeUp}
             className="font-display font-black leading-[0.92] tracking-tighter mb-6"
-            style={{ color: BEE_ORANGE }}>
-            <span className="block text-[3.4rem] sm:text-[4.5rem] lg:text-[5rem] xl:text-[6rem]">COMPANION.</span>
+            style={{ color: WARM_WHITE }}>
+            <span className="block text-[3.4rem] sm:text-[4.5rem] lg:text-[5rem] xl:text-[6rem]">MEET YOUR</span>
+            <span className="block text-[3.4rem] sm:text-[4.5rem] lg:text-[5rem] xl:text-[6rem]">NEW AI</span>
+            <span className="block text-[3.4rem] sm:text-[4.5rem] lg:text-[5rem] xl:text-[6rem]" style={{ color: BEE_ORANGE }}>
+              COMPANION.
+            </span>
           </motion.h1>
 
           <motion.p variants={fadeUp} className="text-base sm:text-lg leading-relaxed mb-2 max-w-sm" style={{ color: MUTED_DARK }}>
