@@ -491,10 +491,6 @@ function ProductShowcase() {
 
           {/* Product image */}
           <div className="relative flex items-center justify-center h-80 sm:h-[28rem]">
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-72 h-72 rounded-full"
-                style={{ background: `radial-gradient(ellipse at center, rgba(255,154,0,0.08) 0%, transparent 70%)` }} />
-            </div>
             <AnimatePresence mode="wait">
               <motion.img
                 key={active}
