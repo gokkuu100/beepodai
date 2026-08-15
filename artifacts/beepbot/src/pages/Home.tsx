@@ -208,7 +208,11 @@ function HeroSection() {
       <div className="relative w-full max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-12 items-center pt-28 pb-16 lg:pt-0 lg:pb-0 min-h-screen">
         {/* Left */}
         <motion.div variants={stagger} initial="hidden" animate="visible" className="flex flex-col justify-center z-10">
-          <motion.div variants={fadeUp} className="mb-6 inline-flex items-center gap-2 self-start">
+          {/* BeePod logo lockup */}
+          <motion.div variants={fadeUp} className="mb-7 flex flex-col items-start gap-3 self-start">
+            <div className="bg-white rounded-2xl px-4 py-2.5 shadow-lg shadow-black/30">
+              <img src={beepodLogo} alt="BeePod" className="h-10 md:h-12 w-auto object-contain" />
+            </div>
             <span className="text-[11px] font-bold tracking-[0.18em] uppercase px-3 py-1.5 rounded-full"
               style={{ background: 'rgba(255,154,0,0.12)', color: BEE_ORANGE, border: `1px solid rgba(255,154,0,0.25)` }}>
               Introducing BeePod
