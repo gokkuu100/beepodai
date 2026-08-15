@@ -39,6 +39,8 @@ import logoDeepSeek from '@assets/DeepSeek_logo.svg_1786738681959.webp';
 import logoChatGPT from '@assets/new-ChatGPT-logo-black-png-large-size_1786738681959.png';
 // @ts-ignore
 import logoClaude from '@assets/Claude_AI_logo.svg_1786738715630.webp';
+// @ts-ignore
+import heroKids from '@assets/hf_20260815_103355_cd0bc32e-3188-43ec-96e7-68b8aacda9dc_(1)_1786790249687.png';
 
 // ─── Brand Palette ───────────────────────────────────────────
 const ESPRESSO   = '#1A0F00';   // Deep Espresso (primary dark)
@@ -215,6 +217,62 @@ function Navbar() {
 
 // ─── SECTION 1: Hero ─────────────────────────────────────────
 function HeroSection() {
+  const slides = [
+    {
+      badge: 'Introducing BeePod',
+      headline: ['MEET YOUR', 'NEW AI', 'COMPANION.'],
+      accentLine: 2,
+      body: <>Small enough to stay by your side.<br />Smart enough to keep up.</>,
+      sub: 'Be one of the first to bring BeePod home.',
+      cta1: { label: 'PRE-ORDER BEEPOD', href: '#preorder' },
+      cta2: { label: 'SEE HOW IT WORKS', href: '#howitworks' },
+      visual: (
+        <motion.img
+          key="slide0-img"
+          src={beepodProduct}
+          alt="BeePod AI Companion"
+          className="w-full max-w-sm sm:max-w-md lg:max-w-xl xl:max-w-2xl object-contain"
+          style={{ maxHeight: '80vh', mixBlendMode: 'screen', filter: 'drop-shadow(0 0 80px rgba(255,154,0,0.3))' }}
+          initial={{ opacity: 0, scale: 0.92, x: 40 }}
+          animate={{ opacity: 1, scale: 1, x: 0 }}
+          exit={{ opacity: 0, scale: 0.92, x: -40 }}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+        />
+      ),
+    },
+    {
+      badge: 'For Curious Minds',
+      headline: ['MEET BEEPOD.', 'YOUR CHILD\'S AI', 'LEARNING COMPANION.'],
+      accentLine: 0,
+      body: <>Less screen time. More curiosity. BeePod helps kids ask questions, understand concepts, and learn through natural conversation—without reaching for a phone.</>,
+      sub: '',
+      cta1: { label: 'PRE-ORDER BEEPOD', href: '#preorder' },
+      cta2: { label: 'LEARN MORE', href: '#about' },
+      visual: (
+        <motion.img
+          key="slide1-img"
+          src={heroKids}
+          alt="Kids learning with BeePod"
+          className="w-full max-w-sm sm:max-w-md lg:max-w-xl xl:max-w-2xl object-contain rounded-3xl"
+          style={{ maxHeight: '80vh', filter: 'drop-shadow(0 20px 60px rgba(0,0,0,0.4))' }}
+          initial={{ opacity: 0, scale: 0.92, x: 40 }}
+          animate={{ opacity: 1, scale: 1, x: 0 }}
+          exit={{ opacity: 0, scale: 0.92, x: -40 }}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+        />
+      ),
+    },
+  ];
+
+  const [active, setActive] = useState(0);
+
+  useEffect(() => {
+    const t = setInterval(() => setActive(a => (a + 1) % slides.length), 5500);
+    return () => clearInterval(t);
+  }, []);
+
+  const slide = slides[active];
+
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden" style={{ background: ESPRESSO }}>
       {/* Ambient glow */}
@@ -224,56 +282,72 @@ function HeroSection() {
       <div className="absolute inset-0 pointer-events-none opacity-[0.025]"
         style={{ backgroundImage: `linear-gradient(${BORDER_DARK} 1px, transparent 1px), linear-gradient(90deg, ${BORDER_DARK} 1px, transparent 1px)`, backgroundSize: '60px 60px' }} />
 
-      <div className="relative w-full max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-8 items-center min-h-screen pt-24 pb-8">
-        {/* Left — text, centered within column */}
-        <motion.div variants={stagger} initial="hidden" animate="visible"
-          className="flex flex-col items-center lg:items-start text-center lg:text-left z-10">
-          <motion.div variants={fadeUp} className="mb-5">
-            <span className="text-[11px] font-bold tracking-[0.18em] uppercase px-3 py-1.5 rounded-full"
-              style={{ background: 'rgba(255,154,0,0.12)', color: BEE_ORANGE, border: `1px solid rgba(255,154,0,0.25)` }}>
-              Introducing BeePod
-            </span>
+      <div className="relative w-full max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-8 items-center min-h-screen pt-36 pb-16">
+        {/* Left — text */}
+        <AnimatePresence mode="wait">
+          <motion.div key={active}
+            variants={stagger} initial="hidden" animate="visible" exit={{ opacity: 0, y: -20, transition: { duration: 0.3 } }}
+            className="flex flex-col items-center lg:items-start text-center lg:text-left z-10">
+            <motion.div variants={fadeUp} className="mb-5">
+              <span className="text-[11px] font-bold tracking-[0.18em] uppercase px-3 py-1.5 rounded-full"
+                style={{ background: 'rgba(255,154,0,0.12)', color: BEE_ORANGE, border: `1px solid rgba(255,154,0,0.25)` }}>
+                {slide.badge}
+              </span>
+            </motion.div>
+
+            <motion.h1 variants={fadeUp}
+              className="font-display font-black leading-[0.92] tracking-tighter mb-5"
+              style={{ color: WARM_WHITE }}>
+              {slide.headline.map((line, i) => (
+                <span key={i} className="block text-[2.8rem] sm:text-[3.8rem] lg:text-[4.4rem] xl:text-[5.2rem]"
+                  style={i === slide.accentLine ? { color: BEE_ORANGE } : {}}>
+                  {line}
+                </span>
+              ))}
+            </motion.h1>
+
+            <motion.p variants={fadeUp} className="text-base sm:text-lg leading-relaxed mb-2 max-w-md" style={{ color: MUTED_DARK }}>
+              {slide.body}
+            </motion.p>
+            {slide.sub && (
+              <motion.p variants={fadeUp} className="text-[12px] font-medium tracking-wide mb-7" style={{ color: 'rgba(255,248,240,0.3)' }}>
+                {slide.sub}
+              </motion.p>
+            )}
+
+            <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-3 mt-6">
+              <AmberButton href={slide.cta1.href}>
+                {slide.cta1.label} <ChevronRight className="w-4 h-4" />
+              </AmberButton>
+              <motion.a href={slide.cta2.href} whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }}
+                className="inline-flex items-center justify-center gap-2.5 font-display font-semibold text-[15px] px-8 py-4 rounded-2xl"
+                style={{ color: WARM_WHITE, border: `1px solid rgba(255,248,240,0.12)`, background: 'rgba(255,248,240,0.04)' }}>
+                {slide.cta2.label}
+              </motion.a>
+            </motion.div>
+
+            {/* Dots */}
+            <div className="flex items-center gap-3 mt-10">
+              {slides.map((_, i) => (
+                <button key={i} onClick={() => setActive(i)}
+                  className="transition-all duration-300 rounded-full"
+                  style={{
+                    width: i === active ? '28px' : '8px',
+                    height: '8px',
+                    background: i === active ? BEE_ORANGE : 'rgba(255,248,240,0.25)',
+                  }}
+                />
+              ))}
+            </div>
           </motion.div>
+        </AnimatePresence>
 
-          <motion.h1 variants={fadeUp}
-            className="font-display font-black leading-[0.92] tracking-tighter mb-5"
-            style={{ color: WARM_WHITE }}>
-            <span className="block text-[3.2rem] sm:text-[4.2rem] lg:text-[4.8rem] xl:text-[5.8rem]">MEET YOUR</span>
-            <span className="block text-[3.2rem] sm:text-[4.2rem] lg:text-[4.8rem] xl:text-[5.8rem]">NEW AI</span>
-            <span className="block text-[3.2rem] sm:text-[4.2rem] lg:text-[4.8rem] xl:text-[5.8rem]" style={{ color: BEE_ORANGE }}>
-              COMPANION.
-            </span>
-          </motion.h1>
-
-          <motion.p variants={fadeUp} className="text-base sm:text-lg leading-relaxed mb-2 max-w-sm" style={{ color: MUTED_DARK }}>
-            Small enough to stay by your side.<br />Smart enough to keep up.
-          </motion.p>
-          <motion.p variants={fadeUp} className="text-[12px] font-medium tracking-wide mb-7" style={{ color: 'rgba(255,248,240,0.3)' }}>
-            Be one of the first to bring BeePod home.
-          </motion.p>
-
-          <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-3">
-            <AmberButton href="#preorder">
-              PRE-ORDER BEEPOD <ChevronRight className="w-4 h-4" />
-            </AmberButton>
-            <motion.a href="#howitworks" whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }}
-              className="inline-flex items-center justify-center gap-2.5 font-display font-semibold text-[15px] px-8 py-4 rounded-2xl transition-colors"
-              style={{ color: WARM_WHITE, border: `1px solid rgba(255,248,240,0.12)`, background: 'rgba(255,248,240,0.04)' }}>
-              SEE HOW IT WORKS
-            </motion.a>
-          </motion.div>
-        </motion.div>
-
-        {/* Right — product image */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.92, x: 40 }} animate={{ opacity: 1, scale: 1, x: 0 }}
-          transition={{ duration: 1.1, delay: 0.25, type: 'spring', bounce: 0.2 }}
-          className="relative flex items-center justify-center h-full">
-          <motion.img src={beepodProduct} alt="BeePod AI Companion"
-            className="w-full max-w-sm sm:max-w-md lg:max-w-xl xl:max-w-2xl object-contain"
-            style={{ maxHeight: '80vh', mixBlendMode: 'screen', filter: `drop-shadow(0 0 80px rgba(255,154,0,0.3))` }}
-          />
-        </motion.div>
+        {/* Right — visual */}
+        <div className="relative flex items-center justify-center h-full">
+          <AnimatePresence mode="wait">
+            {slide.visual}
+          </AnimatePresence>
+        </div>
       </div>
     </section>
   );
