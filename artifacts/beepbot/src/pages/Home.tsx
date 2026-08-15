@@ -341,50 +341,58 @@ function HeroSection() {
     </AnimatePresence>
   );
 
-  if (isFullImage) {
-    return (
-      <section className="relative min-h-screen flex items-end overflow-hidden">
-        {/* Full bleed background image */}
-        <AnimatePresence mode="wait">
-          <motion.img
-            key={active}
-            src={(slide as any).fullImage}
-            alt="BeePod hero"
-            className="absolute inset-0 w-full h-full object-cover"
-            initial={{ opacity: 0, scale: 1.04 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 1.04 }}
-            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-          />
-        </AnimatePresence>
-        {/* Dark gradient overlay — heavy at bottom for text legibility */}
-        <div className="absolute inset-0 pointer-events-none"
-          style={{ background: 'linear-gradient(to bottom, rgba(26,15,0,0.35) 0%, rgba(26,15,0,0.15) 40%, rgba(26,15,0,0.75) 75%, rgba(26,15,0,0.95) 100%)' }} />
-        {/* Content */}
-        <div className="relative w-full max-w-7xl mx-auto px-6 lg:px-10 pb-20 pt-36">
-          <TextBlock />
-        </div>
-      </section>
-    );
-  }
-
+  // Single section — all images always mounted, cross-fade via opacity only
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden" style={{ background: ESPRESSO }}>
-      {/* Ambient glow */}
-      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full pointer-events-none"
-        style={{ background: `radial-gradient(ellipse at center, rgba(255,154,0,0.13) 0%, transparent 65%)` }} />
-      {/* Grid */}
-      <div className="absolute inset-0 pointer-events-none opacity-[0.025]"
-        style={{ backgroundImage: `linear-gradient(${BORDER_DARK} 1px, transparent 1px), linear-gradient(90deg, ${BORDER_DARK} 1px, transparent 1px)`, backgroundSize: '60px 60px' }} />
+    <section className="relative min-h-screen flex items-end overflow-hidden" style={{ background: ESPRESSO }}>
 
-      <div className="relative w-full max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-8 items-center min-h-screen pt-36 pb-16">
-        <TextBlock />
+      {/* ── Slide 2: full-bleed kids photo — always in DOM ── */}
+      <motion.img
+        src={heroKids}
+        alt=""
+        aria-hidden
+        fetchPriority="high"
+        decoding="async"
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+        animate={{ opacity: active === 1 ? 1 : 0, scale: active === 1 ? 1 : 1.06 }}
+        transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+      />
+      {/* Gradient overlay for slide 2 */}
+      <motion.div className="absolute inset-0 pointer-events-none"
+        animate={{ opacity: active === 1 ? 1 : 0 }}
+        transition={{ duration: 1 }}
+        style={{ background: 'linear-gradient(to bottom, rgba(26,15,0,0.4) 0%, rgba(26,15,0,0.1) 35%, rgba(26,15,0,0.7) 70%, rgba(26,15,0,0.96) 100%)' }}
+      />
 
-        {/* Right — visual */}
-        <div className="relative flex items-center justify-center h-full">
-          <AnimatePresence mode="wait">
-            {slide.visual}
-          </AnimatePresence>
+      {/* ── Slide 1 decorative layers ── */}
+      <motion.div className="absolute right-0 top-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full pointer-events-none"
+        animate={{ opacity: active === 0 ? 1 : 0 }} transition={{ duration: 0.8 }}
+        style={{ background: `radial-gradient(ellipse at center, rgba(255,154,0,0.13) 0%, transparent 65%)` }}
+      />
+      <motion.div className="absolute inset-0 pointer-events-none"
+        animate={{ opacity: active === 0 ? 0.025 : 0 }} transition={{ duration: 0.8 }}
+        style={{ backgroundImage: `linear-gradient(${BORDER_DARK} 1px, transparent 1px), linear-gradient(90deg, ${BORDER_DARK} 1px, transparent 1px)`, backgroundSize: '60px 60px' }}
+      />
+
+      {/* ── Content ── */}
+      <div className="relative w-full max-w-7xl mx-auto px-6 lg:px-10 min-h-screen pt-36 pb-16 flex items-center">
+        <div className="w-full grid lg:grid-cols-2 gap-8 items-center">
+          <TextBlock />
+
+          {/* Slide 1 product image — always in DOM */}
+          <motion.div
+            className="relative flex items-center justify-center h-full"
+            animate={{ opacity: active === 0 ? 1 : 0, x: active === 0 ? 0 : 40 }}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <img
+              src={beepodProduct}
+              alt="BeePod AI Companion"
+              fetchPriority="high"
+              decoding="async"
+              className="w-full max-w-sm sm:max-w-md lg:max-w-xl xl:max-w-2xl object-contain"
+              style={{ maxHeight: '80vh', mixBlendMode: 'screen', filter: 'drop-shadow(0 0 80px rgba(255,154,0,0.3))' }}
+            />
+          </motion.div>
         </div>
       </div>
     </section>
