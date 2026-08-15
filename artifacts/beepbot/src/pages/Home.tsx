@@ -124,29 +124,26 @@ function Navbar() {
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-        className="fixed top-0 inset-x-0 z-50"
+        className="fixed top-0 inset-x-0 z-50 transition-all duration-300"
+        style={{
+          background: scrolled ? 'rgba(255,255,255,0.97)' : 'rgba(26,15,0,0.55)',
+          backdropFilter: 'blur(24px)',
+          borderBottom: scrolled ? '1px solid rgba(0,0,0,0.08)' : '1px solid rgba(255,154,0,0.06)',
+          boxShadow: scrolled ? '0 4px 24px rgba(0,0,0,0.08)' : 'none',
+        }}
       >
-        <div className="mx-4 mt-4 max-w-6xl xl:mx-auto">
-          <div
-            className="rounded-2xl px-5 py-3 flex items-center justify-between transition-all duration-300"
-            style={{
-              background: scrolled ? 'rgba(26,15,0,0.75)' : 'transparent',
-              backdropFilter: scrolled ? 'blur(20px)' : 'none',
-              border: `1px solid ${scrolled ? 'rgba(255,154,0,0.12)' : 'transparent'}`,
-              boxShadow: scrolled ? `0 4px 24px rgba(0,0,0,0.3)` : 'none',
-            }}
-          >
-            {/* Desktop Left */}
-            <nav className="hidden md:flex items-center gap-7 w-56">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10">
+          <div className="flex items-center justify-between h-[72px]">
+
+            {/* Desktop Left nav */}
+            <nav className="hidden md:flex items-center gap-8 flex-1">
               {[['About', '#about'], ['How It Works', '#howitworks'], ['Product', '#product']].map(([label, href]) => (
                 <a key={label} href={href}
                   className="text-[13px] font-semibold tracking-wide transition-colors whitespace-nowrap"
-                  style={{ color: 'rgba(255,248,240,0.75)' }}
+                  style={{ color: scrolled ? 'rgba(26,15,0,0.65)' : 'rgba(255,248,240,0.72)' }}
                   onMouseEnter={e => (e.currentTarget.style.color = BEE_ORANGE)}
-                  onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,248,240,0.75)')}
-                >
-                  {label}
-                </a>
+                  onMouseLeave={e => (e.currentTarget.style.color = scrolled ? 'rgba(26,15,0,0.65)' : 'rgba(255,248,240,0.72)')}
+                >{label}</a>
               ))}
             </nav>
 
@@ -155,27 +152,28 @@ function Navbar() {
               {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
 
-            {/* Logo — white pill so coloured logo is visible on dark navbar */}
-            <div className="flex-1 md:flex-none flex justify-center">
-              <div className="bg-white rounded-xl px-3 py-1.5">
-                <img src={beepodLogo} alt="BeePod" className="h-[55px] md:h-[69px] w-auto object-contain" />
-              </div>
+            {/* Centre logo */}
+            <div className="flex-shrink-0 mx-6">
+              <a href="#" className="block">
+                <div className="rounded-xl px-2.5 py-1 transition-all duration-300"
+                  style={{ background: scrolled ? 'transparent' : 'white' }}>
+                  <img src={beepodLogo} alt="BeePod" className="h-[54px] md:h-[65px] w-auto object-contain" />
+                </div>
+              </a>
             </div>
 
-            {/* Desktop Right */}
-            <nav className="hidden md:flex items-center gap-7 w-56 justify-end">
+            {/* Desktop Right nav */}
+            <nav className="hidden md:flex items-center gap-7 flex-1 justify-end">
               {[['Parent App', '#parentapp'], ['Specs', '#specs'], ['Story', '#story']].map(([label, href]) => (
                 <a key={label} href={href}
                   className="text-[13px] font-semibold tracking-wide transition-colors whitespace-nowrap"
-                  style={{ color: 'rgba(255,248,240,0.75)' }}
+                  style={{ color: scrolled ? 'rgba(26,15,0,0.65)' : 'rgba(255,248,240,0.72)' }}
                   onMouseEnter={e => (e.currentTarget.style.color = BEE_ORANGE)}
-                  onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,248,240,0.75)')}
-                >
-                  {label}
-                </a>
+                  onMouseLeave={e => (e.currentTarget.style.color = scrolled ? 'rgba(26,15,0,0.65)' : 'rgba(255,248,240,0.72)')}
+                >{label}</a>
               ))}
               <motion.a href="#preorder" whileHover={{ scale: 1.04, y: -1 }} whileTap={{ scale: 0.97 }}
-                className="text-[13px] font-bold tracking-wide px-5 py-2 rounded-xl text-black whitespace-nowrap"
+                className="text-[13px] font-bold tracking-wide px-5 py-2.5 rounded-xl text-black whitespace-nowrap"
                 style={{ background: `linear-gradient(135deg, ${AMBER_GLOW}, ${BEE_ORANGE})` }}
               >
                 Pre-Order
@@ -1046,7 +1044,7 @@ function PreOrderSection() {
 // ─── Final CTA (ESPRESSO + amber gradient) ───────────────────
 function FinalCTA() {
   return (
-    <section style={{ background: ESPRESSO, borderTop: `1px solid ${BORDER_DARK}` }}>
+    <section style={{ background: `linear-gradient(135deg, ${BEE_ORANGE} 0%, ${AMBER_GLOW} 50%, #e65c00 100%)` }}>
       <div className="max-w-7xl mx-auto px-6 lg:px-10 py-24 lg:py-36">
         <div className="grid lg:grid-cols-2 items-center gap-12">
           {/* Left: text */}
@@ -1054,16 +1052,19 @@ function FinalCTA() {
             viewport={{ once: true, margin: '-80px' }}>
             <motion.h2 variants={fadeUp}
               className="font-display font-black text-5xl sm:text-6xl lg:text-7xl xl:text-8xl leading-[0.9] tracking-tighter mb-10"
-              style={{ color: WARM_WHITE }}>
+              style={{ color: ESPRESSO }}>
               <span className="block">SMALL BOT.</span>
-              <span className="block" style={{ color: BEE_ORANGE }}>BIG VOICE.</span>
+              <span className="block" style={{ color: WHITE }}>BIG VOICE.</span>
               <span className="block">INFINITE</span>
               <span className="block">POSSIBILITIES.</span>
             </motion.h2>
             <motion.div variants={fadeUp}>
-              <AmberButton href="#preorder">
+              <motion.a href="#preorder"
+                whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }}
+                className="inline-flex items-center gap-2.5 font-display font-bold text-[15px] px-8 py-4 rounded-2xl"
+                style={{ background: ESPRESSO, color: WARM_WHITE, boxShadow: '0 8px 30px rgba(26,15,0,0.25)' }}>
                 PRE-ORDER BEEPOD <ChevronRight className="w-4 h-4" />
-              </AmberButton>
+              </motion.a>
             </motion.div>
           </motion.div>
 
@@ -1072,15 +1073,9 @@ function FinalCTA() {
             initial={{ opacity: 0, x: 40 }} whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }} transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
             className="flex justify-center relative">
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-64 h-64 sm:w-96 sm:h-96 rounded-full"
-                style={{ background: `radial-gradient(ellipse at center, rgba(255,154,0,0.15) 0%, transparent 70%)` }} />
-            </div>
             <motion.img src={beepodBlack} alt="BeePod"
               className="relative z-10 w-52 sm:w-72 lg:w-80 object-contain"
-              style={{ mixBlendMode: 'screen', filter: `drop-shadow(0 0 60px rgba(255,154,0,0.35))` }}
-              animate={{ y: [0, -14, 0] }}
-              transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+              style={{ filter: `drop-shadow(0 20px 40px rgba(26,15,0,0.3))` }}
             />
           </motion.div>
         </div>
