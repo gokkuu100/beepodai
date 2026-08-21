@@ -18,7 +18,7 @@ import beepodLogoHero from '@assets/WHITE_LOGO__1786760473895.png';
 // @ts-ignore
 import beepodRobot from '@assets/hf_20260812_210333_7ca1e994-0af8-47de-96e1-fdfebe9398ff_1786735537941.png';
 // @ts-ignore
-import beepodProduct from '@assets/hf_20260811_110546_2b68d97f-4bff-483f-9180-81b18433b94e-Recove_1786787702362.png';
+import beepodProduct from '@assets/hero-product.webp';
 // @ts-ignore
 import beepodBlack from '@assets/hf_20260811_110546_2b68d97f-4bff-483f-9180-81b18433b94e_1786762579063.png';
 // @ts-ignore
@@ -40,9 +40,9 @@ import logoChatGPT from '@assets/new-ChatGPT-logo-black-png-large-size_178673868
 // @ts-ignore
 import logoClaude from '@assets/Claude_AI_logo.svg_1786738715630.webp';
 // @ts-ignore
-import heroKids from '@assets/hf_20260815_103355_cd0bc32e-3188-43ec-96e7-68b8aacda9dc_(1)_1786790249687.png';
+import heroKids from '@assets/hero-kids.webp';
 // @ts-ignore
-import heroBoys from '@assets/hf_20260815_111449_ab9e07eb-27f0-4df4-883d-67a97e80f63d_1786793612783.png';
+import heroBoys from '@assets/hero-boys.webp';
 
 // ─── Brand Palette ───────────────────────────────────────────
 const ESPRESSO   = '#1A0F00';   // Deep Espresso (primary dark)
