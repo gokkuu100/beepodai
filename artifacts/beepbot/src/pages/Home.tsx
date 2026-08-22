@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import {
   Mic, Brain, Globe, Shield, ChevronRight,
   Menu, X, Volume2, Wifi, Battery, Star,
@@ -59,12 +59,14 @@ const MUTED_LIGHT = 'rgba(26,15,0,0.5)';
 const BORDER_DARK  = 'rgba(255,154,0,0.12)';
 const BORDER_LIGHT = 'rgba(26,15,0,0.08)';
 
+const apiUrl = (path: string) => `${import.meta.env.BASE_URL.replace(/\/$/, '')}/api${path}`;
+
 // ─── Reusable animation variants ─────────────────────────────
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 36 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] } }
 };
-const stagger = {
+const stagger: Variants = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.1 } }
 };
@@ -1063,10 +1065,38 @@ function FounderSection() {
 function PreOrderSection() {
   const [form, setForm] = useState({ name: '', email: '', phone: '', country: '' });
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState("We'll reach out the moment BeePod is ready for you.");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (form.name && form.email) setSubmitted(true);
+    setError('');
+    setSubmitting(true);
+
+    try {
+      const response = await fetch(apiUrl('/preorders'), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+      const body = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        throw new Error(typeof body.message === 'string' ? body.message : 'We could not save your pre-order. Please try again.');
+      }
+
+      setSuccessMessage(
+        typeof body.message === 'string'
+          ? body.message
+          : "We'll reach out the moment BeePod is ready for you.",
+      );
+      setSubmitted(true);
+    } catch (reason) {
+      setError(reason instanceof Error ? reason.message : 'We could not save your pre-order. Please try again.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const inputStyle = {
@@ -1120,7 +1150,7 @@ function PreOrderSection() {
                   You're on the list!
                 </h3>
                 <p className="text-[16px]" style={{ color: MUTED_LIGHT }}>
-                  We'll reach out the moment BeePod is ready for you.
+                  {successMessage}
                 </p>
               </motion.div>
             ) : (
@@ -1130,7 +1160,7 @@ function PreOrderSection() {
                   <label className="text-[11px] font-bold tracking-[0.12em] uppercase" style={{ color: MUTED_LIGHT }}>
                     Name
                   </label>
-                  <input type="text" required placeholder="Your name" value={form.name}
+                  <input type="text" required minLength={2} placeholder="Your name" value={form.name}
                     onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
                     style={inputStyle}
                     onFocus={e => (e.currentTarget.style.borderColor = BEE_ORANGE)}
@@ -1171,10 +1201,18 @@ function PreOrderSection() {
                   />
                 </div>
                 <div className="sm:col-span-2 mt-2">
+                  {error && (
+                    <p className="mb-3 rounded-xl px-4 py-3 text-sm text-left"
+                      role="alert"
+                      style={{ color: '#9E1E1E', background: 'rgba(190,30,30,0.08)' }}>
+                      {error}
+                    </p>
+                  )}
                   <motion.button type="submit" whileHover={{ scale: 1.03, y: -2 }} whileTap={{ scale: 0.97 }}
-                    className="w-full inline-flex items-center justify-center gap-2 text-black font-display font-bold text-[15px] px-8 py-4 rounded-2xl"
+                    disabled={submitting}
+                    className="w-full inline-flex items-center justify-center gap-2 text-black font-display font-bold text-[15px] px-8 py-4 rounded-2xl disabled:cursor-not-allowed disabled:opacity-65"
                     style={{ background: `linear-gradient(135deg, ${AMBER_GLOW}, ${BEE_ORANGE})`, boxShadow: `0 0 40px rgba(255,154,0,0.25)` }}>
-                    JOIN THE BEEPOD PRE-ORDER <ArrowRight className="w-4 h-4" />
+                    {submitting ? 'SAVING YOUR PLACE…' : <>JOIN THE BEEPOD PRE-ORDER <ArrowRight className="w-4 h-4" /></>}
                   </motion.button>
                 </div>
               </motion.form>
