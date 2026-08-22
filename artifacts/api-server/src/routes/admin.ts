@@ -1,4 +1,4 @@
-import { desc, ilike, or } from "drizzle-orm";
+import { count, desc, gte, ilike, or, sql } from "drizzle-orm";
 import { Router } from "express";
 import { db, preorders } from "@workspace/db";
 import {
@@ -10,6 +10,13 @@ import {
 } from "../lib/admin-session";
 
 const adminRouter = Router();
+const MAX_LOGIN_ATTEMPTS = 6;
+const LOGIN_WINDOW_MS = 15 * 60 * 1000;
+const loginAttempts = new Map<string, { attempts: number; windowStartedAt: number }>();
+
+function loginKey(request: { ip?: string }) {
+  return request.ip ?? "unknown";
+}
 
 function dayKey(value: Date) {
   return value.toISOString().slice(0, 10);
@@ -17,6 +24,43 @@ function dayKey(value: Date) {
 
 function startOfUtcDay(value: Date) {
   return new Date(Date.UTC(value.getUTCFullYear(), value.getUTCMonth(), value.getUTCDate()));
+}
+
+function remainingLockoutSeconds(request: { ip?: string }) {
+  const key = loginKey(request);
+  const attempt = loginAttempts.get(key);
+  if (!attempt) {
+    return 0;
+  }
+
+  const elapsed = Date.now() - attempt.windowStartedAt;
+  if (elapsed >= LOGIN_WINDOW_MS) {
+    loginAttempts.delete(key);
+    return 0;
+  }
+
+  if (attempt.attempts < MAX_LOGIN_ATTEMPTS) {
+    return 0;
+  }
+
+  return Math.ceil((LOGIN_WINDOW_MS - elapsed) / 1000);
+}
+
+function recordFailedLogin(request: { ip?: string }) {
+  const key = loginKey(request);
+  const now = Date.now();
+  const attempt = loginAttempts.get(key);
+
+  if (!attempt || now - attempt.windowStartedAt >= LOGIN_WINDOW_MS) {
+    loginAttempts.set(key, { attempts: 1, windowStartedAt: now });
+    return;
+  }
+
+  attempt.attempts += 1;
+}
+
+function clearLoginAttempts(request: { ip?: string }) {
+  loginAttempts.delete(loginKey(request));
 }
 
 adminRouter.post("/admin/login", (request, response) => {
@@ -27,11 +71,22 @@ adminRouter.post("/admin/login", (request, response) => {
     return;
   }
 
+  const retryAfterSeconds = remainingLockoutSeconds(request);
+  if (retryAfterSeconds > 0) {
+    response
+      .status(429)
+      .set("Retry-After", String(retryAfterSeconds))
+      .json({ message: "Too many sign-in attempts. Please try again shortly." });
+    return;
+  }
+
   if (!verifyAdminPassword(request.body?.password)) {
+    recordFailedLogin(request);
     response.status(401).json({ message: "That password isn't correct." });
     return;
   }
 
+  clearLoginAttempts(request);
   createAdminSession(response);
   response.status(200).json({ authenticated: true });
 });
@@ -54,15 +109,42 @@ adminRouter.get("/admin/dashboard", requireAdmin, async (request, response) => {
         ilike(preorders.country, `%${search}%`),
       )
     : undefined;
+  const now = new Date();
+  const todayStart = startOfUtcDay(now);
+  const weekStart = new Date(todayStart);
+  weekStart.setUTCDate(weekStart.getUTCDate() - 6);
+  const analyticsStart = new Date(todayStart);
+  analyticsStart.setUTCDate(analyticsStart.getUTCDate() - 13);
+  const dayExpression = sql<string>`to_char(date_trunc('day', ${preorders.createdAt} AT TIME ZONE 'UTC'), 'YYYY-MM-DD')`;
+  const countryExpression = sql<string>`coalesce(nullif(btrim(${preorders.country}), ''), 'Not provided')`;
+  const countryCountExpression = sql<number>`count(distinct nullif(btrim(${preorders.country}), ''))`.mapWith(Number);
 
   try {
-    const [allPreorders, messages] = await Promise.all([
+    const [
+      [total],
+      [today],
+      [thisWeek],
+      [countriesTracked],
+      dailyRows,
+      countryRows,
+      messages,
+    ] = await Promise.all([
+      db.select({ count: count(preorders.id) }).from(preorders),
+      db.select({ count: count(preorders.id) }).from(preorders).where(gte(preorders.createdAt, todayStart)),
+      db.select({ count: count(preorders.id) }).from(preorders).where(gte(preorders.createdAt, weekStart)),
+      db.select({ count: countryCountExpression }).from(preorders),
       db
-        .select({
-          createdAt: preorders.createdAt,
-          country: preorders.country,
-        })
-        .from(preorders),
+        .select({ date: dayExpression, count: count(preorders.id) })
+        .from(preorders)
+        .where(gte(preorders.createdAt, analyticsStart))
+        .groupBy(dayExpression)
+        .orderBy(dayExpression),
+      db
+        .select({ country: countryExpression, count: count(preorders.id) })
+        .from(preorders)
+        .groupBy(countryExpression)
+        .orderBy(desc(count(preorders.id)))
+        .limit(6),
       searchFilter
         ? db
             .select()
@@ -73,34 +155,9 @@ adminRouter.get("/admin/dashboard", requireAdmin, async (request, response) => {
         : db.select().from(preorders).orderBy(desc(preorders.createdAt)).limit(250),
     ]);
 
-    const now = new Date();
-    const todayStart = startOfUtcDay(now);
-    const weekStart = new Date(todayStart);
-    weekStart.setUTCDate(weekStart.getUTCDate() - 6);
-
     const dailyCounts = new Map<string, number>();
-    const countryCounts = new Map<string, number>();
-    let newToday = 0;
-    let newThisWeek = 0;
-
-    for (const preorder of allPreorders) {
-      const createdAt = preorder.createdAt;
-      if (!createdAt) {
-        continue;
-      }
-
-      if (createdAt >= todayStart) {
-        newToday += 1;
-      }
-      if (createdAt >= weekStart) {
-        newThisWeek += 1;
-      }
-
-      const key = dayKey(createdAt);
-      dailyCounts.set(key, (dailyCounts.get(key) ?? 0) + 1);
-
-      const country = preorder.country?.trim() || "Not provided";
-      countryCounts.set(country, (countryCounts.get(country) ?? 0) + 1);
+    for (const row of dailyRows) {
+      dailyCounts.set(row.date, row.count);
     }
 
     const daily = Array.from({ length: 14 }, (_, index) => {
@@ -114,19 +171,15 @@ adminRouter.get("/admin/dashboard", requireAdmin, async (request, response) => {
       };
     });
 
-    const countries = Array.from(countryCounts, ([country, count]) => ({ country, count }))
-      .sort((left, right) => right.count - left.count || left.country.localeCompare(right.country))
-      .slice(0, 6);
-
     response.status(200).json({
       metrics: {
-        total: allPreorders.length,
-        newToday,
-        newThisWeek,
-        countriesTracked: countryCounts.size,
+        total: total.count,
+        newToday: today.count,
+        newThisWeek: thisWeek.count,
+        countriesTracked: countriesTracked.count,
       },
       daily,
-      countries,
+      countries: countryRows,
       messages,
     });
   } catch (error) {

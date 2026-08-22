@@ -32,14 +32,10 @@ preordersRouter.post("/preorders", async (request, response) => {
       .returning({ id: preorders.id });
 
     if (inserted.length === 0) {
-      response.status(200).json({
-        alreadyRegistered: true,
-        message: "You're already on the BeePod pre-order list!",
-      });
-      return;
+      response.status(201);
     }
 
-    response.status(201).json({
+    response.json({
       message: "You're on the BeePod pre-order list!",
     });
   } catch (error) {

@@ -161,6 +161,16 @@ function LoginScreen({ onSignedIn }: { onSignedIn: () => Promise<void> }) {
           </p>
 
           <form className="mt-8 space-y-4" onSubmit={submit}>
+            <input
+              aria-hidden="true"
+              autoComplete="username"
+              className="sr-only"
+              defaultValue="BeePod owner"
+              name="username"
+              readOnly
+              tabIndex={-1}
+              type="text"
+            />
             <label className="block">
               <span
                 className="mb-2 block text-[11px] font-bold tracking-[0.14em] uppercase"
