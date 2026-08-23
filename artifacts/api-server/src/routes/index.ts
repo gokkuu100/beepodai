@@ -1,11 +1,13 @@
 import { Router, type IRouter } from "express";
 import adminRouter from "./admin";
+import analyticsRouter from "./analytics";
 import healthRouter from "./health";
 import preordersRouter from "./preorders";
 
 const router: IRouter = Router();
 
 router.use(healthRouter);
+router.use(analyticsRouter);
 router.use(preordersRouter);
 router.use(adminRouter);
 

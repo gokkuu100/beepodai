@@ -1,1 +1,2 @@
 - [Pre-order lead operations](preorder-lead-operations.md) — BeePod sign-ups are launch leads, not paid orders or fulfillment commitments.
+- [Private visitor analytics](private-visitor-analytics.md) — BeePod measures anonymous first-party sessions without Google or external trackers.

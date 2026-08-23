@@ -61,6 +61,16 @@ const BORDER_LIGHT = 'rgba(26,15,0,0.08)';
 
 const apiUrl = (path: string) => `${import.meta.env.BASE_URL.replace(/\/$/, '')}/api${path}`;
 
+function anonymousSessionId() {
+  const key = 'beepod-anonymous-session';
+  const existing = sessionStorage.getItem(key);
+  if (existing) return existing;
+
+  const id = crypto.randomUUID().replace(/-/g, '_');
+  sessionStorage.setItem(key, id);
+  return id;
+}
+
 // ─── Reusable animation variants ─────────────────────────────
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 36 },
@@ -91,6 +101,22 @@ function AmberButton({ href, children, className = '' }: { href: string; childre
 
 // ─── Root ────────────────────────────────────────────────────
 export default function Home() {
+  useEffect(() => {
+    const controller = new AbortController();
+
+    void fetch(apiUrl('/analytics/visit'), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ sessionId: anonymousSessionId(), pagePath: window.location.pathname }),
+      signal: controller.signal,
+      keepalive: true,
+    }).catch(() => {
+      // Anonymous reporting must never interrupt the visitor experience.
+    });
+
+    return () => controller.abort();
+  }, []);
+
   return (
     <div className="min-h-screen overflow-x-hidden font-sans antialiased selection:bg-amber-400 selection:text-black">
       <Navbar />

@@ -1,6 +1,6 @@
 import { count, desc, gte, ilike, or, sql } from "drizzle-orm";
 import { Router } from "express";
-import { db, preorders } from "@workspace/db";
+import { db, preorders, visitorSessions } from "@workspace/db";
 import {
   clearAdminSession,
   createAdminSession,
@@ -115,9 +115,11 @@ adminRouter.get("/admin/dashboard", requireAdmin, async (request, response) => {
   weekStart.setUTCDate(weekStart.getUTCDate() - 6);
   const analyticsStart = new Date(todayStart);
   analyticsStart.setUTCDate(analyticsStart.getUTCDate() - 13);
+  const analyticsStartDate = dayKey(analyticsStart);
   const dayExpression = sql<string>`to_char(date_trunc('day', ${preorders.createdAt} AT TIME ZONE 'UTC'), 'YYYY-MM-DD')`;
   const countryExpression = sql<string>`coalesce(nullif(btrim(${preorders.country}), ''), 'Not provided')`;
   const countryCountExpression = sql<number>`count(distinct nullif(btrim(${preorders.country}), ''))`.mapWith(Number);
+  const visitorCountExpression = sql<number>`count(distinct ${visitorSessions.sessionHash})`.mapWith(Number);
 
   try {
     const [
@@ -128,6 +130,10 @@ adminRouter.get("/admin/dashboard", requireAdmin, async (request, response) => {
       dailyRows,
       countryRows,
       messages,
+      [visitorsToday],
+      [visitorsThisWeek],
+      visitorDailyRows,
+      visitorPageRows,
     ] = await Promise.all([
       db.select({ count: count(preorders.id) }).from(preorders),
       db.select({ count: count(preorders.id) }).from(preorders).where(gte(preorders.createdAt, todayStart)),
@@ -153,11 +159,36 @@ adminRouter.get("/admin/dashboard", requireAdmin, async (request, response) => {
             .orderBy(desc(preorders.createdAt))
             .limit(250)
         : db.select().from(preorders).orderBy(desc(preorders.createdAt)).limit(250),
+      db
+        .select({ count: visitorCountExpression })
+        .from(visitorSessions)
+        .where(gte(visitorSessions.visitedOn, dayKey(todayStart))),
+      db
+        .select({ count: visitorCountExpression })
+        .from(visitorSessions)
+        .where(gte(visitorSessions.visitedOn, dayKey(weekStart))),
+      db
+        .select({ date: visitorSessions.visitedOn, count: visitorCountExpression })
+        .from(visitorSessions)
+        .where(gte(visitorSessions.visitedOn, analyticsStartDate))
+        .groupBy(visitorSessions.visitedOn)
+        .orderBy(visitorSessions.visitedOn),
+      db
+        .select({ pagePath: visitorSessions.pagePath, count: visitorCountExpression })
+        .from(visitorSessions)
+        .where(gte(visitorSessions.visitedOn, analyticsStartDate))
+        .groupBy(visitorSessions.pagePath)
+        .orderBy(desc(visitorCountExpression))
+        .limit(6),
     ]);
 
     const dailyCounts = new Map<string, number>();
     for (const row of dailyRows) {
       dailyCounts.set(row.date, row.count);
+    }
+    const visitorDailyCounts = new Map<string, number>();
+    for (const row of visitorDailyRows) {
+      visitorDailyCounts.set(row.date, row.count);
     }
 
     const daily = Array.from({ length: 14 }, (_, index) => {
@@ -168,6 +199,16 @@ adminRouter.get("/admin/dashboard", requireAdmin, async (request, response) => {
         date: key,
         label: date.toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" }),
         count: dailyCounts.get(key) ?? 0,
+      };
+    });
+    const visitorsDaily = Array.from({ length: 14 }, (_, index) => {
+      const date = new Date(todayStart);
+      date.setUTCDate(todayStart.getUTCDate() - (13 - index));
+      const key = dayKey(date);
+      return {
+        date: key,
+        label: date.toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" }),
+        count: visitorDailyCounts.get(key) ?? 0,
       };
     });
 
@@ -181,6 +222,12 @@ adminRouter.get("/admin/dashboard", requireAdmin, async (request, response) => {
       daily,
       countries: countryRows,
       messages,
+      visitors: {
+        today: visitorsToday.count,
+        thisWeek: visitorsThisWeek.count,
+        daily: visitorsDaily,
+        pages: visitorPageRows,
+      },
     });
   } catch (error) {
     request.log.error({ error }, "Unable to load admin dashboard");

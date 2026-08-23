@@ -3,6 +3,7 @@ import {
   AlertCircle,
   BarChart3,
   CalendarDays,
+  Eye,
   Globe2,
   LoaderCircle,
   LockKeyhole,
@@ -31,6 +32,12 @@ type DashboardData = {
   };
   daily: Array<{ date: string; label: string; count: number }>;
   countries: Array<{ country: string; count: number }>;
+  visitors: {
+    today: number;
+    thisWeek: number;
+    daily: Array<{ date: string; label: string; count: number }>;
+    pages: Array<{ pagePath: string; count: number }>;
+  };
   messages: Array<{
     id: number;
     name: string;
@@ -274,6 +281,10 @@ export default function Admin() {
     () => Math.max(...(data?.daily.map((item) => item.count) ?? [0]), 1),
     [data?.daily],
   );
+  const maxVisitorDailyCount = useMemo(
+    () => Math.max(...(data?.visitors.daily.map((item) => item.count) ?? [0]), 1),
+    [data?.visitors.daily],
+  );
 
   async function signOut() {
     await fetch(apiUrl("/admin/logout"), { method: "POST", credentials: "include" });
@@ -443,6 +454,82 @@ export default function Admin() {
                       Country insights will appear after the first sign-up.
                     </p>
                   )}
+                </div>
+              </div>
+            </section>
+
+            <section className="mt-7 rounded-[2rem] border bg-white p-5 sm:p-7" style={{ borderColor: "rgba(26,15,0,0.08)" }}>
+              <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+                <div>
+                  <p className="text-[11px] font-bold tracking-[0.14em] uppercase" style={{ color: AMBER_GLOW }}>
+                    Private visitor analytics
+                  </p>
+                  <h2 className="mt-1 font-display text-2xl font-black">How families find BeePod.</h2>
+                  <p className="mt-2 max-w-2xl text-sm leading-relaxed" style={{ color: "rgba(26,15,0,0.54)" }}>
+                    Anonymous browser sessions only—no Google, IP addresses, or personal visitor profiles.
+                  </p>
+                </div>
+                <Eye className="h-7 w-7 shrink-0" style={{ color: BEE_ORANGE }} />
+              </div>
+
+              <div className="mt-7 grid gap-4 sm:grid-cols-2">
+                <MetricCard label="Visitors today" value={data.visitors.today} icon={Eye} note="Anonymous sessions since midnight UTC" />
+                <MetricCard label="Visitors this week" value={data.visitors.thisWeek} icon={Users} note="Anonymous sessions over the last seven days" />
+              </div>
+
+              <div className="mt-6 grid gap-6 xl:grid-cols-[1.65fr_0.9fr]">
+                <div className="rounded-3xl p-5 sm:p-6" style={{ background: CARD_LIGHT }}>
+                  <div className="flex items-center justify-between gap-4">
+                    <div>
+                      <p className="text-[11px] font-bold tracking-[0.14em] uppercase" style={{ color: AMBER_GLOW }}>
+                        Visitor activity
+                      </p>
+                      <h3 className="mt-1 font-display text-xl font-black">Last 14 days</h3>
+                    </div>
+                    <BarChart3 className="h-5 w-5" style={{ color: BEE_ORANGE }} />
+                  </div>
+                  <div className="mt-7 flex h-36 items-end gap-1.5 sm:gap-2">
+                    {data.visitors.daily.map((item) => (
+                      <div className="group flex h-full min-w-0 flex-1 flex-col justify-end" key={item.date}>
+                        <div className="relative flex flex-1 items-end">
+                          <div
+                            className="w-full min-h-1 rounded-t-md transition-all duration-500 group-hover:brightness-95"
+                            style={{
+                              height: `${Math.max((item.count / maxVisitorDailyCount) * 100, item.count ? 8 : 1)}%`,
+                              background: ESPRESSO,
+                            }}
+                            title={`${item.label}: ${item.count} anonymous visitor${item.count === 1 ? "" : "s"}`}
+                          />
+                        </div>
+                        <span className="mt-2 truncate text-center text-[9px] sm:text-[10px]" style={{ color: "rgba(26,15,0,0.45)" }}>
+                          {item.label.split(" ")[1] ?? item.label}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="rounded-3xl p-5 sm:p-6" style={{ background: CARD_LIGHT }}>
+                  <p className="text-[11px] font-bold tracking-[0.14em] uppercase" style={{ color: AMBER_GLOW }}>
+                    Most visited
+                  </p>
+                  <h3 className="mt-1 font-display text-xl font-black">Top pages</h3>
+                  <div className="mt-5 space-y-4">
+                    {data.visitors.pages.length ? data.visitors.pages.map((page) => (
+                      <div className="flex items-center justify-between gap-4" key={page.pagePath}>
+                        <span className="min-w-0 truncate rounded-lg px-2.5 py-1.5 text-sm font-semibold" style={{ background: "rgba(255,255,255,0.72)" }}>
+                          {page.pagePath}
+                        </span>
+                        <span className="shrink-0 text-sm font-bold" style={{ color: AMBER_GLOW }}>
+                          {page.count}
+                        </span>
+                      </div>
+                    )) : (
+                      <p className="py-5 text-sm leading-relaxed" style={{ color: "rgba(26,15,0,0.52)" }}>
+                        Visitor activity will appear after the first public page load.
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
             </section>
