@@ -103,7 +103,6 @@ export default function Home() {
         <ProductShowcase />
         <ParentAppSection />
         <WhoIsItForSection />
-        <SpecsSection />
         <FounderSection />
         <PreOrderSection />
         <FinalCTA />
@@ -171,7 +170,7 @@ function Navbar() {
 
             {/* Desktop Right nav */}
             <nav className="hidden md:flex items-center gap-7 flex-1 justify-end">
-              {[['Parent App', '#parentapp'], ['Specs', '#specs'], ['Story', '#story']].map(([label, href]) => (
+              {[['Parent App', '#parentapp'], ['Story', '#story']].map(([label, href]) => (
                 <a key={label} href={href}
                   className="text-[13px] font-semibold tracking-wide transition-colors whitespace-nowrap"
                   style={{ color: scrolled ? 'rgba(26,15,0,0.65)' : 'rgba(255,248,240,0.72)' }}
@@ -206,7 +205,7 @@ function Navbar() {
             className="fixed top-24 inset-x-4 z-40 rounded-2xl p-5 flex flex-col gap-4"
             style={{ background: CARD_DARK, border: `1px solid ${BORDER_DARK}` }}
           >
-            {[['About','#about'],['How It Works','#howitworks'],['Product','#product'],['Parent App','#preorder'],['Specs','#specs'],['Story','#story']].map(([l, h]) => (
+            {[['About','#about'],['How It Works','#howitworks'],['Product','#product'],['Parent App','#preorder'],['Story','#story']].map(([l, h]) => (
               <a key={l} href={h} onClick={() => setMobileOpen(false)}
                 className="text-base font-semibold py-2 border-b"
                 style={{ color: WARM_WHITE, borderColor: BORDER_DARK }}
@@ -931,60 +930,7 @@ function WhoIsItForSection() {
   );
 }
 
-// ─── SECTION 6: Specs (WHITE bg) ─────────────────────────────
-const specs = [
-  { label: 'MCU',          value: 'ESP32-WROOM-32' },
-  { label: 'Display',      value: '1.8" ST7735S LCD' },
-  { label: 'Microphone',   value: 'I2S MEMS (INMP441)' },
-  { label: 'Speaker',      value: 'MAX98357A + 3W' },
-  { label: 'Connectivity', value: 'Wi-Fi + Bluetooth' },
-  { label: 'Storage',      value: 'MicroSD (Optional)' },
-  { label: 'Power',        value: '18650 (2000mAh)' },
-  { label: 'Charging',     value: 'USB-C' },
-  { label: 'Size',         value: '90 × 70 × 60mm' },
-  { label: 'Weight',       value: '~220g' },
-];
-
-function SpecsSection() {
-  return (
-    <section id="specs" style={{ background: CREAM, borderTop: `1px solid ${BORDER_LIGHT}` }}>
-      <div className="max-w-6xl mx-auto px-6 lg:px-10 py-24 lg:py-36">
-        <motion.div initial="hidden" whileInView="visible" variants={stagger}
-          viewport={{ once: true, margin: '-80px' }} className="mb-14">
-          <motion.span variants={fadeUp} className="inline-block text-[11px] font-bold tracking-[0.18em] uppercase mb-4"
-            style={{ color: BEE_ORANGE }}>
-            Specifications
-          </motion.span>
-          <motion.h2 variants={fadeUp}
-            className="font-display font-black text-4xl sm:text-5xl lg:text-6xl"
-            style={{ color: ESPRESSO }}>
-            INSIDE BEEPOD.
-          </motion.h2>
-        </motion.div>
-
-        <motion.div initial="hidden" whileInView="visible" variants={stagger}
-          viewport={{ once: true }}
-          className="grid sm:grid-cols-2 lg:grid-cols-5 gap-px"
-          style={{ background: BORDER_LIGHT, borderRadius: '20px', overflow: 'hidden' }}>
-          {specs.map(({ label, value }) => (
-            <motion.div key={label} variants={fadeUp}
-              className="p-6 flex flex-col gap-1.5"
-              style={{ background: WHITE }}>
-              <span className="text-[10px] font-bold tracking-[0.18em] uppercase" style={{ color: BEE_ORANGE }}>
-                {label}
-              </span>
-              <span className="font-display font-semibold text-[14px]" style={{ color: ESPRESSO }}>
-                {value}
-              </span>
-            </motion.div>
-          ))}
-        </motion.div>
-      </div>
-    </section>
-  );
-}
-
-// ─── SECTION 7: Founder Story (ESPRESSO bg) ──────────────────
+// ─── SECTION 6: Founder Story (ESPRESSO bg) ──────────────────
 function FounderSection() {
   return (
     <section id="story" style={{ background: ESPRESSO, borderTop: `1px solid ${BORDER_DARK}` }}>
@@ -1291,7 +1237,7 @@ function Footer() {
             <p className="text-[10px] font-bold tracking-[0.16em] uppercase mb-2" style={{ color: BEE_ORANGE }}>
               Navigation
             </p>
-            {[['Product','#product'],['Features','#howitworks'],['How It Works','#howitworks'],['Specs','#specs'],['Story','#story'],['Pre-Order','#preorder']].map(([l,h]) => (
+            {[['Product','#product'],['Features','#howitworks'],['How It Works','#howitworks'],['Story','#story'],['Pre-Order','#preorder']].map(([l,h]) => (
               <a key={l} href={h} className="text-[13px] font-medium transition-colors"
                 style={{ color: MUTED_DARK }}
                 onMouseEnter={e => (e.currentTarget.style.color = WARM_WHITE)}
