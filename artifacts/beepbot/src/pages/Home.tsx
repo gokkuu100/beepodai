@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, type MouseEvent } from 'react';
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import {
   Mic, Brain, Shield, ChevronRight,
@@ -8,7 +8,7 @@ import {
 } from 'lucide-react';
 
 // @ts-ignore
-import beepodLockupLight from '@assets/beepodgen/beepodchildssmart-light.png';
+import beepodLogo from '@assets/beepodgen/beeplogo.png';
 // @ts-ignore
 import beepodProduct from '@assets/beepodgen/beepodgen.png';
 // @ts-ignore
@@ -69,11 +69,33 @@ const stagger: Variants = {
   visible: { transition: { staggerChildren: 0.1 } }
 };
 
+function scrollToSection(href: string) {
+  const id = href.replace(/^#/, '');
+  const target = id ? document.getElementById(id) : null;
+  if (target) {
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } else {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  const cleanUrl = `${window.location.pathname}${window.location.search}`;
+  if (`${window.location.pathname}${window.location.search}${window.location.hash}` !== cleanUrl) {
+    window.history.replaceState(null, '', cleanUrl);
+  }
+}
+
+function onSectionLink(event: MouseEvent<HTMLAnchorElement>, href: string) {
+  if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+  if (!href.startsWith('#')) return;
+  event.preventDefault();
+  scrollToSection(href);
+}
+
 // ─── Amber CTA button ────────────────────────────────────────
 function AmberButton({ href, children, className = '' }: { href: string; children: React.ReactNode; className?: string }) {
   return (
     <motion.a
       href={href}
+      onClick={(event) => onSectionLink(event, href)}
       whileHover={{ scale: 1.04, y: -2 }}
       whileTap={{ scale: 0.97 }}
       className={`inline-flex items-center justify-center gap-2.5 text-black font-display font-bold text-[15px] px-8 py-4 rounded-2xl ${className}`}
@@ -101,6 +123,10 @@ export default function Home() {
     }).catch(() => {
       // Anonymous reporting must never interrupt the visitor experience.
     });
+
+    if (window.location.hash) {
+      scrollToSection(window.location.hash);
+    }
 
     return () => controller.abort();
   }, []);
@@ -161,6 +187,7 @@ function Navbar() {
                 <a key={label} href={href}
                   className="text-[13px] font-semibold tracking-wide transition-colors whitespace-nowrap"
                   style={{ color: scrolled ? 'rgba(26,15,0,0.65)' : 'rgba(255,248,240,0.72)' }}
+                  onClick={(event) => onSectionLink(event, href)}
                   onMouseEnter={e => (e.currentTarget.style.color = BEE_ORANGE)}
                   onMouseLeave={e => (e.currentTarget.style.color = scrolled ? 'rgba(26,15,0,0.65)' : 'rgba(255,248,240,0.72)')}
                 >{label}</a>
@@ -174,11 +201,12 @@ function Navbar() {
 
             {/* Centre logo — white version on dark hero, colour version on white navbar */}
             <div className="flex-shrink-0 mx-6">
-              <a href="#" className="block">
+              <a href="/" className="block" onClick={(event) => { event.preventDefault(); scrollToSection(''); }}>
                 <img
-                  src={scrolled ? beepodLockup : beepodLockupLight}
+                  src={beepodLogo}
                   alt="BeePod"
                   className="h-[105px] md:h-[125px] w-auto object-contain transition-all duration-300"
+                  style={{ filter: scrolled ? 'none' : 'invert(1)' }}
                 />
               </a>
             </div>
@@ -189,11 +217,12 @@ function Navbar() {
                 <a key={label} href={href}
                   className="text-[13px] font-semibold tracking-wide transition-colors whitespace-nowrap"
                   style={{ color: scrolled ? 'rgba(26,15,0,0.65)' : 'rgba(255,248,240,0.72)' }}
+                  onClick={(event) => onSectionLink(event, href)}
                   onMouseEnter={e => (e.currentTarget.style.color = BEE_ORANGE)}
                   onMouseLeave={e => (e.currentTarget.style.color = scrolled ? 'rgba(26,15,0,0.65)' : 'rgba(255,248,240,0.72)')}
                 >{label}</a>
               ))}
-              <motion.a href="#preorder" whileHover={{ scale: 1.04, y: -1 }} whileTap={{ scale: 0.97 }}
+              <motion.a href="#preorder" onClick={(event) => onSectionLink(event, '#preorder')} whileHover={{ scale: 1.04, y: -1 }} whileTap={{ scale: 0.97 }}
                 className="text-[13px] font-bold tracking-wide px-5 py-2.5 rounded-xl text-black whitespace-nowrap"
                 style={{ background: `linear-gradient(135deg, ${AMBER_GLOW}, ${BEE_ORANGE})` }}
               >
@@ -202,7 +231,7 @@ function Navbar() {
             </nav>
 
             {/* Mobile Pre-Order */}
-            <motion.a href="#preorder" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
+            <motion.a href="#preorder" onClick={(event) => onSectionLink(event, '#preorder')} whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
               className="md:hidden text-[12px] font-bold px-4 py-2 rounded-xl text-black whitespace-nowrap"
               style={{ background: `linear-gradient(135deg, ${AMBER_GLOW}, ${BEE_ORANGE})` }}
             >
@@ -221,7 +250,7 @@ function Navbar() {
             style={{ background: CARD_DARK, border: `1px solid ${BORDER_DARK}` }}
           >
             {[['About','#about'],['Mission','#mission'],['How It Works','#howitworks'],['Product','#product'],['Safety','#parentapp'],['Story','#story']].map(([l, h]) => (
-              <a key={l} href={h} onClick={() => setMobileOpen(false)}
+              <a key={l} href={h} onClick={(event) => { onSectionLink(event, h); setMobileOpen(false); }}
                 className="text-base font-semibold py-2 border-b"
                 style={{ color: WARM_WHITE, borderColor: BORDER_DARK }}
               >{l}</a>
@@ -358,7 +387,7 @@ function HeroSection() {
           <AmberButton href={slide.cta1.href}>
             {slide.cta1.label} <ChevronRight className="w-4 h-4" />
           </AmberButton>
-          <motion.a href={slide.cta2.href} whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }}
+          <motion.a href={slide.cta2.href} onClick={(event) => onSectionLink(event, slide.cta2.href)} whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }}
             className="inline-flex items-center justify-center gap-2.5 font-display font-semibold text-[15px] px-8 py-4 rounded-2xl"
             style={{ color: WARM_WHITE, border: `1px solid rgba(255,248,240,0.12)`, background: 'rgba(255,248,240,0.04)' }}>
             {slide.cta2.label}
@@ -504,7 +533,7 @@ function AboutSection() {
   ];
 
   return (
-    <section id="about" style={{ background: WHITE, borderTop: `1px solid ${BORDER_LIGHT}` }}>
+    <section id="about" className="scroll-mt-32" style={{ background: WHITE, borderTop: `1px solid ${BORDER_LIGHT}` }}>
       <div className="max-w-6xl mx-auto px-6 lg:px-10 py-24 lg:py-32">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
 
@@ -574,7 +603,7 @@ function MissionSection() {
   ];
 
   return (
-    <section id="mission" style={{ background: ESPRESSO, borderTop: `1px solid ${BORDER_DARK}` }}>
+    <section id="mission" className="scroll-mt-32" style={{ background: ESPRESSO, borderTop: `1px solid ${BORDER_DARK}` }}>
       <div className="max-w-6xl mx-auto px-6 lg:px-10 py-24 lg:py-32">
         <motion.div initial="hidden" whileInView="visible" variants={stagger}
           viewport={{ once: true, margin: '-80px' }} className="max-w-3xl mb-14">
@@ -651,7 +680,7 @@ const steps = [
 
 function HowItWorksSection() {
   return (
-    <section id="howitworks" style={{ background: ESPRESSO, borderTop: `1px solid ${BORDER_DARK}` }}>
+    <section id="howitworks" className="scroll-mt-32" style={{ background: ESPRESSO, borderTop: `1px solid ${BORDER_DARK}` }}>
       <div className="max-w-7xl mx-auto px-6 lg:px-10 py-24 lg:py-36">
         <motion.div initial="hidden" whileInView="visible" variants={stagger}
           viewport={{ once: true, margin: '-80px' }} className="mb-16 lg:mb-24">
@@ -727,7 +756,7 @@ function ProductShowcase() {
   const view = productViews[active];
 
   return (
-    <section id="product" style={{ background: WHITE, borderTop: `1px solid ${BORDER_LIGHT}` }}>
+    <section id="product" className="scroll-mt-32" style={{ background: WHITE, borderTop: `1px solid ${BORDER_LIGHT}` }}>
       <div className="max-w-7xl mx-auto px-6 lg:px-10 py-24 lg:py-36">
         {/* Headline */}
         <motion.div initial="hidden" whileInView="visible" variants={stagger}
@@ -909,7 +938,7 @@ function ParentAppSection() {
   ];
 
   return (
-    <section id="parentapp" style={{ background: ESPRESSO }}>
+    <section id="parentapp" className="scroll-mt-32" style={{ background: ESPRESSO }}>
       <div className="max-w-7xl mx-auto px-6 lg:px-10 py-24 lg:py-32">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
 
@@ -1099,7 +1128,7 @@ function StoryVideoCard({
 // ─── SECTION 6: Founder Story (ESPRESSO bg) ──────────────────
 function FounderSection() {
   return (
-    <section id="story" style={{ background: ESPRESSO, borderTop: `1px solid ${BORDER_DARK}` }}>
+    <section id="story" className="scroll-mt-32" style={{ background: ESPRESSO, borderTop: `1px solid ${BORDER_DARK}` }}>
       <div className="max-w-5xl mx-auto px-6 lg:px-10 py-24 lg:py-36">
         <motion.div initial="hidden" whileInView="visible" variants={stagger}
           viewport={{ once: true, margin: '-80px' }}>
@@ -1241,7 +1270,7 @@ function PreOrderSection() {
   };
 
   return (
-    <section id="preorder" style={{ background: WHITE, borderTop: `1px solid ${BORDER_LIGHT}` }}>
+    <section id="preorder" className="scroll-mt-32" style={{ background: WHITE, borderTop: `1px solid ${BORDER_LIGHT}` }}>
       <div className="max-w-4xl mx-auto px-6 py-24 lg:py-36">
         <motion.div initial="hidden" whileInView="visible" variants={stagger}
           viewport={{ once: true, margin: '-80px' }}
@@ -1371,7 +1400,7 @@ function FinalCTA() {
               <span className="block">MIND AT A TIME.</span>
             </motion.h2>
             <motion.div variants={fadeUp}>
-              <motion.a href="#preorder"
+              <motion.a href="#preorder" onClick={(event) => onSectionLink(event, '#preorder')}
                 whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }}
                 className="inline-flex items-center gap-2.5 font-display font-bold text-[15px] px-8 py-4 rounded-2xl"
                 style={{ background: ESPRESSO, color: WARM_WHITE, boxShadow: '0 8px 30px rgba(26,15,0,0.25)' }}>
@@ -1405,9 +1434,10 @@ function Footer() {
           {/* Logo + tagline */}
           <div className="flex flex-col gap-4">
             <img
-              src={beepodLockupLight}
+              src={beepodLogo}
               alt="BeePod"
               className="h-24 w-auto object-contain self-start"
+              style={{ filter: 'invert(1)' }}
             />
             <p className="text-[13px] leading-relaxed max-w-[240px]" style={{ color: MUTED_DARK }}>
               More than a toy. Inspiring the next generation, one curious mind at a time.
@@ -1420,7 +1450,7 @@ function Footer() {
               Navigation
             </p>
             {[['About','#about'],['Mission','#mission'],['How It Works','#howitworks'],['Safety','#parentapp'],['Story','#story'],['Pre-Order','#preorder']].map(([l,h]) => (
-              <a key={l} href={h} className="text-[13px] font-medium transition-colors"
+              <a key={l} href={h} onClick={(event) => onSectionLink(event, h)} className="text-[13px] font-medium transition-colors"
                 style={{ color: MUTED_DARK }}
                 onMouseEnter={e => (e.currentTarget.style.color = WARM_WHITE)}
                 onMouseLeave={e => (e.currentTarget.style.color = MUTED_DARK)}
