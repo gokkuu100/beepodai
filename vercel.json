@@ -6,7 +6,7 @@
       "framework": "express",
       "entrypoint": "src/app.ts",
       "installCommand": "cd ../.. && pnpm install --frozen-lockfile",
-      "buildCommand": ""
+      "buildCommand": "node -e \"process.exit(0)\""
     },
     "beepbot": {
       "root": "artifacts/beepbot",
