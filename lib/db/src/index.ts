@@ -10,7 +10,23 @@ if (!process.env.DATABASE_URL) {
   );
 }
 
-const connectionString = process.env.DATABASE_URL;
+function databaseUrl(value: string) {
+  let url = value.trim();
+  if (url.toLowerCase().startsWith("psql ")) {
+    url = url.slice(5).trim();
+  }
+  if (
+    (url.startsWith("'") && url.endsWith("'")) ||
+    (url.startsWith('"') && url.endsWith('"'))
+  ) {
+    url = url.slice(1, -1);
+  }
+  return url
+    .replace(/([?&])channel_binding=[^&]*&?/g, "$1")
+    .replace(/[?&]$/, "");
+}
+
+const connectionString = databaseUrl(process.env.DATABASE_URL);
 const isLocalDatabase = /localhost|127\.0\.0\.1/.test(connectionString);
 
 export const pool = new Pool({
