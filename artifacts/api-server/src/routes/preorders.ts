@@ -52,7 +52,6 @@ preordersRouter.post("/preorders", async (request, response) => {
     request.log.error({ error }, "Unable to save pre-order submission");
     response.status(500).json({
       message: "We couldn't save your pre-order right now. Please try again.",
-      detail: error instanceof Error ? error.message : "Unknown database error",
     });
   }
 });
