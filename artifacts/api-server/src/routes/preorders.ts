@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { db, preorders } from "@workspace/db";
+import { sendPreorderConfirmation } from "../lib/mail";
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const preordersRouter = Router();
@@ -31,12 +32,21 @@ preordersRouter.post("/preorders", async (request, response) => {
       .onConflictDoNothing({ target: preorders.email })
       .returning({ id: preorders.id });
 
-    if (inserted.length === 0) {
-      response.status(201);
+    const isNew = inserted.length > 0;
+    let emailed = false;
+
+    if (isNew) {
+      try {
+        emailed = await sendPreorderConfirmation({ name, email });
+      } catch (mailError) {
+        request.log.error({ mailError }, "Unable to send pre-order confirmation");
+      }
     }
 
-    response.json({
-      message: "You're on the BeePod pre-order list!",
+    response.status(201).json({
+      message: emailed
+        ? "Thank you for pre-ordering BeePod AI. Your BeePod is expected on or before November 5, 2026. We've emailed the details to you."
+        : "You're on the BeePod pre-order list. Your BeePod is expected on or before November 5, 2026.",
     });
   } catch (error) {
     request.log.error({ error }, "Unable to save pre-order submission");

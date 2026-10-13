@@ -1,36 +1,24 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import {
-  Mic, Brain, Globe, Shield, ChevronRight,
-  Menu, X, Volume2, Wifi, Battery, Star,
-  Zap, ArrowRight, BookOpen, Users, Languages, HelpCircle,
-  Instagram, Twitter, Youtube
+  Mic, Brain, Shield, ChevronRight,
+  Menu, X, Volume2, Star,
+  Zap, ArrowRight, Users, Play,
+  Youtube, Linkedin, Facebook, Lightbulb, Sparkles, Puzzle
 } from 'lucide-react';
 
 // @ts-ignore
-import beepodLogo from '@assets/Artboard_9_1786736859076.png';
+import beepodLockupLight from '@assets/beepodgen/beepodchildssmart-light.png';
 // @ts-ignore
-import beepodLogoWhite from '@assets/WHITE_LOGO__1786738581248.png';
+import beepodProduct from '@assets/beepodgen/beepodgen.png';
 // @ts-ignore
-import beepodLogoFooter from '@assets/WHITE_LOGO__1786759298246.png';
+import beepodLockup from '@assets/beepodgen/beepodchildssmart.png';
 // @ts-ignore
-import beepodLogoHero from '@assets/WHITE_LOGO__1786760473895.png';
+import productFront from '@assets/beepodgen/beepodfrontyellow.png';
 // @ts-ignore
-import beepodRobot from '@assets/hf_20260812_210333_7ca1e994-0af8-47de-96e1-fdfebe9398ff_1786735537941.png';
+import productSide from '@assets/beepodgen/beepodsideyellw.png';
 // @ts-ignore
-import beepodProduct from '@assets/hero-product.webp';
-// @ts-ignore
-import beepodBlack from '@assets/hf_20260811_110546_2b68d97f-4bff-483f-9180-81b18433b94e_1786762579063.png';
-// @ts-ignore
-import beepodLogoColor from '@assets/Artboard_9_1786787602742.png';
-// @ts-ignore
-import productFront from '@assets/1_1786762343371.png';
-// @ts-ignore
-import productFront2 from '@assets/2_1786762343371.png';
-// @ts-ignore
-import productSide from '@assets/3_1786762343370.png';
-// @ts-ignore
-import productBack from '@assets/4_1786762343369.png';
+import productBack from '@assets/beepodgen/beepodbackyellow.png';
 // @ts-ignore
 import logoGemini from '@assets/Gemini_language_model_logo_1786738681958.png';
 // @ts-ignore
@@ -124,6 +112,7 @@ export default function Home() {
         <HeroSection />
         <LLMLogosStrip />
         <AboutSection />
+        <MissionSection />
         <FeatureStrip />
         <HowItWorksSection />
         <ProductShowcase />
@@ -168,7 +157,7 @@ function Navbar() {
 
             {/* Desktop Left nav */}
             <nav className="hidden md:flex items-center gap-8 flex-1">
-              {[['About', '#about'], ['How It Works', '#howitworks'], ['Product', '#product']].map(([label, href]) => (
+              {[['About', '#about'], ['Mission', '#mission'], ['How It Works', '#howitworks'], ['Product', '#product']].map(([label, href]) => (
                 <a key={label} href={href}
                   className="text-[13px] font-semibold tracking-wide transition-colors whitespace-nowrap"
                   style={{ color: scrolled ? 'rgba(26,15,0,0.65)' : 'rgba(255,248,240,0.72)' }}
@@ -187,7 +176,7 @@ function Navbar() {
             <div className="flex-shrink-0 mx-6">
               <a href="#" className="block">
                 <img
-                  src={scrolled ? beepodLogo : beepodLogoWhite}
+                  src={scrolled ? beepodLockup : beepodLockupLight}
                   alt="BeePod"
                   className="h-[105px] md:h-[125px] w-auto object-contain transition-all duration-300"
                 />
@@ -196,7 +185,7 @@ function Navbar() {
 
             {/* Desktop Right nav */}
             <nav className="hidden md:flex items-center gap-7 flex-1 justify-end">
-              {[['Parent App', '#parentapp'], ['Story', '#story']].map(([label, href]) => (
+              {[['Safety', '#parentapp'], ['Story', '#story']].map(([label, href]) => (
                 <a key={label} href={href}
                   className="text-[13px] font-semibold tracking-wide transition-colors whitespace-nowrap"
                   style={{ color: scrolled ? 'rgba(26,15,0,0.65)' : 'rgba(255,248,240,0.72)' }}
@@ -231,7 +220,7 @@ function Navbar() {
             className="fixed top-24 inset-x-4 z-40 rounded-2xl p-5 flex flex-col gap-4"
             style={{ background: CARD_DARK, border: `1px solid ${BORDER_DARK}` }}
           >
-            {[['About','#about'],['How It Works','#howitworks'],['Product','#product'],['Parent App','#preorder'],['Story','#story']].map(([l, h]) => (
+            {[['About','#about'],['Mission','#mission'],['How It Works','#howitworks'],['Product','#product'],['Safety','#parentapp'],['Story','#story']].map(([l, h]) => (
               <a key={l} href={h} onClick={() => setMobileOpen(false)}
                 className="text-base font-semibold py-2 border-b"
                 style={{ color: WARM_WHITE, borderColor: BORDER_DARK }}
@@ -248,11 +237,11 @@ function Navbar() {
 function HeroSection() {
   const slides = [
     {
-      badge: 'Introducing BeePod',
-      headline: ['MEET YOUR', 'NEW AI', 'COMPANION.'],
-      accentLine: 2,
-      body: <>Small enough to stay by your side.<br />Smart enough to keep up.</>,
-      sub: 'Be one of the first to bring BeePod home.',
+      badge: 'BeePod AI',
+      headline: ['MORE THAN', 'A TOY.'],
+      accentLine: 1,
+      body: <>Inspiring the next generation,<br />one curious mind at a time.</>,
+      sub: 'An AI companion robot that inspires children to think, explore, create, and innovate.',
       cta1: { label: 'PRE-ORDER BEEPOD', href: '#preorder' },
       cta2: { label: 'SEE HOW IT WORKS', href: '#howitworks' },
       visual: (
@@ -261,7 +250,7 @@ function HeroSection() {
           src={beepodProduct}
           alt="BeePod AI Companion"
           className="w-full max-w-sm sm:max-w-md lg:max-w-xl xl:max-w-2xl object-contain"
-          style={{ maxHeight: '80vh', mixBlendMode: 'screen', filter: 'drop-shadow(0 0 80px rgba(255,154,0,0.3))' }}
+          style={{ maxHeight: '80vh', filter: 'drop-shadow(0 24px 40px rgba(0,0,0,0.35))' }}
           initial={{ opacity: 0, scale: 0.92, x: 40 }}
           animate={{ opacity: 1, scale: 1, x: 0 }}
           exit={{ opacity: 0, scale: 0.92, x: -40 }}
@@ -270,10 +259,10 @@ function HeroSection() {
       ),
     },
     {
-      badge: 'For Curious Minds',
+      badge: 'Voice-Powered Learning',
       headline: ['LESS SCREEN TIME.', 'MORE CURIOSITY.'],
       accentLine: 1,
-      body: <>Less screen time. More curiosity. BeePod helps kids ask questions, understand concepts, and learn through natural conversation—without reaching for a phone.</>,
+      body: <>BeePod AI is a voice-powered learning companion designed to spark children's curiosity, nurture creativity, develop skills, and encourage less screen time.</>,
       sub: '',
       cta1: { label: 'PRE-ORDER BEEPOD', href: '#preorder' },
       cta2: { label: 'LEARN MORE', href: '#about' },
@@ -281,10 +270,10 @@ function HeroSection() {
       fullImage: heroKids,
     },
     {
-      badge: 'Built for Bold Questions',
-      headline: ['ASK BOLD.', 'LEARN MORE.'],
+      badge: 'Our Mission',
+      headline: ['CURIOSITY', 'INTO IDEAS.'],
       accentLine: 1,
-      body: <>Their curiosity has no limits. BeePod is ready for the questions.</>,
+      body: <>Our mission is to inspire curious thinkers, confident creators, and innovative problem-solvers — turning curiosity into ideas, skills, and real-world solutions.</>,
       sub: '',
       cta1: { label: 'PRE-ORDER BEEPOD', href: '#preorder' },
       cta2: { label: 'SEE HOW IT WORKS', href: '#howitworks' },
@@ -441,7 +430,7 @@ function HeroSection() {
               fetchPriority="high"
               decoding="async"
               className="w-full max-w-sm sm:max-w-md lg:max-w-xl xl:max-w-2xl object-contain"
-              style={{ maxHeight: '80vh', mixBlendMode: 'screen', filter: 'drop-shadow(0 0 80px rgba(255,154,0,0.3))' }}
+              style={{ maxHeight: '80vh', filter: 'drop-shadow(0 24px 40px rgba(0,0,0,0.35))' }}
             />
           </motion.div>
         </div>
@@ -452,10 +441,10 @@ function HeroSection() {
 
 // ─── SECTION 2: Feature Strip (WHITE bg) ─────────────────────
 const features = [
-  { icon: Mic,     label: 'AI Voice Chat',    desc: 'Talks and listens like a real friend' },
-  { icon: Brain,   label: 'Learns & Adapts',  desc: 'Gets smarter with every conversation' },
-  { icon: Globe,   label: 'Any Language',     desc: 'Speaks 50+ languages fluently' },
-  { icon: Shield,  label: 'Kid-Safe',         desc: 'Private by design, no ads ever' },
+  { icon: Mic,     label: 'Voice Learning',   desc: 'Ask questions out loud and explore ideas together' },
+  { icon: Sparkles, label: 'Creativity',      desc: 'Turn imagination into projects kids can actually try' },
+  { icon: Brain,   label: 'Real Skills',      desc: 'Practice thinking, making, and problem-solving' },
+  { icon: Shield,  label: 'Less Screen Time', desc: 'Learn by talking, with parents still in control' },
 ];
 
 // ─── LLM Logos Strip (after hero) ────────────────────────────
@@ -508,10 +497,10 @@ function LLMLogosStrip() {
 // ─── About Section ───────────────────────────────────────────
 function AboutSection() {
   const stats = [
-    { number: '50+',   label: 'Languages spoken'  },
-    { number: '4',     label: 'AI engines inside'  },
-    { number: '24/7',  label: 'Always available'   },
-    { number: 'Age 3+', label: 'Designed for'      },
+    { number: '01', label: 'Spark curiosity' },
+    { number: '02', label: 'Nurture creativity' },
+    { number: '03', label: 'Develop skills' },
+    { number: '04', label: 'Less screen time' },
   ];
 
   return (
@@ -525,22 +514,22 @@ function AboutSection() {
             <motion.span variants={fadeUp}
               className="block text-[11px] font-bold tracking-[0.18em] uppercase mb-4"
               style={{ color: BEE_ORANGE }}>
-              About BeePod
+              About BeePod AI
             </motion.span>
             <motion.h2 variants={fadeUp}
               className="font-display font-black text-4xl sm:text-5xl lg:text-[3.5rem] leading-[0.95] tracking-tighter mb-6"
               style={{ color: ESPRESSO }}>
-              THE WORLD'S FIRST AI COMPANION FOR KIDS.
+              MORE THAN<br />A TOY.
             </motion.h2>
             <motion.p variants={fadeUp}
               className="text-[17px] leading-relaxed mb-4"
               style={{ color: MUTED_LIGHT }}>
-              BeePod is more than a gadget — it's a voice-powered AI companion that talks, listens, teaches, and grows with your child. Powered by the world's leading AI models, it brings the future of learning into a kid-safe robot.
+              BeePod AI is an AI companion robot inspiring children to think, explore, create, and innovate. It is a voice-powered learning companion designed to spark curiosity, nurture creativity, develop skills, and encourage less screen time.
             </motion.p>
             <motion.p variants={fadeUp}
               className="text-[17px] leading-relaxed"
               style={{ color: MUTED_LIGHT }}>
-              Invented by Malia, age 8, BeePod started as a lemonade-stand dream. Today it's a real product designed to make every child feel heard, supported, and endlessly curious.
+              Our mission is to inspire curious thinkers, confident creators, and innovative problem-solvers — turning curiosity into ideas, skills, and real-world solutions.
             </motion.p>
           </motion.div>
 
@@ -559,6 +548,68 @@ function AboutSection() {
             ))}
           </motion.div>
 
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function MissionSection() {
+  const pillars = [
+    {
+      icon: Lightbulb,
+      title: 'Curious thinkers',
+      desc: 'Children ask the next question instead of only consuming what a screen shows them.',
+    },
+    {
+      icon: Sparkles,
+      title: 'Confident creators',
+      desc: 'Ideas leave the conversation and become sketches, projects, and things kids can try.',
+    },
+    {
+      icon: Puzzle,
+      title: 'Problem-solvers',
+      desc: 'Curiosity becomes a skill and a real-world solution — the way a lemonade stand starts with one idea.',
+    },
+  ];
+
+  return (
+    <section id="mission" style={{ background: ESPRESSO, borderTop: `1px solid ${BORDER_DARK}` }}>
+      <div className="max-w-6xl mx-auto px-6 lg:px-10 py-24 lg:py-32">
+        <motion.div initial="hidden" whileInView="visible" variants={stagger}
+          viewport={{ once: true, margin: '-80px' }} className="max-w-3xl mb-14">
+          <motion.span variants={fadeUp}
+            className="block text-[11px] font-bold tracking-[0.18em] uppercase mb-4"
+            style={{ color: BEE_ORANGE }}>
+            Our Mission
+          </motion.span>
+          <motion.h2 variants={fadeUp}
+            className="font-display font-black text-4xl sm:text-5xl lg:text-6xl leading-[0.95] tracking-tighter mb-6"
+            style={{ color: WARM_WHITE }}>
+            INSPIRING THE<br />
+            <span style={{ color: BEE_ORANGE }}>NEXT GENERATION.</span>
+          </motion.h2>
+          <motion.p variants={fadeUp} className="text-[17px] leading-relaxed" style={{ color: MUTED_DARK }}>
+            One curious mind at a time. BeePod AI exists so children do more than use technology — they think with it, make with it, and solve something real.
+          </motion.p>
+        </motion.div>
+
+        <div className="grid md:grid-cols-3 gap-5">
+          {pillars.map(({ icon: Icon, title, desc }, i) => (
+            <motion.div key={title}
+              initial={{ opacity: 0, y: 32 }} whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+              className="p-7 rounded-3xl flex flex-col gap-4"
+              style={{ background: CARD_DARK, border: `1px solid ${BORDER_DARK}` }}>
+              <div className="w-11 h-11 rounded-2xl flex items-center justify-center"
+                style={{ background: 'rgba(255,154,0,0.12)' }}>
+                <Icon className="w-5 h-5" style={{ color: BEE_ORANGE }} />
+              </div>
+              <h3 className="font-display font-bold text-xl" style={{ color: WARM_WHITE }}>{title}</h3>
+              <p className="text-[15px] leading-relaxed" style={{ color: MUTED_DARK }}>{desc}</p>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
@@ -592,10 +643,10 @@ function FeatureStrip() {
 
 // ─── SECTION 3: How It Works (ESPRESSO bg) ───────────────────
 const steps = [
-  { num: '01', label: 'YOU SPEAK',        icon: Mic,     desc: "Just say what's on your mind." },
-  { num: '02', label: 'BEEPOD LISTENS',   icon: Volume2, desc: 'Far-field mics pick you up instantly.' },
-  { num: '03', label: 'AI PROCESSES',     icon: Brain,   desc: 'Cloud AI or on-device intelligence takes over.' },
-  { num: '04', label: 'BEEPOD RESPONDS',  icon: Zap,     desc: 'A helpful, friendly answer every time.' },
+  { num: '01', label: 'YOU ASK',          icon: Mic,     desc: 'A question, a what-if, or the start of an idea.' },
+  { num: '02', label: 'BEEPOD LISTENS',   icon: Volume2, desc: 'A voice conversation, not another screen to stare at.' },
+  { num: '03', label: 'YOU EXPLORE',      icon: Brain,   desc: 'Age-appropriate answers that invite the next question.' },
+  { num: '04', label: 'YOU CREATE',       icon: Zap,     desc: 'Turn curiosity into a skill, a project, or a solution.' },
 ];
 
 function HowItWorksSection() {
@@ -611,10 +662,10 @@ function HowItWorksSection() {
           <motion.h2 variants={fadeUp}
             className="font-display font-black text-4xl sm:text-5xl lg:text-6xl xl:text-7xl"
             style={{ color: WARM_WHITE }}>
-            JUST TALK<br />TO BEEPOD.
+            JUST TALK.<br />THEN CREATE.
           </motion.h2>
-          <motion.p variants={fadeUp} className="mt-4 text-base max-w-sm" style={{ color: MUTED_DARK }}>
-            Internet can enhance BeePod's AI experience and capabilities.
+          <motion.p variants={fadeUp} className="mt-4 text-base max-w-md" style={{ color: MUTED_DARK }}>
+            BeePod AI meets children in conversation, then helps them carry an idea into something they can make.
           </motion.p>
         </motion.div>
 
@@ -666,10 +717,9 @@ function HowItWorksSection() {
 
 // ─── SECTION 4: Product Showcase (WHITE bg) ──────────────────
 const productViews: { label: string; img: string; desc: string }[] = [
-  { label: 'FRONT',   img: productFront,  desc: 'Smiling LED face display — always expressive.' },
-  { label: 'FRONT+',  img: productFront2, desc: 'Full-body view with the BeePod branding.' },
-  { label: 'SIDE',    desc: 'Compact silhouette — small enough for any desk.',  img: productSide  },
-  { label: 'BACK',    desc: 'Speaker grille and USB-C charging port.', img: productBack  },
+  { label: 'FRONT', img: productFront, desc: 'Yellow BeePod with a smiling LED face and simple volume controls.' },
+  { label: 'SIDE',  img: productSide,  desc: 'A compact silhouette, small enough for a desk or bedside.' },
+  { label: 'BACK',  img: productBack,  desc: 'Speaker grille centered on the back of the head.' },
 ];
 
 function ProductShowcase() {
@@ -689,8 +739,11 @@ function ProductShowcase() {
           <motion.h2 variants={fadeUp}
             className="font-display font-black text-5xl sm:text-6xl lg:text-8xl tracking-tighter"
             style={{ color: ESPRESSO }}>
-            MEET BEEPOD.
+            MEET BEEPOD AI.
           </motion.h2>
+          <motion.p variants={fadeUp} className="mt-4 text-base max-w-lg mx-auto" style={{ color: MUTED_LIGHT }}>
+            A companion robot built so children can think, explore, create, and innovate — out loud, and away from a screen.
+          </motion.p>
         </motion.div>
 
         {/* Gallery */}
@@ -749,10 +802,10 @@ function ProductShowcase() {
 
 // ─── SECTION 5: Who Is It For (ESPRESSO bg) ──────────────────
 const audiences = [
-  { icon: BookOpen,  title: 'KIDS & LEARNING',          desc: 'Homework help, questions, stories and discovery.' },
-  { icon: Users,     title: 'FAMILIES',                  desc: 'A friendly AI companion for everyday interaction.' },
-  { icon: Languages, title: 'LANGUAGE & TRANSLATION',    desc: 'Communicate, learn and explore different languages.' },
-  { icon: HelpCircle,title: 'EVERYDAY ASSISTANCE',       desc: 'Ask questions, get information, brainstorm and interact.' },
+  { icon: Lightbulb, title: 'CURIOUS THINKERS',     desc: 'Kids who ask why, what if, and what comes next.' },
+  { icon: Sparkles,  title: 'CONFIDENT CREATORS',   desc: 'Children ready to turn an idea into a project they can try.' },
+  { icon: Puzzle,    title: 'PROBLEM-SOLVERS',      desc: 'Young innovators who want skills, not just answers.' },
+  { icon: Users,     title: 'FAMILIES',             desc: 'Parents who want exploration, privacy, and oversight together.' },
 ];
 
 // ─── Parent App Section ───────────────────────────────────────
@@ -788,8 +841,8 @@ function PhoneMockup() {
             <div className="relative flex items-center justify-center">
               <div className="absolute w-44 h-44 rounded-full"
                 style={{ background: 'radial-gradient(ellipse, rgba(255,154,0,0.12) 0%, transparent 70%)' }} />
-              <img src={beepodLogoColor} alt="BeePod"
-                className="relative z-10 w-40 object-contain" />
+              <img src={beepodLockup} alt="BeePod"
+                className="relative z-10 w-full max-w-[210px] object-contain" />
             </div>
 
             {/* Label */}
@@ -831,7 +884,7 @@ function ParentAppSection() {
   const features: { icon: React.ReactNode; title: string }[] = [
     {
       icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>,
-      title: 'Monitor Conversations',
+      title: 'Parental Oversight',
     },
     {
       icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>,
@@ -839,7 +892,7 @@ function ParentAppSection() {
     },
     {
       icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>,
-      title: 'Safe Content Filters',
+      title: 'Age-Appropriate Talk',
     },
     {
       icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>,
@@ -866,18 +919,23 @@ function ParentAppSection() {
             <motion.span variants={fadeUp}
               className="block text-[11px] font-bold tracking-[0.18em] uppercase mb-4"
               style={{ color: BEE_ORANGE }}>
-              Parent App
+              Safety and Privacy
             </motion.span>
             <motion.h2 variants={fadeUp}
               className="font-display font-black text-4xl sm:text-5xl lg:text-[3.2rem] leading-[0.95] tracking-tighter mb-5"
               style={{ color: WARM_WHITE }}>
-              YOU'RE ALWAYS<br />
-              <span style={{ color: BEE_ORANGE }}>IN CONTROL.</span>
+              ROOM TO EXPLORE.<br />
+              <span style={{ color: BEE_ORANGE }}>PARENTS IN CONTROL.</span>
             </motion.h2>
+            <motion.p variants={fadeUp}
+              className="text-[17px] leading-relaxed mb-4"
+              style={{ color: MUTED_DARK }}>
+              We believe children should do more than consume technology. They should ask questions, explore possibilities, develop skills, and solve problems.
+            </motion.p>
             <motion.p variants={fadeUp}
               className="text-[17px] leading-relaxed mb-10"
               style={{ color: MUTED_DARK }}>
-              The BeePod Parent App gives you full visibility and control over your child's AI companion — right from your phone.
+              BeePod AI is being developed with a focus on children's privacy, age-appropriate interactions, and parental oversight — giving children room to explore while helping parents maintain control over their child's learning experience.
             </motion.p>
 
             <motion.div variants={stagger} className="grid grid-cols-2 gap-3">
@@ -929,6 +987,9 @@ function WhoIsItForSection() {
             style={{ color: ESPRESSO }}>
             MADE FOR<br />CURIOUS MINDS.
           </motion.h2>
+          <motion.p variants={fadeUp} className="mt-4 text-base max-w-xl" style={{ color: MUTED_LIGHT }}>
+            For children ready to ask, make, and solve — and for families who want that exploration to stay private and age-appropriate.
+          </motion.p>
         </motion.div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -956,6 +1017,85 @@ function WhoIsItForSection() {
   );
 }
 
+function TikTokIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden>
+      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15.2a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.73a8.19 8.19 0 0 0 4.76 1.52V6.79a4.85 4.85 0 0 1-1-.1z" />
+    </svg>
+  );
+}
+
+function StoryVideoCard({
+  videoId,
+  title,
+  subtitle,
+  href,
+}: {
+  videoId: string;
+  title: string;
+  subtitle: string;
+  href: string;
+}) {
+  const [playing, setPlaying] = useState(false);
+
+  return (
+    <div className="overflow-hidden rounded-3xl h-full"
+      style={{ background: CARD_DARK, border: `1px solid ${BORDER_DARK}` }}>
+      <div className="relative aspect-video bg-black">
+        {playing ? (
+          <iframe
+            className="absolute inset-0 h-full w-full"
+            src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`}
+            title={title}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+            referrerPolicy="strict-origin-when-cross-origin"
+          />
+        ) : (
+          <button
+            type="button"
+            onClick={() => setPlaying(true)}
+            className="absolute inset-0 h-full w-full"
+            aria-label={`Play ${title}`}
+          >
+            <img
+              src={`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`}
+              alt=""
+              className="h-full w-full object-cover"
+            />
+            <span className="absolute inset-0"
+              style={{ background: 'linear-gradient(to top, rgba(26,15,0,0.72) 0%, rgba(26,15,0,0.15) 45%, rgba(26,15,0,0.25) 100%)' }}
+            />
+            <span className="absolute left-1/2 top-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full"
+              style={{ background: BEE_ORANGE, boxShadow: '0 10px 30px rgba(0,0,0,0.35)' }}>
+              <Play className="ml-1 h-7 w-7 text-black" fill="currentColor" />
+            </span>
+          </button>
+        )}
+      </div>
+      <div className="flex flex-col gap-3 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <p className="font-display font-bold text-sm sm:text-base" style={{ color: WARM_WHITE }}>
+            {title}
+          </p>
+          <p className="mt-1 text-[12px]" style={{ color: MUTED_DARK }}>
+            {subtitle}
+          </p>
+        </div>
+        <a
+          href={href}
+          target="_blank"
+          rel="noreferrer"
+          className="text-[12px] font-bold tracking-[0.08em] uppercase shrink-0"
+          style={{ color: BEE_ORANGE }}
+        >
+          Watch on YouTube
+        </a>
+      </div>
+    </div>
+  );
+}
+
 // ─── SECTION 6: Founder Story (ESPRESSO bg) ──────────────────
 function FounderSection() {
   return (
@@ -971,8 +1111,8 @@ function FounderSection() {
           <motion.h2 variants={fadeUp}
             className="font-display font-black text-3xl sm:text-4xl lg:text-5xl xl:text-6xl leading-tight mb-12"
             style={{ color: WARM_WHITE }}>
-            FROM A LEMONADE STAND<br />
-            <span style={{ color: BEE_ORANGE }}>TO AN AI REVOLUTION.</span>
+            A LITTLE SETBACK.<br />
+            <span style={{ color: BEE_ORANGE }}>A BIG IDEA.</span>
           </motion.h2>
 
           {/* Story blocks */}
@@ -980,33 +1120,50 @@ function FounderSection() {
             <motion.div variants={stagger} className="space-y-6 text-[17px] leading-[1.8]"
               style={{ color: MUTED_DARK }}>
               <motion.p variants={fadeUp}>
-                The story of BeePod begins with{' '}
-                <span style={{ color: WARM_WHITE, fontWeight: 600 }}>Malia</span>
-                {' '}— just 8 years old. She was selling lemonade with her friends when they fired her from her own stand.
+                BeePod AI began with{' '}
+                <span style={{ color: WARM_WHITE, fontWeight: 600 }}>Malia Ouma</span>
+                , an eight-year-old innovator, after she was “fired” from a lemonade business she had co-founded.
               </motion.p>
               <motion.p variants={fadeUp}>
-                Instead of giving up, she made a decision:
+                While thinking about her next business idea, Malia drew inspiration from the robots she watched on TV. She imagined a different kind of toy — one that could inspire children to generate ideas, explore their interests, and turn imagination into real-world projects, like starting and running a lemonade stand.
               </motion.p>
-              <motion.blockquote variants={fadeUp}
-                className="pl-5 py-1 italic font-display font-semibold text-xl sm:text-2xl"
-                style={{ color: BEE_ORANGE, borderLeft: `3px solid ${BEE_ORANGE}` }}>
-                "I'll build my own business — and it'll be bigger than the lemonade stand."
-              </motion.blockquote>
             </motion.div>
 
             <motion.div variants={stagger} className="space-y-6 text-[17px] leading-[1.8]"
               style={{ color: MUTED_DARK }}>
               <motion.p variants={fadeUp}>
-                Through her inventing school, Malia discovered AI learning bots — but they were far too expensive for most families.
+                With her coding skills and mentorship from{' '}
+                <span style={{ color: WARM_WHITE, fontWeight: 600 }}>Inventing School</span>
+                , Malia transformed her concept and sketch into BeePod AI, bringing together AI, hardware, software, coding and child-centred learning.
               </motion.p>
-              <motion.p variants={fadeUp}>
-                She believed{' '}
-                <span style={{ color: WARM_WHITE, fontWeight: 600 }}>every kid deserved a brilliant, patient learning companion</span>
-                {' '}they could actually afford.
-              </motion.p>
-              <motion.p variants={fadeUp}>
-                So she decided to build it herself.
-              </motion.p>
+            </motion.div>
+          </div>
+
+          <motion.div variants={fadeUp} className="mt-12">
+            <StoryVideoCard
+              videoId="SsgzwpOg8_8"
+              title="Malia, The 8-Year-Old AI Innovator"
+              subtitle="Diaspora Connect · Citizen TV Kenya"
+              href="https://youtu.be/SsgzwpOg8_8"
+            />
+          </motion.div>
+
+          <div className="mt-5 grid sm:grid-cols-2 gap-5">
+            <motion.div variants={fadeUp}>
+              <StoryVideoCard
+                videoId="Ty8zSyg-MdY"
+                title="Presenting BeePod AI to PS Roseline Njogu"
+                subtitle="YouTube Short"
+                href="https://youtube.com/shorts/Ty8zSyg-MdY"
+              />
+            </motion.div>
+            <motion.div variants={fadeUp}>
+              <StoryVideoCard
+                videoId="n4mLQM45ioA"
+                title="Presenting BeePod AI to President William Ruto"
+                subtitle="YouTube Short"
+                href="https://youtube.com/shorts/n4mLQM45ioA"
+              />
             </motion.div>
           </div>
 
@@ -1020,10 +1177,10 @@ function FounderSection() {
             </div>
             <div>
               <p className="font-display font-bold text-sm" style={{ color: WARM_WHITE }}>
-                Malia, Founder — Age 8
+                Malia Ouma, Founder — Age 8
               </p>
               <p className="text-[12px]" style={{ color: MUTED_DARK }}>
-                Kid-invented. Kid-approved. Built for every kid.
+                Mentored at Inventing School. Built from a sketch into BeePod AI.
               </p>
             </div>
           </motion.div>
@@ -1039,7 +1196,7 @@ function PreOrderSection() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
-  const [successMessage, setSuccessMessage] = useState("We'll reach out the moment BeePod is ready for you.");
+  const [successMessage, setSuccessMessage] = useState("Your BeePod is expected on or before November 5, 2026.");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -1061,7 +1218,7 @@ function PreOrderSection() {
       setSuccessMessage(
         typeof body.message === 'string'
           ? body.message
-          : "We'll reach out the moment BeePod is ready for you.",
+          : "Your BeePod is expected on or before November 5, 2026.",
       );
       setSubmitted(true);
     } catch (reason) {
@@ -1100,13 +1257,13 @@ function PreOrderSection() {
           <motion.h2 variants={fadeUp}
             className="font-display font-black text-4xl sm:text-5xl lg:text-7xl leading-none tracking-tighter mb-4"
             style={{ color: ESPRESSO }}>
-            BE ONE OF THE FIRST<br />
-            <span style={{ color: BEE_ORANGE }}>TO MEET BEEPOD.</span>
+            BRING BEEPOD AI<br />
+            <span style={{ color: BEE_ORANGE }}>HOME.</span>
           </motion.h2>
 
           <motion.p variants={fadeUp} className="text-[16px] leading-relaxed mb-12 max-w-xl"
             style={{ color: MUTED_LIGHT }}>
-            BeePod is being built for curious minds, families and anyone who wants a smarter, friendlier way to interact with AI.
+            Be one of the first families to give a child a voice-powered companion that inspires them to think, explore, create, and innovate — with less screen time and parents in control.
           </motion.p>
 
           <AnimatePresence mode="wait">
@@ -1208,10 +1365,10 @@ function FinalCTA() {
             <motion.h2 variants={fadeUp}
               className="font-display font-black text-5xl sm:text-6xl lg:text-7xl xl:text-8xl leading-[0.9] tracking-tighter mb-10"
               style={{ color: ESPRESSO }}>
-              <span className="block">SMALL BOT.</span>
-              <span className="block" style={{ color: WHITE }}>BIG VOICE.</span>
-              <span className="block">INFINITE</span>
-              <span className="block">POSSIBILITIES.</span>
+              <span className="block">MORE THAN</span>
+              <span className="block" style={{ color: WHITE }}>A TOY.</span>
+              <span className="block">ONE CURIOUS</span>
+              <span className="block">MIND AT A TIME.</span>
             </motion.h2>
             <motion.div variants={fadeUp}>
               <motion.a href="#preorder"
@@ -1228,7 +1385,7 @@ function FinalCTA() {
             initial={{ opacity: 0, x: 40 }} whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }} transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
             className="flex justify-center relative">
-            <motion.img src={beepodBlack} alt="BeePod"
+            <motion.img src={productFront} alt="BeePod"
               className="relative z-10 w-52 sm:w-72 lg:w-80 object-contain"
               style={{ filter: `drop-shadow(0 20px 40px rgba(26,15,0,0.3))` }}
             />
@@ -1248,13 +1405,12 @@ function Footer() {
           {/* Logo + tagline */}
           <div className="flex flex-col gap-4">
             <img
-              src={beepodLogoFooter}
+              src={beepodLockupLight}
               alt="BeePod"
               className="h-24 w-auto object-contain self-start"
-              style={{ mixBlendMode: 'screen' }}
             />
-            <p className="text-[13px] leading-relaxed max-w-[200px]" style={{ color: MUTED_DARK }}>
-              Your smart AI companion. Built by a kid, for every kid.
+            <p className="text-[13px] leading-relaxed max-w-[240px]" style={{ color: MUTED_DARK }}>
+              More than a toy. Inspiring the next generation, one curious mind at a time.
             </p>
           </div>
 
@@ -1263,7 +1419,7 @@ function Footer() {
             <p className="text-[10px] font-bold tracking-[0.16em] uppercase mb-2" style={{ color: BEE_ORANGE }}>
               Navigation
             </p>
-            {[['Product','#product'],['Features','#howitworks'],['How It Works','#howitworks'],['Story','#story'],['Pre-Order','#preorder']].map(([l,h]) => (
+            {[['About','#about'],['Mission','#mission'],['How It Works','#howitworks'],['Safety','#parentapp'],['Story','#story'],['Pre-Order','#preorder']].map(([l,h]) => (
               <a key={l} href={h} className="text-[13px] font-medium transition-colors"
                 style={{ color: MUTED_DARK }}
                 onMouseEnter={e => (e.currentTarget.style.color = WARM_WHITE)}
@@ -1279,11 +1435,12 @@ function Footer() {
             </p>
             <div className="flex gap-3">
               {[
-                { icon: Instagram, label: 'Instagram' },
-                { icon: Twitter,   label: 'Twitter/X' },
-                { icon: Youtube,   label: 'YouTube' },
-              ].map(({ icon: Icon, label }) => (
-                <a key={label} href="#" aria-label={label}
+                { icon: Linkedin, label: 'LinkedIn', href: 'https://www.linkedin.com/company/beepod-ai/' },
+                { icon: TikTokIcon, label: 'TikTok', href: 'https://www.tiktok.com/@beepod_ai' },
+                { icon: Facebook, label: 'Facebook', href: 'https://www.facebook.com/share/1HqEKdY5HR/?mibextid=wwXIfr' },
+                { icon: Youtube, label: 'YouTube', href: 'https://youtu.be/SsgzwpOg8_8' },
+              ].map(({ icon: Icon, label, href }) => (
+                <a key={label} href={href} target="_blank" rel="noreferrer" aria-label={label}
                   className="w-9 h-9 rounded-xl flex items-center justify-center transition-colors"
                   style={{ background: CARD_DARK, border: `1px solid ${BORDER_DARK}`, color: MUTED_DARK }}
                   onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = BEE_ORANGE; (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,154,0,0.3)'; }}
@@ -1301,7 +1458,7 @@ function Footer() {
             © 2025 BeePod. All rights reserved.
           </p>
           <p className="text-[12px]" style={{ color: 'rgba(255,248,240,0.2)' }}>
-            Invented by Malia, age 8.
+            Invented by Malia Ouma, age 8.
           </p>
         </div>
       </div>

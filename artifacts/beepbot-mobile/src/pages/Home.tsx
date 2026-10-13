@@ -121,7 +121,7 @@ export default function Home() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
               >
-                <Zap className="w-3.5 h-3.5" /> Your Smart Voice Companion
+                <Zap className="w-3.5 h-3.5" /> More Than a Toy
               </motion.div>
 
               <motion.h1
@@ -139,7 +139,7 @@ export default function Home() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
               >
-                Speak Any Language. Understand Everyone. The AI companion built for every family.
+                Inspiring the next generation, one curious mind at a time. A voice-powered companion that helps children think, explore, create, and innovate.
               </motion.p>
 
               <motion.div
@@ -162,7 +162,7 @@ export default function Home() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.6 }}
               >
-                {["100+ Languages", "Kids & Families", "Always Learning"].map((s) => (
+                {["Less Screen Time", "Voice Learning", "Parent Oversight"].map((s) => (
                   <span key={s} className="px-3 py-1.5 rounded-full bg-card border border-border text-xs sm:text-sm font-semibold text-muted-foreground">
                     {s}
                   </span>
@@ -295,22 +295,17 @@ export default function Home() {
             {/* Story text */}
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
               <div className="inline-block px-4 py-1.5 bg-black/10 rounded-full text-sm font-bold uppercase tracking-wider mb-6">
-                Founded at age 8
+                A little setback. A big idea.
               </div>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-6 leading-tight">
-                From a Lemonade Stand to an AI Revolution.
+                From a lemonade setback to BeePod AI.
               </h2>
 
               <div className="space-y-4 text-base lg:text-lg font-medium leading-relaxed opacity-90">
-                <p>When 8-year-old Malia was "fired" from a neighborhood lemonade stand by her friends, she decided to build something bigger than lemonade.</p>
-                <p>She discovered AI bots but found them far too expensive for kids. Enrolled in an inventing school, she decided to build her own.</p>
-                <p>Months of building, testing, and dreaming led to BeePod — a smart, friendly, and affordable companion for every family.</p>
+                <p>BeePod AI began with Malia Ouma, an eight-year-old innovator, after she was “fired” from a lemonade business she had co-founded.</p>
+                <p>Inspired by robots on TV, she imagined a different kind of toy — one that helps children generate ideas, explore their interests, and turn imagination into real-world projects.</p>
+                <p>With her coding skills and mentorship from Inventing School, Malia turned her concept and sketch into BeePod AI, bringing together AI, hardware, software, coding, and child-centered learning.</p>
               </div>
-
-              <blockquote className="mt-8 p-5 bg-background/10 border-l-4 border-background/60 rounded-r-2xl font-bold text-lg italic">
-                "I wanted to build a robot that could talk to anyone in the world. So I did."
-                <span className="text-sm font-semibold opacity-70 mt-2 block">— Malia</span>
-              </blockquote>
             </motion.div>
           </div>
         </div>
@@ -396,7 +391,7 @@ export default function Home() {
             <a href="#" className="hover:text-primary transition-colors">Contact</a>
           </div>
           <p className="text-sm text-muted-foreground font-medium bg-card px-4 py-2 rounded-full border border-border">
-            Dreamt up by Malia, age 8
+            Invented by Malia Ouma, age 8
           </p>
         </div>
       </footer>

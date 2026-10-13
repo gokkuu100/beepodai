@@ -41,6 +41,17 @@ testem.log
 .DS_Store
 Thumbs.db
 
+# local secrets
+.env
+
+# generated for the Vercel API function
+/api/app.mjs
+/api/app.mjs.map
+/api/pino-*.mjs
+/api/pino-*.mjs.map
+/api/thread-stream-worker.mjs
+/api/thread-stream-worker.mjs.map
+
 .cursor/rules/nx-rules.mdc
 .github/instructions/nx.instructions.md
 
