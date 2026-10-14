@@ -12,7 +12,7 @@ import beepodLogo from '@assets/beepodgen/beeplogo.png';
 // @ts-ignore
 import beepodProduct from '@assets/beepodgen/beepodgen.png';
 // @ts-ignore
-import beepodLockup from '@assets/beepodgen/beepodchildssmart.png';
+import parentAppPhone from '@assets/beepodgen/phone.png';
 // @ts-ignore
 import productFront from '@assets/beepodgen/beepodfrontyellow.png';
 // @ts-ignore
@@ -840,72 +840,11 @@ const audiences = [
 // ─── Parent App Section ───────────────────────────────────────
 function PhoneMockup() {
   return (
-    <div className="relative mx-auto" style={{ width: 255 }}>
-      {/* Outer titanium frame */}
-      <div className="relative"
-        style={{
-          borderRadius: 52,
-          padding: 3,
-          background: 'linear-gradient(160deg, #c8c8ca 0%, #8e8e93 40%, #6e6e73 70%, #b0b0b5 100%)',
-          boxShadow: '0 0 0 1px rgba(0,0,0,0.25), 0 40px 80px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,255,255,0.15)',
-        }}>
-        {/* Inner bezel */}
-        <div style={{ borderRadius: 50, overflow: 'hidden', background: '#000' }}>
-          {/* Status bar area + dynamic island */}
-          <div className="relative flex justify-center items-start pt-[14px] pb-[6px]"
-            style={{ background: '#fff' }}>
-            {/* Dynamic island pill */}
-            <div style={{
-              width: 110, height: 30, borderRadius: 20,
-              background: '#000',
-              boxShadow: '0 0 0 1px rgba(0,0,0,0.8)',
-            }} />
-          </div>
-
-          {/* Splash screen — white bg */}
-          <div className="flex flex-col items-center justify-center gap-4"
-            style={{ background: '#ffffff', minHeight: 470, padding: '30px 20px 20px' }}>
-
-            {/* Soft amber glow circle behind logo */}
-            <div className="relative flex items-center justify-center">
-              <div className="absolute w-44 h-44 rounded-full"
-                style={{ background: 'radial-gradient(ellipse, rgba(255,154,0,0.12) 0%, transparent 70%)' }} />
-              <img src={beepodLockup} alt="BeePod"
-                className="relative z-10 w-full max-w-[210px] object-contain" />
-            </div>
-
-            {/* Label */}
-            <div className="text-center">
-              <p className="text-[10px] font-bold tracking-[0.25em] uppercase"
-                style={{ color: BEE_ORANGE }}>Parent App</p>
-            </div>
-
-            {/* Loading bar */}
-            <div className="w-24 h-1 rounded-full mt-2" style={{ background: 'rgba(255,154,0,0.15)' }}>
-              <div className="h-full rounded-full w-2/3"
-                style={{ background: `linear-gradient(90deg, ${AMBER_GLOW}, ${BEE_ORANGE})` }} />
-            </div>
-          </div>
-
-          {/* Home indicator */}
-          <div className="flex justify-center py-2" style={{ background: '#fff' }}>
-            <div className="w-20 h-[5px] rounded-full" style={{ background: '#000' }} />
-          </div>
-        </div>
-      </div>
-
-      {/* Side buttons (volume + power) */}
-      <div className="absolute left-0 top-[90px] w-[3px] h-8 rounded-r"
-        style={{ background: '#9a9a9f', left: -2 }} />
-      <div className="absolute left-0 top-[135px] w-[3px] h-10 rounded-r"
-        style={{ background: '#9a9a9f', left: -2 }} />
-      <div className="absolute right-0 top-[110px] w-[3px] h-14 rounded-l"
-        style={{ background: '#9a9a9f', right: -2 }} />
-
-      {/* Ambient glow */}
-      <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-48 h-20 rounded-full pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse, rgba(255,154,0,0.2) 0%, transparent 70%)', filter: 'blur(20px)' }} />
-    </div>
+    <img
+      src={parentAppPhone}
+      alt="BeePod parent app on a phone"
+      className="mx-auto w-[280px] max-w-full h-auto object-contain"
+    />
   );
 }
 
