@@ -1437,15 +1437,15 @@ function Footer() {
             <p className="text-[12px]" style={{ color: 'rgba(255,248,240,0.2)' }}>
               © 2026 BeePod. All rights reserved.
             </p>
-            <div className="flex items-center gap-4 text-[12px]">
-              <Link href="/privacy" className="transition-colors" style={{ color: 'rgba(255,248,240,0.45)' }}
+            <div className="flex items-center gap-4 text-[14px] font-semibold">
+              <Link href="/privacy" className="transition-colors" style={{ color: 'rgba(255,248,240,0.7)' }}
                 onMouseEnter={e => (e.currentTarget.style.color = BEE_ORANGE)}
-                onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,248,240,0.45)')}>
+                onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,248,240,0.7)')}>
                 Privacy Policy
               </Link>
-              <Link href="/terms" className="transition-colors" style={{ color: 'rgba(255,248,240,0.45)' }}
+              <Link href="/terms" className="transition-colors" style={{ color: 'rgba(255,248,240,0.7)' }}
                 onMouseEnter={e => (e.currentTarget.style.color = BEE_ORANGE)}
-                onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,248,240,0.45)')}>
+                onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,248,240,0.7)')}>
                 Terms of Service
               </Link>
             </div>
