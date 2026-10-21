@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, type MouseEvent } from 'react';
+import { Link } from 'wouter';
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import {
   Mic, Brain, Shield, ChevronRight,
@@ -1430,11 +1431,25 @@ function Footer() {
           </div>
         </div>
 
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-3"
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4"
           style={{ borderTop: `1px solid ${BORDER_DARK}` }}>
-          <p className="text-[12px]" style={{ color: 'rgba(255,248,240,0.2)' }}>
-            © 2025 BeePod. All rights reserved.
-          </p>
+          <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-5">
+            <p className="text-[12px]" style={{ color: 'rgba(255,248,240,0.2)' }}>
+              © 2026 BeePod. All rights reserved.
+            </p>
+            <div className="flex items-center gap-4 text-[12px]">
+              <Link href="/privacy" className="transition-colors" style={{ color: 'rgba(255,248,240,0.45)' }}
+                onMouseEnter={e => (e.currentTarget.style.color = BEE_ORANGE)}
+                onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,248,240,0.45)')}>
+                Privacy Policy
+              </Link>
+              <Link href="/terms" className="transition-colors" style={{ color: 'rgba(255,248,240,0.45)' }}
+                onMouseEnter={e => (e.currentTarget.style.color = BEE_ORANGE)}
+                onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,248,240,0.45)')}>
+                Terms of Service
+              </Link>
+            </div>
+          </div>
           <p className="text-[12px]" style={{ color: 'rgba(255,248,240,0.2)' }}>
             Invented by Malia Ouma, age 8.
           </p>
