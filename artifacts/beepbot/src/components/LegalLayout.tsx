@@ -14,10 +14,12 @@ const BORDER_LIGHT = 'rgba(26,15,0,0.08)';
 export function LegalLayout({
   title,
   effectiveDate,
+  eyebrow = 'Legal',
   children,
 }: {
   title: string;
-  effectiveDate: string;
+  effectiveDate?: string;
+  eyebrow?: string;
   children: ReactNode;
 }) {
   useEffect(() => {
@@ -59,7 +61,7 @@ export function LegalLayout({
           className="text-[11px] font-bold tracking-[0.18em] uppercase mb-4"
           style={{ color: BEE_ORANGE }}
         >
-          Legal
+          {eyebrow}
         </p>
         <h1
           className="font-display font-black text-4xl sm:text-5xl tracking-tight leading-[0.95] mb-3"
@@ -67,20 +69,27 @@ export function LegalLayout({
         >
           {title}
         </h1>
-        <p className="text-sm mb-10" style={{ color: MUTED_LIGHT }}>
-          Effective date: {effectiveDate}
-        </p>
+        {effectiveDate ? (
+          <p className="text-sm mb-10" style={{ color: MUTED_LIGHT }}>
+            Effective date: {effectiveDate}
+          </p>
+        ) : (
+          <div className="mb-10" />
+        )}
         <div className="legal-prose">{children}</div>
       </main>
 
       <footer style={{ background: ESPRESSO, borderTop: '1px solid rgba(255,154,0,0.12)' }}>
         <div className="max-w-3xl mx-auto px-6 py-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <div className="flex gap-5 text-[13px]">
+          <div className="flex flex-wrap gap-5 text-[13px]">
             <Link href="/privacy" className="transition-colors" style={{ color: 'rgba(255,248,240,0.55)' }}>
               Privacy Policy
             </Link>
             <Link href="/terms" className="transition-colors" style={{ color: 'rgba(255,248,240,0.55)' }}>
               Terms of Service
+            </Link>
+            <Link href="/delete-account" className="transition-colors" style={{ color: 'rgba(255,248,240,0.55)' }}>
+              Delete account
             </Link>
           </div>
           <a href="mailto:info@beepodai.com" className="text-[13px]" style={{ color: WARM_WHITE }}>
@@ -112,6 +121,11 @@ export function LegalLayout({
         }
         .legal-prose ul {
           list-style: disc;
+          padding-left: 1.25rem;
+          margin-bottom: 1rem;
+        }
+        .legal-prose ol {
+          list-style: decimal;
           padding-left: 1.25rem;
           margin-bottom: 1rem;
         }

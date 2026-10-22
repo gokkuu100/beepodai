@@ -8,6 +8,7 @@ import Home from '@/pages/Home';
 import Admin from '@/pages/Admin';
 import Privacy from '@/pages/Privacy';
 import Terms from '@/pages/Terms';
+import DeleteAccount from '@/pages/DeleteAccount';
 import {
   Route,
   Switch,
@@ -24,6 +25,7 @@ function Router() {
         <Route path="/" component={Home} />
         <Route path="/privacy" component={Privacy} />
         <Route path="/terms" component={Terms} />
+        <Route path="/delete-account" component={DeleteAccount} />
         <Route path="/admin" component={Admin} />
         <Route component={NotFound} />
       </Switch>

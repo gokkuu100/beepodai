@@ -15,6 +15,8 @@ import beepodProduct from '@assets/beepodgen/beepodgen.png';
 // @ts-ignore
 import parentAppPhone from '@assets/beepodgen/phone.png';
 // @ts-ignore
+import beepodPoster from '@assets/beepodgen/beepod-poster.jpg';
+// @ts-ignore
 import productFront from '@assets/beepodgen/beepodfrontyellow.png';
 // @ts-ignore
 import productSide from '@assets/beepodgen/beepodsideyellw.png';
@@ -146,6 +148,8 @@ export default function Home() {
         <ParentAppSection />
         <WhoIsItForSection />
         <FounderSection />
+        <LaunchPosterSection />
+        <FaqSection />
         <PreOrderSection />
         <FinalCTA />
       </main>
@@ -272,7 +276,7 @@ function HeroSection() {
       accentLine: 1,
       body: <>Inspiring the next generation,<br />one curious mind at a time.</>,
       sub: 'An AI companion robot that inspires children to think, explore, create, and innovate.',
-      cta1: { label: 'PRE-ORDER BEEPOD', href: '#preorder' },
+      cta1: { label: 'PRE-ORDER BEEPOD — $99', href: '#preorder' },
       cta2: { label: 'SEE HOW IT WORKS', href: '#howitworks' },
       visual: (
         <motion.img
@@ -294,7 +298,7 @@ function HeroSection() {
       accentLine: 1,
       body: <>BeePod AI is a voice-powered learning companion designed to spark children's curiosity, nurture creativity, develop skills, and encourage less screen time.</>,
       sub: '',
-      cta1: { label: 'PRE-ORDER BEEPOD', href: '#preorder' },
+      cta1: { label: 'PRE-ORDER BEEPOD — $99', href: '#preorder' },
       cta2: { label: 'LEARN MORE', href: '#about' },
       visual: null,
       fullImage: heroKids,
@@ -305,7 +309,7 @@ function HeroSection() {
       accentLine: 1,
       body: <>Our mission is to inspire curious thinkers, confident creators, and innovative problem-solvers — turning curiosity into ideas, skills, and real-world solutions.</>,
       sub: '',
-      cta1: { label: 'PRE-ORDER BEEPOD', href: '#preorder' },
+      cta1: { label: 'PRE-ORDER BEEPOD — $99', href: '#preorder' },
       cta2: { label: 'SEE HOW IT WORKS', href: '#howitworks' },
       visual: null,
       fullImage: heroBoys,
@@ -1238,10 +1242,17 @@ function PreOrderSection() {
             <span style={{ color: BEE_ORANGE }}>HOME.</span>
           </motion.h2>
 
-          <motion.p variants={fadeUp} className="text-[16px] leading-relaxed mb-12 max-w-xl"
+          <motion.p variants={fadeUp} className="text-[16px] leading-relaxed mb-6 max-w-xl"
             style={{ color: MUTED_LIGHT }}>
             Be one of the first families to give a child a voice-powered companion that inspires them to think, explore, create, and innovate — with less screen time and parents in control.
           </motion.p>
+
+          <motion.div variants={fadeUp}
+            className="inline-flex items-baseline gap-2 mb-10 px-5 py-3 rounded-2xl"
+            style={{ background: CREAM, border: `1px solid ${BORDER_LIGHT}` }}>
+            <span className="font-display font-black text-4xl tracking-tight" style={{ color: ESPRESSO }}>$99</span>
+            <span className="text-[13px] font-semibold" style={{ color: MUTED_LIGHT }}>pre-order · launching November 5, 2026</span>
+          </motion.div>
 
           <AnimatePresence mode="wait">
             {submitted ? (
@@ -1318,7 +1329,7 @@ function PreOrderSection() {
                     disabled={submitting}
                     className="w-full inline-flex items-center justify-center gap-2 text-black font-display font-bold text-[15px] px-8 py-4 rounded-2xl disabled:cursor-not-allowed disabled:opacity-65"
                     style={{ background: `linear-gradient(135deg, ${AMBER_GLOW}, ${BEE_ORANGE})`, boxShadow: `0 0 40px rgba(255,154,0,0.25)` }}>
-                    {submitting ? 'SAVING YOUR PLACE…' : <>JOIN THE BEEPOD PRE-ORDER <ArrowRight className="w-4 h-4" /></>}
+                    {submitting ? 'SAVING YOUR PLACE…' : <>JOIN THE BEEPOD PRE-ORDER — $99 <ArrowRight className="w-4 h-4" /></>}
                   </motion.button>
                 </div>
               </motion.form>
@@ -1352,7 +1363,7 @@ function FinalCTA() {
                 whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }}
                 className="inline-flex items-center gap-2.5 font-display font-bold text-[15px] px-8 py-4 rounded-2xl"
                 style={{ background: ESPRESSO, color: WARM_WHITE, boxShadow: '0 8px 30px rgba(26,15,0,0.25)' }}>
-                PRE-ORDER BEEPOD <ChevronRight className="w-4 h-4" />
+                PRE-ORDER BEEPOD — $99 <ChevronRight className="w-4 h-4" />
               </motion.a>
             </motion.div>
           </motion.div>
@@ -1367,6 +1378,138 @@ function FinalCTA() {
               style={{ filter: `drop-shadow(0 20px 40px rgba(26,15,0,0.3))` }}
             />
           </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── Launch poster ───────────────────────────────────────────
+function LaunchPosterSection() {
+  return (
+    <section style={{ background: WHITE, borderTop: `1px solid ${BORDER_LIGHT}` }}>
+      <div className="max-w-5xl mx-auto px-6 py-20 lg:py-28">
+        <motion.div
+          initial={{ opacity: 0, y: 36 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="flex flex-col items-center text-center gap-8"
+        >
+          <div>
+            <p className="text-[11px] font-bold tracking-[0.18em] uppercase mb-3" style={{ color: BEE_ORANGE }}>
+              Launching November 5, 2026
+            </p>
+            <h2 className="font-display font-black text-3xl sm:text-4xl lg:text-5xl tracking-tight" style={{ color: ESPRESSO }}>
+              Invented by a child for children.
+            </h2>
+          </div>
+          <img
+            src={beepodPoster}
+            alt="BeePod AI promotional poster — invented by a child for children, launching November 5, 2026"
+            className="w-full max-w-xl rounded-3xl object-contain"
+            style={{ boxShadow: '0 24px 60px rgba(26,15,0,0.12)' }}
+          />
+          <AmberButton href="#preorder">
+            PRE-ORDER BEEPOD — $99 <ChevronRight className="w-4 h-4" />
+          </AmberButton>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+// ─── FAQ ─────────────────────────────────────────────────────
+const faqs = [
+  {
+    q: 'What is BeePod AI?',
+    a: 'BeePod AI is a voice-first companion designed for children and teenagers aged 5–17, helping them explore interests, ask questions, and learn through conversation.',
+  },
+  {
+    q: 'How does BeePod work?',
+    a: 'Children interact with BeePod through voice conversations. Parents use the companion app to manage settings and review available learning summaries and progress.',
+  },
+  {
+    q: 'Is BeePod AI safe for children?',
+    a: 'Child safety is a core priority. BeePod includes safety monitoring and parent-directed controls. However, AI can make mistakes, and parental supervision remains important.',
+  },
+  {
+    q: "How does BeePod protect my child's privacy?",
+    a: (
+      <>
+        Our <Link href="/privacy" className="font-semibold underline underline-offset-2" style={{ color: BEE_ORANGE }}>Privacy Policy</Link> states that children&apos;s voice recordings are not stored, family information is not sold or used for advertising, and conversations are not used to train AI models.
+      </>
+    ),
+  },
+  {
+    q: 'Does BeePod require Wi-Fi?',
+    a: 'Yes. Wi-Fi is required for conversations. SIM card connectivity is planned for future versions.',
+  },
+  {
+    q: 'Where is BeePod AI available?',
+    a: (
+      <>
+        Please visit <a href="https://www.beepodai.com" className="font-semibold underline underline-offset-2" style={{ color: BEE_ORANGE }}>www.beepodai.com</a> for announcements, availability, and shipping updates.
+      </>
+    ),
+  },
+  {
+    q: 'Can I cancel my preorder or request a refund?',
+    a: (
+      <>
+        Yes. Please contact us at{' '}
+        <a href="mailto:info@beepodai.com" className="font-semibold underline underline-offset-2" style={{ color: BEE_ORANGE }}>info@beepodai.com</a>
+        {' '}for preorder, cancellation, return, and refund questions.
+      </>
+    ),
+  },
+  {
+    q: 'How can I contact BeePod AI?',
+    a: (
+      <>
+        Email <a href="mailto:info@beepodai.com" className="font-semibold underline underline-offset-2" style={{ color: BEE_ORANGE }}>info@beepodai.com</a> for product, account, or order support.
+      </>
+    ),
+  },
+];
+
+function FaqSection() {
+  return (
+    <section id="faq" className="scroll-mt-32" style={{ background: CREAM, borderTop: `1px solid ${BORDER_LIGHT}` }}>
+      <div className="max-w-3xl mx-auto px-6 py-24 lg:py-32">
+        <motion.div initial="hidden" whileInView="visible" variants={stagger}
+          viewport={{ once: true, margin: '-80px' }} className="mb-12">
+          <motion.span variants={fadeUp}
+            className="inline-block text-[11px] font-bold tracking-[0.18em] uppercase mb-4"
+            style={{ color: BEE_ORANGE }}>
+            Support
+          </motion.span>
+          <motion.h2 variants={fadeUp}
+            className="font-display font-black text-4xl sm:text-5xl tracking-tight"
+            style={{ color: ESPRESSO }}>
+            Frequently Asked Questions
+          </motion.h2>
+        </motion.div>
+
+        <div className="flex flex-col gap-4">
+          {faqs.map(({ q, a }, i) => (
+            <motion.div
+              key={q}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.55, delay: i * 0.04, ease: [0.22, 1, 0.36, 1] }}
+              className="rounded-2xl px-6 py-5"
+              style={{ background: WHITE, border: `1px solid ${BORDER_LIGHT}` }}
+            >
+              <h3 className="font-display font-bold text-[17px] mb-2" style={{ color: ESPRESSO }}>
+                {i + 1}. {q}
+              </h3>
+              <p className="text-[15px] leading-relaxed" style={{ color: MUTED_LIGHT }}>
+                {a}
+              </p>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
@@ -1397,7 +1540,7 @@ function Footer() {
             <p className="text-[10px] font-bold tracking-[0.16em] uppercase mb-2" style={{ color: BEE_ORANGE }}>
               Navigation
             </p>
-            {[['About','#about'],['Mission','#mission'],['How It Works','#howitworks'],['Safety','#parentapp'],['Story','#story'],['Pre-Order','#preorder']].map(([l,h]) => (
+            {[['About','#about'],['Mission','#mission'],['How It Works','#howitworks'],['Safety','#parentapp'],['Story','#story'],['FAQ','#faq'],['Pre-Order','#preorder']].map(([l,h]) => (
               <a key={l} href={h} onClick={(event) => onSectionLink(event, h)} className="text-[13px] font-medium transition-colors"
                 style={{ color: MUTED_DARK }}
                 onMouseEnter={e => (e.currentTarget.style.color = WARM_WHITE)}
@@ -1437,7 +1580,7 @@ function Footer() {
             <p className="text-[12px]" style={{ color: 'rgba(255,248,240,0.2)' }}>
               © 2026 BeePod. All rights reserved.
             </p>
-            <div className="flex items-center gap-4 text-[14px] font-semibold">
+            <div className="flex flex-wrap items-center justify-center gap-4 text-[14px] font-semibold">
               <Link href="/privacy" className="transition-colors" style={{ color: 'rgba(255,248,240,0.7)' }}
                 onMouseEnter={e => (e.currentTarget.style.color = BEE_ORANGE)}
                 onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,248,240,0.7)')}>
@@ -1447,6 +1590,11 @@ function Footer() {
                 onMouseEnter={e => (e.currentTarget.style.color = BEE_ORANGE)}
                 onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,248,240,0.7)')}>
                 Terms of Service
+              </Link>
+              <Link href="/delete-account" className="transition-colors" style={{ color: 'rgba(255,248,240,0.7)' }}
+                onMouseEnter={e => (e.currentTarget.style.color = BEE_ORANGE)}
+                onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,248,240,0.7)')}>
+                Delete account
               </Link>
             </div>
           </div>
