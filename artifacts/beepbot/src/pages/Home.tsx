@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, type MouseEvent } from 'react';
+import { useState, useEffect, useRef, type MouseEvent, type ReactNode } from 'react';
 import { Link } from 'wouter';
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import {
@@ -7,6 +7,12 @@ import {
   Zap, ArrowRight, Users, Play,
   Youtube, Linkedin, Facebook, Lightbulb, Sparkles, Puzzle
 } from 'lucide-react';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
 
 // @ts-ignore
 import beepodLogo from '@assets/beepodgen/beeplogo.png';
@@ -1420,7 +1426,7 @@ function LaunchPosterSection() {
 }
 
 // ─── FAQ ─────────────────────────────────────────────────────
-const faqs = [
+const faqs: { q: string; a: ReactNode }[] = [
   {
     q: 'What is BeePod AI?',
     a: 'BeePod AI is a voice-first companion designed for children and teenagers aged 5–17, helping them explore interests, ask questions, and learn through conversation.',
@@ -1491,26 +1497,26 @@ function FaqSection() {
           </motion.h2>
         </motion.div>
 
-        <div className="flex flex-col gap-4">
+        <Accordion type="single" collapsible className="flex flex-col gap-3">
           {faqs.map(({ q, a }, i) => (
-            <motion.div
+            <AccordionItem
               key={q}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.55, delay: i * 0.04, ease: [0.22, 1, 0.36, 1] }}
-              className="rounded-2xl px-6 py-5"
+              value={`faq-${i}`}
+              className="rounded-2xl px-5 border-0"
               style={{ background: WHITE, border: `1px solid ${BORDER_LIGHT}` }}
             >
-              <h3 className="font-display font-bold text-[17px] mb-2" style={{ color: ESPRESSO }}>
-                {i + 1}. {q}
-              </h3>
-              <p className="text-[15px] leading-relaxed" style={{ color: MUTED_LIGHT }}>
+              <AccordionTrigger
+                className="py-5 hover:no-underline font-display font-bold text-[16px] sm:text-[17px] gap-4"
+                style={{ color: ESPRESSO }}
+              >
+                <span className="text-left">{i + 1}. {q}</span>
+              </AccordionTrigger>
+              <AccordionContent className="text-[15px] leading-relaxed pb-5" style={{ color: MUTED_LIGHT }}>
                 {a}
-              </p>
-            </motion.div>
+              </AccordionContent>
+            </AccordionItem>
           ))}
-        </div>
+        </Accordion>
       </div>
     </section>
   );
